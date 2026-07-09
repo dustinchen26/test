@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>💕 Winny 考試倒計時 💕</title>
+    <title>💕 Winny 考試倒數計時 💕</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700&family=Noto+Sans+TC:wght@300;400;700;900&display=swap" rel="stylesheet" />
     <style>
-        /* ----- 全域樣式 ----- */
+        /* ----- 全域樣式 (完全保留原樣) ----- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             min-height: 100vh;
             display: flex;
@@ -26,7 +25,6 @@
             position: relative;
             overflow-x: hidden;
         }
-
         .bg-hearts {
             position: fixed;
             top: 0;
@@ -44,77 +42,19 @@
             animation: floatHeart 18s infinite alternate ease-in-out;
             color: #e91e63;
         }
-        .bg-hearts span:nth-child(1) {
-            top: 8%;
-            left: 5%;
-            animation-duration: 16s;
-            font-size: 3rem;
-        }
-        .bg-hearts span:nth-child(2) {
-            top: 20%;
-            right: 8%;
-            animation-duration: 20s;
-            font-size: 2.4rem;
-            animation-delay: 2s;
-        }
-        .bg-hearts span:nth-child(3) {
-            bottom: 25%;
-            left: 10%;
-            animation-duration: 22s;
-            font-size: 4rem;
-            animation-delay: 4s;
-        }
-        .bg-hearts span:nth-child(4) {
-            bottom: 10%;
-            right: 5%;
-            animation-duration: 18s;
-            font-size: 2.8rem;
-            animation-delay: 1s;
-        }
-        .bg-hearts span:nth-child(5) {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation-duration: 24s;
-            font-size: 5rem;
-            animation-delay: 3s;
-            opacity: 0.06;
-        }
-        .bg-hearts span:nth-child(6) {
-            top: 5%;
-            left: 45%;
-            animation-duration: 19s;
-            font-size: 2rem;
-            animation-delay: 5s;
-        }
-        .bg-hearts span:nth-child(7) {
-            bottom: 40%;
-            right: 3%;
-            animation-duration: 21s;
-            font-size: 3.2rem;
-            animation-delay: 0.5s;
-        }
-        .bg-hearts span:nth-child(8) {
-            top: 60%;
-            left: 3%;
-            animation-duration: 17s;
-            font-size: 2.6rem;
-            animation-delay: 3.5s;
-        }
-
+        .bg-hearts span:nth-child(1) { top: 8%; left: 5%; animation-duration: 16s; font-size: 3rem; }
+        .bg-hearts span:nth-child(2) { top: 20%; right: 8%; animation-duration: 20s; font-size: 2.4rem; animation-delay: 2s; }
+        .bg-hearts span:nth-child(3) { bottom: 25%; left: 10%; animation-duration: 22s; font-size: 4rem; animation-delay: 4s; }
+        .bg-hearts span:nth-child(4) { bottom: 10%; right: 5%; animation-duration: 18s; font-size: 2.8rem; animation-delay: 1s; }
+        .bg-hearts span:nth-child(5) { top: 50%; left: 50%; transform: translate(-50%, -50%); animation-duration: 24s; font-size: 5rem; animation-delay: 3s; opacity: 0.06; }
+        .bg-hearts span:nth-child(6) { top: 5%; left: 45%; animation-duration: 19s; font-size: 2rem; animation-delay: 5s; }
+        .bg-hearts span:nth-child(7) { bottom: 40%; right: 3%; animation-duration: 21s; font-size: 3.2rem; animation-delay: 0.5s; }
+        .bg-hearts span:nth-child(8) { top: 60%; left: 3%; animation-duration: 17s; font-size: 2.6rem; animation-delay: 3.5s; }
         @keyframes floatHeart {
-            0% {
-                transform: translateY(0px) rotate(0deg) scale(1);
-            }
-            50% {
-                transform: translateY(-40px) rotate(8deg) scale(1.05);
-            }
-            100% {
-                transform: translateY(20px) rotate(-5deg) scale(0.95);
-            }
+            0% { transform: translateY(0px) rotate(0deg) scale(1); }
+            50% { transform: translateY(-40px) rotate(8deg) scale(1.05); }
+            100% { transform: translateY(20px) rotate(-5deg) scale(0.95); }
         }
-
-        /* ----- 主卡片容器 ----- */
         .container {
             position: relative;
             z-index: 1;
@@ -128,8 +68,6 @@
             box-shadow: 0 25px 60px rgba(233, 30, 99, 0.13), 0 8px 24px rgba(156, 39, 176, 0.06);
             border: 1px solid rgba(255, 255, 255, 0.5);
         }
-
-        /* ----- 標題 ----- */
         .header {
             text-align: center;
             margin-bottom: 14px;
@@ -149,12 +87,8 @@
             animation: pulseHeart 1.6s infinite alternate;
         }
         @keyframes pulseHeart {
-            0% {
-                transform: scale(1);
-            }
-            100% {
-                transform: scale(1.18);
-            }
+            0% { transform: scale(1); }
+            100% { transform: scale(1.18); }
         }
         .header .sub {
             font-size: 0.95rem;
@@ -164,11 +98,7 @@
             letter-spacing: 3px;
             opacity: 0.85;
         }
-        .header .sub span {
-            font-weight: 400;
-            color: #d81b60;
-        }
-
+        .header .sub span { font-weight: 400; color: #d81b60; }
         .divider {
             display: flex;
             justify-content: center;
@@ -183,19 +113,14 @@
             background: linear-gradient(90deg, transparent, #e91e63, transparent);
             border-radius: 2px;
         }
-        .divider .dot {
-            color: #e91e63;
-            font-size: 0.9rem;
-        }
+        .divider .dot { color: #e91e63; font-size: 0.9rem; }
 
-        /* ----- 倒計時卡片（兩個並排） ----- */
         .countdown-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 16px;
             margin-bottom: 16px;
         }
-
         .card {
             background: rgba(255, 255, 255, 0.5);
             backdrop-filter: blur(6px);
@@ -211,7 +136,6 @@
             transform: translateY(-3px);
             box-shadow: 0 12px 32px rgba(156, 39, 176, 0.10);
         }
-
         .card .exam-name {
             font-size: 1.05rem;
             font-weight: 700;
@@ -224,12 +148,18 @@
             font-weight: 300;
             color: #7b4b8a;
             margin-top: 1px;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
             letter-spacing: 1px;
         }
-        .card .exam-date .roc {
-            font-weight: 400;
-            color: #6a1b9a;
+        .card .exam-date .roc { font-weight: 400; color: #6a1b9a; }
+
+        /* 新增：倒數天數標籤 */
+        .card .countdown-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #c2185b;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
         }
 
         .countdown-display {
@@ -272,7 +202,6 @@
             margin: 0 1px 0 0;
             line-height: 1.2;
         }
-
         .card.done-card {
             background: rgba(255, 255, 255, 0.3);
             opacity: 0.7;
@@ -281,11 +210,10 @@
             color: #9e9e9e !important;
             background: rgba(0, 0, 0, 0.04) !important;
         }
-        .card.done-card .exam-name {
-            color: #7b4b8a;
-        }
+        .card.done-card .exam-name { color: #7b4b8a; }
+        .card.done-card .countdown-label { color: #9e9e9e; }
 
-        /* ----- 加油小語（唯一區域） ----- */
+        /* 加油小語 (唯一區域) */
         .cheer-section {
             margin-top: 2px;
             padding-top: 14px;
@@ -305,16 +233,9 @@
             animation: sparkle 2.4s infinite alternate;
         }
         @keyframes sparkle {
-            0% {
-                transform: scale(1) rotate(0deg);
-                opacity: 0.7;
-            }
-            100% {
-                transform: scale(1.15) rotate(8deg);
-                opacity: 1;
-            }
+            0% { transform: scale(1) rotate(0deg); opacity: 0.7; }
+            100% { transform: scale(1.15) rotate(8deg); opacity: 1; }
         }
-
         .cheer-message {
             font-family: 'Quicksand', 'Noto Sans TC', sans-serif;
             font-size: 1.15rem;
@@ -337,163 +258,62 @@
             transform: scale(1.01);
         }
 
+        /* 底部固定加油文字 */
         .footer-note {
-            margin-top: 12px;
-            font-size: 0.75rem;
+            margin-top: 16px;
+            font-size: 0.9rem;
             color: #b39ddb;
             letter-spacing: 2px;
-            font-weight: 300;
+            font-weight: 400;
             text-align: center;
+            border-top: 1px solid rgba(233, 30, 99, 0.1);
+            padding-top: 14px;
         }
         .footer-note span {
             color: #e91e63;
+            font-weight: 600;
         }
 
-        /* ----- RWD 手機緊湊排版 ----- */
+        /* RWD 手機緊湊 */
         @media (max-width: 680px) {
-            .container {
-                padding: 18px 12px 20px;
-                border-radius: 28px;
-            }
-            .header h1 {
-                font-size: 1.6rem;
-                letter-spacing: 1px;
-            }
-            .header .sub {
-                font-size: 0.8rem;
-                letter-spacing: 2px;
-            }
-            .header {
-                margin-bottom: 8px;
-            }
-            .divider {
-                margin: 0 0 10px;
-                gap: 6px;
-            }
-            .divider .line {
-                max-width: 30px;
-            }
-
-            .countdown-grid {
-                grid-template-columns: 1fr;
-                gap: 10px;
-                margin-bottom: 12px;
-            }
-
-            .card {
-                padding: 12px 10px 14px;
-                border-radius: 18px;
-            }
-            .card .exam-name {
-                font-size: 0.95rem;
-                letter-spacing: 1px;
-            }
-            .card .exam-date {
-                font-size: 0.72rem;
-                margin-bottom: 4px;
-                letter-spacing: 0.5px;
-            }
-
-            .countdown-display {
-                gap: 2px;
-                padding: 0 1px;
-                justify-content: center;
-            }
-            .countdown-display .num {
-                font-size: 1.7rem;
-                min-width: 28px;
-                border-radius: 6px;
-                padding: 0 1px;
-            }
-            .countdown-display .num.days {
-                font-size: 2.1rem;
-                min-width: 38px;
-            }
-            .countdown-display .label {
-                font-size: 0.6rem;
-                margin: 0 0px 0 0;
-            }
-            .countdown-display .time-block {
-                gap: 0px;
-            }
-
-            .cheer-section {
-                padding-top: 10px;
-                margin-top: 0;
-            }
-            .cheer-section .cheer-label {
-                font-size: 0.85rem;
-                margin-bottom: 4px;
-            }
-            .cheer-message {
-                font-size: 0.95rem;
-                padding: 8px 16px;
-                line-height: 1.4;
-                border-radius: 40px;
-            }
-            .footer-note {
-                margin-top: 8px;
-                font-size: 0.65rem;
-                letter-spacing: 1px;
-            }
-            .bg-hearts span {
-                font-size: 1.2rem !important;
-            }
+            .container { padding: 18px 12px 20px; border-radius: 28px; }
+            .header h1 { font-size: 1.6rem; letter-spacing: 1px; }
+            .header .sub { font-size: 0.8rem; letter-spacing: 2px; }
+            .header { margin-bottom: 8px; }
+            .divider { margin: 0 0 10px; gap: 6px; }
+            .divider .line { max-width: 30px; }
+            .countdown-grid { grid-template-columns: 1fr; gap: 10px; margin-bottom: 12px; }
+            .card { padding: 12px 10px 14px; border-radius: 18px; }
+            .card .exam-name { font-size: 0.95rem; letter-spacing: 1px; }
+            .card .exam-date { font-size: 0.72rem; margin-bottom: 2px; }
+            .card .countdown-label { font-size: 0.8rem; margin-bottom: 4px; }
+            .countdown-display { gap: 2px; padding: 0 1px; justify-content: center; }
+            .countdown-display .num { font-size: 1.7rem; min-width: 28px; border-radius: 6px; padding: 0 1px; }
+            .countdown-display .num.days { font-size: 2.1rem; min-width: 38px; }
+            .countdown-display .label { font-size: 0.6rem; margin: 0 0px 0 0; }
+            .countdown-display .time-block { gap: 0px; }
+            .cheer-section { padding-top: 10px; margin-top: 0; }
+            .cheer-section .cheer-label { font-size: 0.85rem; margin-bottom: 4px; }
+            .cheer-message { font-size: 0.95rem; padding: 8px 16px; line-height: 1.4; border-radius: 40px; }
+            .footer-note { font-size: 0.8rem; padding-top: 10px; margin-top: 12px; }
+            .bg-hearts span { font-size: 1.2rem !important; }
         }
-
         @media (max-width: 400px) {
-            .container {
-                padding: 12px 8px 16px;
-                border-radius: 22px;
-            }
-            .header h1 {
-                font-size: 1.3rem;
-            }
-            .header .sub {
-                font-size: 0.7rem;
-            }
-            .card {
-                padding: 8px 6px 10px;
-                border-radius: 14px;
-            }
-            .card .exam-name {
-                font-size: 0.8rem;
-            }
-            .card .exam-date {
-                font-size: 0.6rem;
-                margin-bottom: 2px;
-            }
-            .countdown-display .num {
-                font-size: 1.3rem;
-                min-width: 22px;
-            }
-            .countdown-display .num.days {
-                font-size: 1.7rem;
-                min-width: 30px;
-            }
-            .countdown-display .label {
-                font-size: 0.5rem;
-            }
-            .countdown-display {
-                gap: 1px;
-                overflow-x: auto;
-                justify-content: flex-start;
-                padding: 0 2px;
-            }
-            .cheer-message {
-                font-size: 0.8rem;
-                padding: 6px 12px;
-            }
-            .cheer-section .cheer-label {
-                font-size: 0.75rem;
-            }
-            .footer-note {
-                font-size: 0.55rem;
-            }
-            .countdown-grid {
-                gap: 6px;
-                margin-bottom: 8px;
-            }
+            .container { padding: 12px 8px 16px; border-radius: 22px; }
+            .header h1 { font-size: 1.3rem; }
+            .header .sub { font-size: 0.7rem; }
+            .card { padding: 8px 6px 10px; border-radius: 14px; }
+            .card .exam-name { font-size: 0.8rem; }
+            .card .exam-date { font-size: 0.6rem; margin-bottom: 2px; }
+            .card .countdown-label { font-size: 0.7rem; margin-bottom: 2px; }
+            .countdown-display .num { font-size: 1.3rem; min-width: 22px; }
+            .countdown-display .num.days { font-size: 1.7rem; min-width: 30px; }
+            .countdown-display .label { font-size: 0.5rem; }
+            .countdown-display { gap: 1px; overflow-x: auto; justify-content: flex-start; padding: 0 2px; }
+            .cheer-message { font-size: 0.8rem; padding: 6px 12px; }
+            .cheer-section .cheer-label { font-size: 0.75rem; }
+            .footer-note { font-size: 0.7rem; }
+            .countdown-grid { gap: 6px; margin-bottom: 8px; }
         }
     </style>
 </head>
@@ -506,16 +326,9 @@
 
     <div class="container">
 
-        <!-- 標題 -->
         <div class="header">
-            <h1>
-                <span class="heart">💕</span>
-                Winny 考試倒計時
-                <span class="heart">💕</span>
-            </h1>
-            <div class="sub">
-                親愛的，你一定能做到！&nbsp; <span>✨</span>
-            </div>
+            <h1><span class="heart">💕</span> Winny 考試倒數計時 <span class="heart">💕</span></h1>
+            <div class="sub">親愛的，你一定能做到！&nbsp; <span>✨</span></div>
         </div>
 
         <div class="divider">
@@ -524,65 +337,41 @@
             <span class="line"></span>
         </div>
 
-        <!-- 倒計時 Grid -->
         <div class="countdown-grid" id="countdownGrid">
-            <!-- 筆試 -->
+            <!-- 筆試卡片 -->
             <div class="card" id="card1">
-                <div class="exam-name">📖 內科專科筆試倒數</div>
+                <div class="exam-name">📖 內科專科筆試</div>
                 <div class="exam-date">民國 <span class="roc">115/08/15</span></div>
+                <div class="countdown-label" id="label1">筆試倒數 -- 天</div>
                 <div class="countdown-display" id="countdown1">
-                    <span class="time-block">
-                        <span class="num days" id="d1">--</span>
-                        <span class="label">天</span>
-                    </span>
-                    <span class="time-block">
-                        <span class="num" id="h1">--</span>
-                        <span class="label">時</span>
-                    </span>
-                    <span class="time-block">
-                        <span class="num" id="m1">--</span>
-                        <span class="label">分</span>
-                    </span>
-                    <span class="time-block">
-                        <span class="num" id="s1">--</span>
-                        <span class="label">秒</span>
-                    </span>
+                    <span class="time-block"><span class="num days" id="d1">--</span><span class="label">天</span></span>
+                    <span class="time-block"><span class="num" id="h1">--</span><span class="label">時</span></span>
+                    <span class="time-block"><span class="num" id="m1">--</span><span class="label">分</span></span>
+                    <span class="time-block"><span class="num" id="s1">--</span><span class="label">秒</span></span>
                 </div>
             </div>
 
-            <!-- 口試 -->
+            <!-- 口試卡片 -->
             <div class="card" id="card2">
-                <div class="exam-name">🎤 內科專科口試倒數</div>
+                <div class="exam-name">🎤 內科專科口試</div>
                 <div class="exam-date">民國 <span class="roc">115/09/20</span></div>
+                <div class="countdown-label" id="label2">口試倒數 -- 天</div>
                 <div class="countdown-display" id="countdown2">
-                    <span class="time-block">
-                        <span class="num days" id="d2">--</span>
-                        <span class="label">天</span>
-                    </span>
-                    <span class="time-block">
-                        <span class="num" id="h2">--</span>
-                        <span class="label">時</span>
-                    </span>
-                    <span class="time-block">
-                        <span class="num" id="m2">--</span>
-                        <span class="label">分</span>
-                    </span>
-                    <span class="time-block">
-                        <span class="num" id="s2">--</span>
-                        <span class="label">秒</span>
-                    </span>
+                    <span class="time-block"><span class="num days" id="d2">--</span><span class="label">天</span></span>
+                    <span class="time-block"><span class="num" id="h2">--</span><span class="label">時</span></span>
+                    <span class="time-block"><span class="num" id="m2">--</span><span class="label">分</span></span>
+                    <span class="time-block"><span class="num" id="s2">--</span><span class="label">秒</span></span>
                 </div>
             </div>
         </div>
 
-        <!-- 唯一加油小語 -->
+        <!-- 今日加油小語 -->
         <div class="cheer-section">
-            <div class="cheer-label">
-                <span class="icon">🌟</span> 今日加油小語 <span class="icon">🌟</span>
-            </div>
+            <div class="cheer-label"><span class="icon">🌟</span> 今日加油小語 <span class="icon">🌟</span></div>
             <div class="cheer-message" id="cheerMessage">💖 載入中...</div>
         </div>
 
+        <!-- 底部固定文字 -->
         <div class="footer-note">
             <span>❤️</span> 每天為你打氣，Winny 加油！ <span>❤️</span>
         </div>
@@ -590,31 +379,32 @@
 
     <script>
         // ============================================================
-        // 1. 目標日期（筆試 115/08/15 → 2026/08/15）
-        //    口試 115/09/20 → 2026/09/20
+        // 1. 目標日期
         // ============================================================
         const TARGETS = [{
             id: 1,
             name: '筆試',
             year: 2026,
-            month: 7, // 8月
+            month: 7,  // 8月
             day: 15,
             dId: 'd1',
             hId: 'h1',
             mId: 'm1',
             sId: 's1',
-            cardId: 'card1'
+            cardId: 'card1',
+            labelId: 'label1'
         }, {
             id: 2,
             name: '口試',
             year: 2026,
-            month: 8, // 9月
+            month: 8,  // 9月
             day: 20,
             dId: 'd2',
             hId: 'h2',
             mId: 'm2',
             sId: 's2',
-            cardId: 'card2'
+            cardId: 'card2',
+            labelId: 'label2'
         }];
 
         const targets = TARGETS.map(t => ({
@@ -623,209 +413,131 @@
         }));
 
         // ============================================================
-        // 2. 勵志小語（完整清單）
-        //    - 普通勵志語（約 80+ 則）
-        //    - 倒數 73 → 1 天（按順序）
+        // 2. 每日加油小語（2026/07/09 ~ 2026/09/20 共74天）
+        //    索引0 對應 7/9，索引73 對應 9/20
         // ============================================================
-        const GENERAL_MESSAGES = [
-            "Winny，今天也離內科專科醫師更近一步，加油！❤️",
-            "每一天的努力，都是未來最好的禮物。",
-            "妳不是在追夢，而是在一步一步實現夢想。",
-            "今天再努力一點，明天就更有自信。",
-            "保持節奏，勝利就在前方。",
-            "妳已經很棒了，再堅持一下。",
-            "每翻一頁，都離成功更近。",
-            "相信自己，妳比自己想像得更厲害。",
-            "今天的汗水，就是明天的掌聲。",
-            "沒有白費的努力，只有累積的實力。",
-            "專心做好今天，就是最好的準備。",
-            "未來的專科醫師，正在努力中。",
-            "妳值得所有美好的結果。",
-            "累了就休息一下，再繼續向前。",
-            "相信努力，也相信自己。",
-            "每一天都在變得更強。",
-            "把今天做到最好就夠了。",
-            "沒有跨不過去的挑戰。",
-            "知識每天都在累積。",
-            "保持笑容，好運也會跟著來。",
-            "今天一定也會有收穫。",
-            "不要怕慢，只要不停下。",
-            "成功就在每一次堅持裡。",
-            "相信妳的判斷與實力。",
-            "所有努力都會被看見。",
-            "距離夢想又少了一天，值得開心。",
-            "每一次複習，都讓妳更穩定。",
-            "保持耐心，成功會準時抵達。",
-            "今天的自己，比昨天更優秀。",
-            "每個難題都是成長的機會。",
-            "妳的努力，未來一定會感謝現在的自己。",
-            "今天讀懂一個觀念，就是最大的收穫。",
-            "穩穩地向前，就是最快的方法。",
-            "別忘了，妳一直都很優秀。",
-            "相信累積，相信時間。",
-            "所有付出都有價值。",
-            "今天也是離錄取更近的一天。",
-            "把焦點放在進步，而不是焦慮。",
-            "每一天都值得為自己鼓掌。",
-            "保持初心，繼續前進。",
-            "妳正在成為理想中的自己。",
-            "每一次練習都是正式上場的準備。",
-            "不用追求完美，只要持續進步。",
-            "未來一定會因今天的努力而發光。",
-            "相信自己，正常發揮就是最強實力。",
-            "今天也請記得好好吃飯、好好休息。",
-            "一步一步，就會走到終點。",
-            "別急，妳一直都在前進。",
-            "妳真的比自己想像中更勇敢。",
-            "願今天的一切都很順利。",
-            "保持專注，妳的目標正在靠近。",
-            "今天累積的每一點，都會成為明天的底氣。",
-            "Winny，妳的努力值得最好的結果。",
-            "不用害怕挑戰，因為妳已經準備很久。",
-            "把壓力化成前進的力量。",
-            "每一次複習，都是給未來自己的投資。",
-            "相信自己的專業與熱情。",
-            "妳正在一步步走向夢想中的位置。",
-            "今天也請對自己溫柔一點。",
-            "努力不是為了證明給別人看，而是完成自己的目標。",
-            "專心準備，剩下的交給時間。",
-            "妳累積的實力，會在考場上展現。",
-            "再撐一下，終點已經越來越近。",
-            "每一個早起與晚睡，都有它的意義。",
-            "Winny，妳的堅持真的很珍貴。",
-            "相信自己的選擇，也相信自己的能力。",
-            "今天完成的小目標，都是成功的一部分。",
-            "保持平靜，發揮平常的自己。",
-            "妳不是一個人在努力，我一直替妳加油。",
-            "希望每一次讀書，都帶給妳更多信心。",
-            "專科醫師之路雖然辛苦，但妳正在走得很好。",
-            "把最後這段路走穩，就是最大的勝利。",
-            "考試只是一次挑戰，妳的努力才是最珍貴的。",
-            "願妳帶著自信迎接每一天。",
-            "Winny，妳一定可以做到。",
-            "距離目標只剩最後一段路，加油。",
-            "願妳今天讀書順利，心情也平靜。",
-            "所有準備，都會在需要時派上用場。",
-            "相信累積已久的自己。",
-            "妳已經比當初開始準備時強很多。",
-            "保持信念，繼續往前走。",
-            "最後的倒數時間，每一天都很珍貴。",
-            "希望妳看到這句話時，能感受到我的支持。",
-            "Winny，加油！未來的內科專科醫師。",
-            "願妳筆試順利、口試展現最佳狀態。",
-            "今天的妳值得被鼓勵與肯定。",
-            "妳付出的努力，正在開花結果。",
-            "帶著信心走進考場，帶著笑容離開。",
-            "我相信妳，也相信妳準備的一切。"
+        const DAILY_MESSAGES = [
+            // 7/9 ～ 7/15 初期勉勵
+            "Winny，今天也離內科專科醫師更近一步，加油！❤️", //...7/9倒數37
+            "每一天的努力，都是未來最好的禮物。",//...7/10倒數36
+            "妳不是在追夢，而是在一步一步實現夢想。",//...7/11倒數35
+            "今天再努力一點，明天就更有自信。",//...7/12倒數34
+            "保持節奏，勝利就在前方。",//...7/13倒數33
+            "妳已經很棒了，再堅持一下。",//...7/14倒數32
+            "每翻一頁，都離成功更近。",//...7/15倒數31
+
+            // 7/16 ～ 7/31 穩定累積
+            "相信自己，妳比自己想像得更厲害。",//...7/16倒數30
+            "今天的汗水，就是明天的掌聲。",//...7/17倒數29
+            "沒有白費的努力，只有累積的實力。",//...7/18倒數28
+            "專心做好今天，就是最好的準備。",//...7/19倒數27
+            "未來的專科醫師，正在努力中。",//...7/20倒數26
+            "妳值得所有美好的結果。",//...7/21倒數25
+            "累了就休息一下，再繼續向前。",//...7/22倒數24
+            "相信努力，也相信自己。",//...7/23倒數23
+            "每一天都在變得更強。",//...7/24倒數22
+            "把今天做到最好就夠了。",//...7/25倒數21
+            "沒有跨不過去的挑戰。",//...7/26倒數20
+            "知識每天都在累積。",//...7/27倒數19
+            "保持笑容，好運也會跟著來。",//...7/28倒數18
+            "今天一定也會有收穫。",//...7/29倒數17
+            "不要怕慢，只要不停下。",//...7/30倒數16
+            "成功就在每一次堅持裡。",//...7/31倒數15
+
+            // 8/1 ～ 8/11 倒數衝刺
+            "相信妳的判斷與實力。",//...8/1倒數14
+            "所有努力都會被看見。",//...8/2倒數13
+            "距離夢想又少了一天，值得開心。",//...8/3倒數12
+            "每一次複習，都讓妳更穩定。",//...8/4倒數11
+            "保持耐心，成功會準時抵達。",//...8/5倒數10
+            "今天的自己，比昨天更優秀。",//...8/6倒數9
+            "每個難題都是成長的機會。",//...8/7倒數8
+            "妳的努力，未來一定會感謝現在的自己。",//...8/8倒數7
+            "今天讀懂一個觀念，就是最大的收穫。",//...8/9倒數6
+            "穩穩地向前，就是最快的方法。",//...8/10倒數5
+            "別忘了，妳一直都很優秀。",//...8/11倒數4
+
+            // 8/12 ～ 8/14 筆試前三天（特別標註）
+            "📖 筆試倒數3天！Winny 加油！保持節奏，穩住心情！",//...8/12倒數3
+            "📖 筆試倒數2天！穩定心情，全力以赴，妳一定可以！",//...8/13倒數2
+            "📖 筆試就在明天！相信自己，正常發揮就是最強實力！",//...8/14倒數1
+
+            // 8/15 筆試當天（特別標註）
+            "📖 筆試今天上場！Winny，展現妳的實力，我們都在為妳加油！💪",//8/15倒數0
+
+            // 8/16 ～ 9/16 口試前準備（延續勵志）
+            "每一步都朝夢想前進。",
+            "繼續保持穩定節奏。",
+            "妳比昨天更接近成功。",
+            "相信自己的累積。",
+            "穩住心情迎接挑戰。",
+            "妳的努力正在累積力量。",
+            "保持信心不要懷疑自己。",
+            "準備越充分，心就越安定。",
+            "朝著專科醫師目標前進。",
+            "Winny加油，我一直支持妳。",
+            "願妳每天都有小小進步。",
+            "相信自己一定能做到。",
+            "剩下的路一起努力。",
+            "妳已經準備得越來越好。",
+            "保持平常心就是最佳策略。",
+            "妳的努力會換來最好的答案。",
+            "繼續發光吧，未來醫師。",
+            "加油，距離成功越來越近。",
+            "勇敢迎接最後衝刺。",
+            "相信自己，不要害怕。",
+            "專注今天，累積明天。",
+            "我相信妳的實力。",
+            "朝著目標穩穩前進。",
+            "保持專注，妳正在靠近目標。",
+            "每一次努力都正在累積成果。",
+            "相信準備已久的自己。",
+            "穩定前進就是最好的速度。",
+            "Winny，妳離成功又近一步。",
+            "今天的努力會成為明天的信心。",
+            "不急不慌，發揮真正實力。",
+            "願妳讀書順利、心情安定。",
+            "累積的知識會在考場發光。",
+
+            // 9/17 ～ 9/19 口試前三天（特別標註）
+            "🎤 口試倒數3天！Winny 加油！展現專業與自信！",
+            "🎤 口試倒數2天！保持冷靜，正常發揮，妳準備好了！",
+            "🎤 口試就在明天！妳已經準備萬全，從容應戰！",
+
+            // 9/20 口試當天（特別標註）
+            "🎤 口試今天上場！Winny，用專業與熱情征服考官，加油！🔥"
         ];
 
-        // 倒數 73 → 1 天（索引 0 對應 73 天，索引 72 對應 1 天）
-        const COUNTDOWN_MESSAGES = [
-            "最後73天，每一天都算數。",
-            "最後72天，每一步都朝夢想前進。",
-            "最後71天，繼續保持穩定節奏。",
-            "最後70天，妳比昨天更接近成功。",
-            "最後69天，相信自己的累積。",
-            "最後68天，穩住心情迎接挑戰。",
-            "最後67天，妳的努力正在累積力量。",
-            "最後66天，保持信心不要懷疑自己。",
-            "最後65天，準備越充分，心就越安定。",
-            "最後64天，朝著專科醫師目標前進。",
-            "最後63天，Winny加油，我一直支持妳。",
-            "最後62天，願妳每天都有小小進步。",
-            "最後61天，相信自己一定能做到。",
-            "最後60天，剩下的路一起努力。",
-            "最後59天，妳已經準備得越來越好。",
-            "最後58天，保持平常心就是最佳策略。",
-            "最後57天，妳的努力會換來最好的答案。",
-            "最後56天，繼續發光吧，未來醫師。",
-            "最後55天，加油，距離成功越來越近。",
-            "最後54天，勇敢迎接最後衝刺。",
-            "最後53天，相信自己，不要害怕。",
-            "最後52天，專注今天，累積明天。",
-            "最後51天，我相信妳的實力。",
-            "最後50天，朝著目標穩穩前進。",
-            "最後49天，保持專注，妳正在靠近目標。",
-            "最後48天，每一次努力都正在累積成果。",
-            "最後47天，相信準備已久的自己。",
-            "最後46天，穩定前進就是最好的速度。",
-            "最後45天，Winny，妳離成功又近一步。",
-            "最後44天，今天的努力會成為明天的信心。",
-            "最後43天，不急不慌，發揮真正實力。",
-            "最後42天，願妳讀書順利、心情安定。",
-            "最後41天，累積的知識會在考場發光。",
-            "最後40天，妳已經走過很多困難，繼續加油。",
-            "最後39天，相信自己的專業與判斷。",
-            "最後38天，保持節奏，穩穩迎戰。",
-            "最後37天，剩下的時間珍貴，但妳準備充分。",
-            "最後36天，把焦慮轉換成前進的力量。",
-            "最後35天，願妳每天醒來都有信心。",
-            "最後34天，專注眼前，每一步都重要。",
-            "最後33天，妳的努力正在累積成勝利。",
-            "最後32天，保持冷靜，展現最好的自己。",
-            "最後31天，Winny，妳真的很棒。",
-            "最後30天，最後一個月，全力相信自己。",
-            "最後29天，每一天都是突破自己的機會。",
-            "最後28天，準備進入最後衝刺階段。",
-            "最後27天，保持健康，也保持信心。",
-            "最後26天，妳比想像中更加接近成功。",
-            "最後25天，穩住心態，勝利正在靠近。",
-            "最後24天，相信平時累積的一切。",
-            "最後23天，帶著自信迎接挑戰。",
-            "最後22天，不要懷疑自己的努力。",
-            "最後21天，三週倒數，保持最佳狀態。",
-            "最後20天，專注複習最重要的內容。",
-            "最後19天，把握時間，相信自己。",
-            "最後18天，調整節奏，準備迎接考驗。",
-            "最後17天，妳已經準備好面對挑戰。",
-            "最後16天，保持信念，不要放棄。",
-            "最後15天，最後半個月，加油衝刺。",
-            "最後14天，倒數兩週，穩定就是力量。",
-            "最後13天，保持平常心，相信自己。",
-            "最後12天，讓努力成為最強後盾。",
-            "最後11天，準備迎接屬於妳的時刻。",
-            "最後10天，倒數開始，信心不能少。",
-            "最後9天，專注細節，展現實力。",
-            "最後8天，保持最佳狀態迎戰。",
-            "最後7天，最後一週，Winny加油。",
-            "最後6天，調整作息，相信自己。",
-            "最後5天，帶著信心走向考場。",
-            "最後4天，妳已經準備得很充分。",
-            "最後3天，相信努力會帶來好結果。",
-            "最後2天，放鬆心情，準備出發。",
-            "最後1天，明天就是展現自己的時刻。"
-        ];
+        // 驗證長度：從7/9到9/20共74天，確保索引正確
+        // 索引0 = 7/9, 索引73 = 9/20
+        console.log('每日小語總數:', DAILY_MESSAGES.length); // 應為74
 
         // ============================================================
-        // 3. 取得今日小語
-        //    以筆試剩餘天數為準（1~73 顯示倒數句，其餘隨機）
+        // 3. 根據日期取得當日小語
         // ============================================================
-        function getDayOfYear(date) {
-            const start = new Date(date.getFullYear(), 0, 0);
-            const diff = date - start;
-            return Math.floor(diff / (1000 * 60 * 60 * 24));
-        }
-
         function getTodayCheer() {
             const now = new Date();
-            const examDate = new Date(2026, 7, 15); // 筆試 2026/08/15
-            const diffMs = examDate - now;
-            const daysLeft = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+            // 基準日：2026/07/09
+            const baseDate = new Date(2026, 6, 9); // 月份從0開始，6=7月
+            const diffTime = now - baseDate;
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-            // 如果剩餘天數在 1~73 之間，使用倒數句
-            if (daysLeft >= 1 && daysLeft <= 73) {
-                const idx = 73 - daysLeft; // 73天→索引0, 1天→索引72
-                return COUNTDOWN_MESSAGES[idx] || COUNTDOWN_MESSAGES[0];
+            // 若在範圍內，回傳對應句子
+            if (diffDays >= 0 && diffDays < DAILY_MESSAGES.length) {
+                return DAILY_MESSAGES[diffDays];
             }
 
-            // 否則從普通勵志語中隨機選取
-            const dayOfYear = getDayOfYear(now);
-            const idx = dayOfYear % GENERAL_MESSAGES.length;
-            return GENERAL_MESSAGES[idx];
+            // 若在範圍外（考試後），回傳最後一句並稍作修改
+            if (diffDays >= DAILY_MESSAGES.length) {
+                return "🎉 Winny，所有考試都完成了！妳是最棒的！";
+            }
+
+            // 若在開始之前（理論上不會，因為現在是7/9之後）
+            return "Winny，準備好迎接挑戰了嗎？我們一起加油！";
         }
 
         // ============================================================
-        // 4. 更新倒計時（只更新數字，不顯示額外文字）
+        // 4. 更新倒數計時（含標籤）
         // ============================================================
         function padZero(n) {
             return String(n).padStart(2, '0');
@@ -833,7 +545,6 @@
 
         function updateCountdown() {
             const now = new Date();
-
             targets.forEach(t => {
                 const targetDate = t.date;
                 const diffMs = targetDate - now;
@@ -844,6 +555,7 @@
                 const mEl = document.getElementById(t.mId);
                 const sEl = document.getElementById(t.sId);
                 const cardEl = document.getElementById(t.cardId);
+                const labelEl = document.getElementById(t.labelId);
 
                 if (isDone) {
                     dEl.textContent = '0';
@@ -851,6 +563,7 @@
                     mEl.textContent = '00';
                     sEl.textContent = '00';
                     cardEl.classList.add('done-card');
+                    labelEl.textContent = `${t.name} 已結束`;
                     return;
                 }
 
@@ -866,6 +579,8 @@
                 hEl.textContent = padZero(hours);
                 mEl.textContent = padZero(minutes);
                 sEl.textContent = padZero(seconds);
+
+                labelEl.textContent = `${t.name}倒數 ${days} 天`;
             });
         }
 
@@ -879,7 +594,7 @@
             updateCountdown();
             setInterval(updateCountdown, 1000);
 
-            // 每日更新小語
+            // 每日更新小語（跨日時）
             let lastDateStr = new Date().toDateString();
             setInterval(() => {
                 const now = new Date();
