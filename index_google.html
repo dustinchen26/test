@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winny 專科考試倒數陪伴</title>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', sans-serif;
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+        h1 { color: #2c3e50; margin-bottom: 20px; }
+        .timer-group { margin: 20px 0; }
+        .label { font-size: 0.9rem; color: #7f8c8d; }
+        .time-display { font-size: 1.8rem; font-weight: bold; color: #d35400; margin: 5px 0; }
+        .message-box {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border-left: 6px solid #3498db;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>加油，Winny！</h1>
+    
+    <div class="timer-group">
+        <div class="label">距離內科筆試 (115/08/15)</div>
+        <div class="time-display" id="written-timer">-- 天 -- 時 -- 分 -- 秒</div>
+    </div>
+
+    <div class="timer-group">
+        <div class="label">距離內科口試 (115/09/20)</div>
+        <div class="time-display" id="oral-timer">-- 天 -- 時 -- 分 -- 秒</div>
+    </div>
+
+    <div class="message-box" id="daily-message">
+        載入中...
+    </div>
+</div>
+
+<script>
+    const dateWritten = new Date('2026-08-15T00:00:00');
+    const dateOral = new Date('2026-09-20T00:00:00');
+
+    // 73 則鼓勵小語
+    const messages = [
+        "距離目標越來越近了，Winny 妳的努力我看在眼裡，今天也要加油喔！", "專注是妳最強大的武器，相信自己，妳一定行。", "讀書累了就深呼吸，妳的目標正等著妳去實現。", 
+        "內科專科的挑戰很大，但妳的能力更強。加油！", "每一頁翻過的課本，都是妳通往成功的階梯。", "不管多累，記得抬頭看看天空，妳會發現妳並不孤單。",
+        "妳的毅力令人佩服，繼續堅持，勝利就在前方。", "適度的休息是為了更好的表現，別太給自己壓力。", "把專有名詞當成老朋友，每天熟悉一點點。", "妳的專業知識已經很紮實了，保持信心！",
+        "這是一場馬拉松，保持妳的節奏，不必跟別人比。", "讀不懂的時候別沮喪，換個角度或許就通了。", "妳是為了成為更優秀的醫師而努力，這點很棒。", "辛苦了！晚上好好睡一覺，明天又是全新的一天。",
+        "腦袋裝不下了嗎？喝杯溫水休息一下吧。", "別被焦慮追趕，妳掌握的是自己的學習進度。", "每一個困難的考題，都是為了讓妳更強大。", "妳的未來是光明的，現在的汗水都是投資。", "今天的目標達成了嗎？如果累了就早點休息。",
+        "不要看終點多遠，只要看腳下這一步走得穩不穩。", "深呼吸，妳比想像中更有潛力。", "妳的耐心與細心，是成為好醫師的關鍵特質。", "再堅持一下，所有的付出都不會白費。", "給自己一個微笑，妳已經很棒了！",
+        "讀書也要注意健康，記得補充水分喔。", "這段時間的孤獨，會換來之後的成就感。", "保持對醫學的熱情，這是妳最難能可貴的地方。", "不懂就問，沒關係的，我們一起解決。", "今天讀的內容，未來都會變成妳的專業底氣。",
+        "妳不是一個人在戰鬥，我一直都在這支持妳。", "當妳覺得累，記得想一想當初為什麼出發。", "考試只是個形式，妳的專業已經被肯定了。", "這幾個月會很辛苦，但我們會一起走過。", "不要給自己太多負擔，盡力就好。", "妳的聰明與智慧，一定能幫妳度過難關。",
+        "保持心情穩定，比背誦多少頁更重要。", "只要每天進步一點點，累積起來就很驚人。", "妳的筆記真的很漂亮，重點都抓得很準。", "相信自己的直覺，妳準備得很充足。", "這是一場對自己的挑戰，妳一定能超越自我。",
+        "這幾天辛苦了，晚餐記得吃點好的犒賞自己。", "妳是內科最閃耀的一顆星，加油！", "困難是成長的催化劑，加油，Winny！", "妳的努力程度，早已超過了大多數人。", "專注於當下，別去想遙遠的結果。", "妳的醫學思維邏輯非常清晰，很有天賦。",
+        "保持平常心，考試當天妳會發揮出超水準的表現。", "別忘了給自己打氣，妳真的很棒。", "今天讀的這章，之後一定會派上用場。", "學習是一輩子的事，考試只是其中一小站。", "妳的夢想很遠大，我會陪妳一起實踐。", "不管結果如何，我永遠以妳為榮。",
+        "專科醫師這條路雖然辛苦，但妳一定能走完。", "再忙也要抽空運動一下，放鬆僵硬的肌肉。", "心若安定，世界就會安靜。專心讀書吧。", "妳已經比昨天更厲害了，繼續保持。", "這是一場智慧的考驗，妳已經準備好了。", "加油！妳的努力會轉化成最好的成績。",
+        "專注於解決問題，而不是被問題淹沒。", "妳的細心一定會讓主考官印象深刻。", "不管現在幾點，妳的努力都值得被看見。", "距離考試剩下不多時間了，穩住心態。", "這段日子將是妳人生中重要的回憶。", "妳已經克服了那麼多難關，這個也難不倒妳。",
+        "妳是專業又溫柔的醫師，病人一定會很喜歡妳。", "再加把勁，勝利的鐘聲即將響起。", "只要相信自己，妳就是無敵的。", "妳的專業實力，足夠應付一切考題。", "最後的衝刺期，保持規律作息最重要。", "辛苦了，Winny！妳真的做得很好。",
+        "即將迎來最終的挑戰，保持冷靜。", "勇敢一點，妳已經擁有了所有成功的條件。", "Winny，加油！我們一起迎接勝利！"
+    ];
+
+    function formatTime(ms) {
+        const totalSec = Math.floor(ms / 1000);
+        const days = Math.floor(totalSec / 86400);
+        const hours = Math.floor((totalSec % 86400) / 3600);
+        const minutes = Math.floor((totalSec % 3600) / 60);
+        const seconds = totalSec % 60;
+        return `${days} 天 ${hours} 時 ${minutes} 分 ${seconds} 秒`;
+    }
+
+    function update() {
+        const now = new Date();
+        
+        document.getElementById('written-timer').innerText = formatTime(dateWritten - now);
+        document.getElementById('oral-timer').innerText = formatTime(dateOral - now);
+
+        // 根據日期顯示對應小語 (從 7/9 開始計算 index)
+        const startDate = new Date('2026-07-09');
+        const diffDays = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
+        const index = Math.max(0, Math.min(diffDays, messages.length - 1));
+        document.getElementById('daily-message').innerText = messages[index];
+    }
+
+    setInterval(update, 1000);
+    update();
+</script>
+
+</body>
+</html>

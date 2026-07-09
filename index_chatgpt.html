@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>❤️ Winny 內科專科考試倒數 ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+        }
+        body {
+            overflow-x: hidden;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        /* 星空背景 */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                radial-gradient(white 1px, transparent 1px),
+                radial-gradient(white 1px, transparent 1px),
+                radial-gradient(white 1px, transparent 1px);
+            background-size: 120px 120px, 180px 180px, 240px 240px;
+            opacity: .2;
+            animation: moveStars 80s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes moveStars {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-400px);
+            }
+        }
+        .container {
+            position: relative;
+            z-index: 10;
+            width: 940px;
+            max-width: 98%;
+        }
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-size: 34px;
+            margin-bottom: 6px;
+            text-shadow: 0 3px 10px rgba(0, 0, 0, .2);
+            letter-spacing: 2px;
+        }
+        .today {
+            text-align: center;
+            color: #fff;
+            font-size: 16px;
+            margin-bottom: 18px;
+            opacity: .92;
+        }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .card {
+            background: rgba(255, 255, 255, .20);
+            backdrop-filter: blur(14px);
+            border-radius: 22px;
+            padding: 24px 28px;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, .13);
+            color: #fff;
+            animation: floatCard 4s ease-in-out infinite;
+        }
+        .card:nth-child(2) {
+            animation-delay: 2s;
+        }
+        @keyframes floatCard {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-6px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+        .exam {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .date {
+            font-size: 17px;
+            opacity: .9;
+            margin-bottom: 16px;
+        }
+        .countdown {
+            font-size: 18px;
+            line-height: 1.9;
+        }
+        .number {
+            font-size: 40px;
+            font-weight: 700;
+            color: #fff176;
+            text-shadow: 0 0 12px rgba(255, 255, 255, .5);
+            display: inline-block;
+            min-width: 60px;
+        }
+        .messageCard {
+            margin-top: 22px;
+            background: rgba(255, 255, 255, .92);
+            border-radius: 22px;
+            padding: 26px 30px 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
+        }
+        .messageTitle {
+            font-size: 24px;
+            color: #5b5bd6;
+            margin-bottom: 16px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        .quote {
+            font-size: 22px;
+            line-height: 1.7;
+            color: #333;
+            text-align: center;
+            min-height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 6px 10px;
+        }
+        .footer {
+            margin-top: 16px;
+            text-align: center;
+            color: #fff;
+            font-size: 16px;
+            opacity: .9;
+        }
+        @media(max-width:700px) {
+            h1 {
+                font-size: 26px;
+            }
+            .exam {
+                font-size: 21px;
+            }
+            .number {
+                font-size: 30px;
+                min-width: 44px;
+            }
+            .quote {
+                font-size: 19px;
+                min-height: 70px;
+            }
+            .card {
+                padding: 18px 20px;
+            }
+            .messageCard {
+                padding: 18px 18px 22px;
+            }
+        }
+        .pulse {
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌸 Winny 內科專科考試倒數 🌸</h1>
+        <div class="today" id="today"></div>
+        <div class="cards">
+            <div class="card">
+                <div class="exam">📚 內科專科筆試</div>
+                <div class="date">115 / 08 / 15</div>
+                <div class="countdown">
+                    <div>剩餘 <span id="wDay" class="number pulse">0</span> 天</div>
+                    <div><span id="wHour" class="number">00</span> 時 <span id="wMin" class="number">00</span> 分 <span id="wSec" class="number">00</span> 秒</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="exam">🎤 內科專科口試</div>
+                <div class="date">115 / 09 / 20</div>
+                <div class="countdown">
+                    <div>剩餘 <span id="oDay" class="number pulse">0</span> 天</div>
+                    <div><span id="oHour" class="number">00</span> 時 <span id="oMin" class="number">00</span> 分 <span id="oSec" class="number">00</span> 秒</div>
+                </div>
+            </div>
+        </div>
+        <div class="messageCard">
+            <div class="messageTitle">❤️ Winny 今天的加油小語 ❤️</div>
+            <div class="quote" id="quote">載入中...</div>
+        </div>
+        <div class="footer">每天進步一點點，離夢想就更近一步 🌷</div>
+    </div>
+    <script>
+        // ===== 考試日期 =====
+        const writtenExam = new Date(2026, 7, 15, 8, 30, 0);
+        const oralExam = new Date(2026, 8, 20, 8, 30, 0);
+
+        // ===== 顯示今天日期 =====
+        const todayDiv = document.getElementById("today");
+        const now = new Date();
+        todayDiv.innerHTML = "今天：" + now.getFullYear() + " / " +
+            String(now.getMonth() + 1).padStart(2, "0") + " / " +
+            String(now.getDate()).padStart(2, "0");
+
+        // ===== 倒數更新 =====
+        function updateCountdown(target, d, h, m, s) {
+            const now = new Date();
+            let diff = target.getTime() - now.getTime();
+            if (diff <= 0) {
+                document.getElementById(d).innerHTML = "完成";
+                document.getElementById(h).innerHTML = "--";
+                document.getElementById(m).innerHTML = "--";
+                document.getElementById(s).innerHTML = "--";
+                return;
+            }
+            const day = Math.floor(diff / (1000 * 60 * 60 * 24));
+            diff %= 1000 * 60 * 60 * 24;
+            const hour = Math.floor(diff / (1000 * 60 * 60));
+            diff %= 1000 * 60 * 60;
+            const minute = Math.floor(diff / (1000 * 60));
+            diff %= 1000 * 60;
+            const second = Math.floor(diff / 1000);
+            document.getElementById(d).innerHTML = day;
+            document.getElementById(h).innerHTML = String(hour).padStart(2, "0");
+            document.getElementById(m).innerHTML = String(minute).padStart(2, "0");
+            document.getElementById(s).innerHTML = String(second).padStart(2, "0");
+        }
+
+        setInterval(function() {
+            updateCountdown(writtenExam, "wDay", "wHour", "wMin", "wSec");
+            updateCountdown(oralExam, "oDay", "oHour", "oMin", "oSec");
+        }, 1000);
+        updateCountdown(writtenExam, "wDay", "wHour", "wMin", "wSec");
+        updateCountdown(oralExam, "oDay", "oHour", "oMin", "oSec");
+
+        // ===== 每日一句（修正重複錯誤，排版更緊湊） =====
+        const quotes = [
+            // ——— 勵志小語（不包含「最後XX天」） ———
+            "Winny，今天也離內科專科醫師更近一步，加油！❤️",
+            "每一天的努力，都是未來最好的禮物。",
+            "妳不是在追夢，而是在一步一步實現夢想。",
+            "今天再努力一點，明天就更有自信。",
+            "保持節奏，勝利就在前方。",
+            "妳已經很棒了，再堅持一下。",
+            "每翻一頁，都離成功更近。",
+            "相信自己，妳比自己想像得更厲害。",
+            "今天的汗水，就是明天的掌聲。",
+            "沒有白費的努力，只有累積的實力。",
+            "專心做好今天，就是最好的準備。",
+            "未來的專科醫師，正在努力中。",
+            "妳值得所有美好的結果。",
+            "累了就休息一下，再繼續向前。",
+            "相信努力，也相信自己。",
+            "每一天都在變得更強。",
+            "把今天做到最好就夠了。",
+            "沒有跨不過去的挑戰。",
+            "知識每天都在累積。",
+            "保持笑容，好運也會跟著來。",
+            "今天一定也會有收穫。",
+            "不要怕慢，只要不停下。",
+            "成功就在每一次堅持裡。",
+            "相信妳的判斷與實力。",
+            "所有努力都會被看見。",
+            "距離夢想又少了一天，值得開心。",
+            "每一次複習，都讓妳更穩定。",
+            "保持耐心，成功會準時抵達。",
+            "今天的自己，比昨天更優秀。",
+            "每個難題都是成長的機會。",
+            "妳的努力，未來一定會感謝現在的自己。",
+            "今天讀懂一個觀念，就是最大的收穫。",
+            "穩穩地向前，就是最快的方法。",
+            "別忘了，妳一直都很優秀。",
+            "相信累積，相信時間。",
+            "所有付出都有價值。",
+            "今天也是離錄取更近的一天。",
+            "把焦點放在進步，而不是焦慮。",
+            "每一天都值得為自己鼓掌。",
+            "保持初心，繼續前進。",
+            "妳正在成為理想中的自己。",
+            "每一次練習都是正式上場的準備。",
+            "不用追求完美，只要持續進步。",
+            "未來一定會因今天的努力而發光。",
+            "相信自己，正常發揮就是最強實力。",
+            "今天也請記得好好吃飯、好好休息。",
+            "一步一步，就會走到終點。",
+            "別急，妳一直都在前進。",
+            "妳真的比自己想像中更勇敢。",
+            "願今天的一切都很順利。",
+            "保持專注，妳的目標正在靠近。",
+            "今天累積的每一點，都會成為明天的底氣。",
+            "Winny，妳的努力值得最好的結果。",
+            "不用害怕挑戰，因為妳已經準備很久。",
+            "把壓力化成前進的力量。",
+            "每一次複習，都是給未來自己的投資。",
+            "相信自己的專業與熱情。",
+            "妳正在一步步走向夢想中的位置。",
+            "今天也請對自己溫柔一點。",
+            "努力不是為了證明給別人看，而是完成自己的目標。",
+            "專心準備，剩下的交給時間。",
+            "妳累積的實力，會在考場上展現。",
+            "再撐一下，終點已經越來越近。",
+            "每一個早起與晚睡，都有它的意義。",
+            "Winny，妳的堅持真的很珍貴。",
+            "相信自己的選擇，也相信自己的能力。",
+            "今天完成的小目標，都是成功的一部分。",
+            "保持平靜，發揮平常的自己。",
+            "妳不是一個人在努力，我一直替妳加油。",
+            "希望每一次讀書，都帶給妳更多信心。",
+            "專科醫師之路雖然辛苦，但妳正在走得很好。",
+            "把最後這段路走穩，就是最大的勝利。",
+            "考試只是一次挑戰，妳的努力才是最珍貴的。",
+            "願妳帶著自信迎接每一天。",
+            "Winny，妳一定可以做到。",
+            "距離目標只剩最後一段路，加油。",
+            "願妳今天讀書順利，心情也平靜。",
+            "所有準備，都會在需要時派上用場。",
+            "相信累積已久的自己。",
+            "妳已經比當初開始準備時強很多。",
+            "保持信念，繼續往前走。",
+            "最後的倒數時間，每一天都很珍貴。",
+            "希望妳看到這句話時，能感受到我的支持。",
+            "Winny，加油！未來的內科專科醫師。",
+            "願妳筆試順利、口試展現最佳狀態。",
+            "今天的妳值得被鼓勵與肯定。",
+            "妳付出的努力，正在開花結果。",
+            "帶著信心走進考場，帶著笑容離開。",
+            "我相信妳，也相信妳準備的一切。",
+
+            // ——— 倒數 73 天 → 1 天（按順序，無重複） ———
+            "最後73天，每一天都算數。",
+            "最後72天，每一步都朝夢想前進。",
+            "最後71天，繼續保持穩定節奏。",
+            "最後70天，妳比昨天更接近成功。",
+            "最後69天，相信自己的累積。",
+            "最後68天，穩住心情迎接挑戰。",
+            "最後67天，妳的努力正在累積力量。",
+            "最後66天，保持信心不要懷疑自己。",
+            "最後65天，準備越充分，心就越安定。",
+            "最後64天，朝著專科醫師目標前進。",
+            "最後63天，Winny加油，我一直支持妳。",
+            "最後62天，願妳每天都有小小進步。",
+            "最後61天，相信自己一定能做到。",
+            "最後60天，剩下的路一起努力。",
+            "最後59天，妳已經準備得越來越好。",
+            "最後58天，保持平常心就是最佳策略。",
+            "最後57天，妳的努力會換來最好的答案。",
+            "最後56天，繼續發光吧，未來醫師。",
+            "最後55天，加油，距離成功越來越近。",
+            "最後54天，勇敢迎接最後衝刺。",
+            "最後53天，相信自己，不要害怕。",
+            "最後52天，專注今天，累積明天。",
+            "最後51天，我相信妳的實力。",
+            "最後50天，朝著目標穩穩前進。",
+            "最後49天，保持專注，妳正在靠近目標。",
+            "最後48天，每一次努力都正在累積成果。",
+            "最後47天，相信準備已久的自己。",
+            "最後46天，穩定前進就是最好的速度。",
+            "最後45天，Winny，妳離成功又近一步。",
+            "最後44天，今天的努力會成為明天的信心。",
+            "最後43天，不急不慌，發揮真正實力。",
+            "最後42天，願妳讀書順利、心情安定。",
+            "最後41天，累積的知識會在考場發光。",
+            "最後40天，妳已經走過很多困難，繼續加油。",
+            "最後39天，相信自己的專業與判斷。",
+            "最後38天，保持節奏，穩穩迎戰。",
+            "最後37天，剩下的時間珍貴，但妳準備充分。",
+            "最後36天，把焦慮轉換成前進的力量。",
+            "最後35天，願妳每天醒來都有信心。",
+            "最後34天，專注眼前，每一步都重要。",
+            "最後33天，妳的努力正在累積成勝利。",
+            "最後32天，保持冷靜，展現最好的自己。",
+            "最後31天，Winny，妳真的很棒。",
+            "最後30天，最後一個月，全力相信自己。",
+            "最後29天，每一天都是突破自己的機會。",
+            "最後28天，準備進入最後衝刺階段。",
+            "最後27天，保持健康，也保持信心。",
+            "最後26天，妳比想像中更加接近成功。",
+            "最後25天，穩住心態，勝利正在靠近。",
+            "最後24天，相信平時累積的一切。",
+            "最後23天，帶著自信迎接挑戰。",
+            "最後22天，不要懷疑自己的努力。",
+            "最後21天，三週倒數，保持最佳狀態。",
+            "最後20天，專注複習最重要的內容。",
+            "最後19天，把握時間，相信自己。",
+            "最後18天，調整節奏，準備迎接考驗。",
+            "最後17天，妳已經準備好面對挑戰。",
+            "最後16天，保持信念，不要放棄。",
+            "最後15天，最後半個月，加油衝刺。",
+            "最後14天，倒數兩週，穩定就是力量。",
+            "最後13天，保持平常心，相信自己。",
+            "最後12天，讓努力成為最強後盾。",
+            "最後11天，準備迎接屬於妳的時刻。",
+            "最後10天，倒數開始，信心不能少。",
+            "最後9天，專注細節，展現實力。",
+            "最後8天，保持最佳狀態迎戰。",
+            "最後7天，最後一週，Winny加油。",
+            "最後6天，調整作息，相信自己。",
+            "最後5天，帶著信心走向考場。",
+            "最後4天，妳已經準備得很充分。",
+            "最後3天，相信努力會帶來好結果。",
+            "最後2天，放鬆心情，準備出發。",
+            "最後1天，明天就是展現自己的時刻。",
+
+            // ——— 考試日 ———
+            "考試日：Winny，妳準備好了，相信自己，妳一定可以！❤️"
+        ];
+
+        // ===== 根據 2026/7/10 起算的天數取語錄 =====
+        const startDate = new Date(2026, 6, 10);
+        const today = new Date();
+        const dayIndex = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+        const idx = ((dayIndex % quotes.length) + quotes.length) % quotes.length;
+        document.getElementById("quote").innerHTML = quotes[idx];
+    </script>
+</body>
+</html>
