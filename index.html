@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700&family=Noto+Sans+TC:wght@300;400;700;900&display=swap" rel="stylesheet" />
     <style>
-        /* ----- 樣式完全不變（保持溫暖風格） ----- */
+        /* ----- 樣式完全保留（溫暖風格） ----- */
         * {
             margin: 0;
             padding: 0;
@@ -450,6 +450,7 @@
         <span>💗</span><span>🌷</span><span>💝</span><span>🦋</span>
     </div>
 
+    <!-- 飄落特效 Canvas -->
     <canvas id="confettiCanvas"></canvas>
 
     <div class="container">
@@ -466,7 +467,7 @@
 
         <div class="countdown-grid" id="countdownGrid">
             <div class="card" id="card1">
-                <div class="exam-name">📖 第一階段考試</div>
+                <div class="exam-name">📖 內科筆試考試</div>
                 <div class="exam-date">民國 <span class="roc">115/08/15</span></div>
                 <div class="countdown-label" id="label1">倒數 -- 天</div>
                 <div class="countdown-display" id="countdown1">
@@ -478,7 +479,7 @@
             </div>
 
             <div class="card" id="card2">
-                <div class="exam-name">🎤 第二階段考試</div>
+                <div class="exam-name">🎤 內科口試考試</div>
                 <div class="exam-date">民國 <span class="roc">115/09/20</span></div>
                 <div class="countdown-label" id="label2">倒數 -- 天</div>
                 <div class="countdown-display" id="countdown2">
@@ -506,7 +507,7 @@
         // ============================================================
         const TARGETS = [{
             id: 1,
-            name: '第一階段',
+            name: '內科筆試',
             year: 2026,
             month: 7,
             day: 15,
@@ -518,7 +519,7 @@
             labelId: 'label1'
         }, {
             id: 2,
-            name: '第二階段',
+            name: '內科口試',
             year: 2026,
             month: 8,
             day: 20,
@@ -536,11 +537,9 @@
         }));
 
         // ============================================================
-        // 2. ★ 每日鼓勵小語（附日期註解）
-        //    日期範圍：2026/07/09 ~ 2026/09/20（共74天）
+        // 2. 每日鼓勵小語（附日期註解）
         // ============================================================
         function getDailyMessage(index) {
-            // 通用鼓勵池（30條輪流）
             const general = [
                 "今天也是充滿希望的一天！",
                 "你笑得最好看，記得常微笑 😊",
@@ -574,41 +573,17 @@
                 "無論風雨，我都陪你一起走。"
             ];
 
-            // ---------- 日期範圍註解 ----------
-            // 基礎期  7/9 ～ 7/31  (index 0 ~ 22)
-            // 衝刺期  8/1 ～ 8/11  (index 23 ~ 33)
-            // 筆試前  8/12～8/15  (index 34 ~ 37)
-            // 口試準備 8/16～9/16  (index 38 ~ 69)
-            // 口試前  9/17～9/20  (index 70 ~ 73)
-
-            // 基礎鞏固期 (7/9 - 7/31)
-            if (index <= 22) {
-                return general[index % general.length]; // 日期從7/9起自動對應
-            }
-
-            // 衝刺刷題期 (8/1 - 8/11)
-            if (index <= 33) {
-                return general[(index) % general.length]; // 實際可另訂，但沿用general
-            }
-
-            // ---------- 筆試前三天 + 當天 (8/12 - 8/15) ----------
+            if (index <= 22) return general[index % general.length];
+            if (index <= 33) return general[index % general.length];
             if (index === 34) return "📣 倒數3天！你超棒的，保持節奏，穩穩來！"; // 8/12
             if (index === 35) return "📣 倒數2天！心情放鬆，發揮你的實力，一定沒問題！"; // 8/13
             if (index === 36) return "📣 倒數1天！好好休息，明天帶著笑容上場，我為你加油！"; // 8/14
             if (index === 37) return "🎉 就是今天！你準備好了，展現最棒的自己，我永遠支持你！"; // 8/15
-
-            // 口試準備期 (8/16 - 9/16) 沿用general
-            if (index <= 69) {
-                return general[index % general.length]; // 日期從8/16起對應
-            }
-
-            // ---------- 口試前三天 + 當天 (9/17 - 9/20) ----------
+            if (index <= 69) return general[index % general.length];
             if (index === 70) return "🎤 倒數3天！保持自信，你已經很棒了！"; // 9/17
             if (index === 71) return "🎤 倒數2天！從容應對，你一定能做到！"; // 9/18
             if (index === 72) return "🎤 倒數1天！放鬆心情，明天就是你的舞台！"; // 9/19
             if (index === 73) return "🎉 就是今天！全力以赴，享受過程，我為你驕傲！"; // 9/20
-
-            // 其餘（以防萬一）
             return "💖 每一天都是新的開始，加油！";
         }
 
@@ -637,7 +612,7 @@
         }
 
         // ============================================================
-        // 4. 飄落特效（完全保留）
+        // 4. ★ 飄落特效（調低密度、尺寸，更清爽）
         // ============================================================
         const canvas = document.getElementById('confettiCanvas');
         const ctx = canvas.getContext('2d');
@@ -655,24 +630,27 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        const symbols = ['💖', '✨', '🎉', '❤️', '🌟', '🌸', '💕', '🦋', '🌈'];
+        // 只保留五種輕柔符號
+        const symbols = ['💖', '✨', '🌸', '💕', '🦋'];
 
         class Particle {
             constructor() { this.reset(); }
             reset() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height - height;
-                this.size = Math.random() * 20 + 14;
-                this.speedY = Math.random() * 2 + 1.2;
-                this.speedX = (Math.random() - 0.5) * 1.2;
+                // 尺寸縮小為 10~20px
+                this.size = Math.random() * 10 + 10;
+                // 速度稍微降低
+                this.speedY = Math.random() * 1.2 + 0.8;
+                this.speedX = (Math.random() - 0.5) * 0.8;
                 this.rotation = Math.random() * 360;
-                this.rotateSpeed = (Math.random() - 0.5) * 4;
+                this.rotateSpeed = (Math.random() - 0.5) * 2;
                 this.symbol = symbols[Math.floor(Math.random() * symbols.length)];
-                this.opacity = Math.random() * 0.6 + 0.5;
+                this.opacity = Math.random() * 0.3 + 0.3; // 透明度降低
             }
             update() {
                 this.y += this.speedY;
-                this.x += this.speedX + Math.sin(this.y * 0.01) * 0.3;
+                this.x += this.speedX + Math.sin(this.y * 0.01) * 0.2;
                 this.rotation += this.rotateSpeed;
                 if (this.y > height + 50) { this.reset();
                     this.y = -50; }
@@ -693,7 +671,8 @@
         function startConfetti() {
             if (isConfettiRunning) return;
             isConfettiRunning = true;
-            for (let i = 0; i < 70; i++) {
+            // 粒子數量從 70 減少為 30
+            for (let i = 0; i < 30; i++) {
                 const p = new Particle();
                 p.y = Math.random() * height;
                 particles.push(p);
@@ -718,23 +697,20 @@
         }
 
         // ============================================================
-        // 5. ★ 彈出視窗（溫柔鼓勵版）
+        // 5. 彈出視窗（每次刷新都會彈出）
         // ============================================================
         function showModal(examName, days) {
-            const key = `modal_${examName}_${days}`;
-            if (sessionStorage.getItem(key)) return;
-
             let title = `💪 親愛的，加油！`;
             let body = `${examName} 只剩 <span class="highlight">${days} 天</span> ！<br>你已經準備得超棒了，保持笑容，盡力就好！<br><span style="font-size:0.9rem; color:#7b4b8a;">我會一直在你身邊 💕</span>`;
             let icon = '💖';
 
-            if (examName.includes('第一階段')) {
+            if (examName.includes('內科筆試')) {
                 icon = '📖';
-                title = '📖 第一階段倒數！';
+                title = '📖 內科筆試倒數！';
                 body = `${examName} 只剩 <span class="highlight">${days} 天</span> ！<br>穩定心情，相信自己的實力，你一定可以！<br><span style="font-size:0.9rem; color:#7b4b8a;">盡力就是最好的表現 ✨</span>`;
-            } else if (examName.includes('第二階段')) {
+            } else if (examName.includes('內科口試')) {
                 icon = '🎤';
-                title = '🎤 第二階段倒數！';
+                title = '🎤 內科口試倒數！';
                 body = `${examName} 只剩 <span class="highlight">${days} 天</span> ！<br>從容應對，展現最自信的你，沒問題的！<br><span style="font-size:0.9rem; color:#7b4b8a;">你永遠是我的驕傲 🌟</span>`;
             }
 
@@ -751,15 +727,12 @@
             document.body.appendChild(overlay);
             overlay.querySelector('.modal-close-btn').addEventListener('click', () => overlay.remove());
             overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
-            sessionStorage.setItem(key, 'shown');
         }
 
         // ============================================================
-        // 6. 倒數更新 + ★ 特效（考前五天啟動）
+        // 6. 倒數更新 + 特效（考前五天啟動）
         // ============================================================
         function padZero(n) { return String(n).padStart(2, '0'); }
-
-        let modalTriggeredToday = {};
 
         function updateCountdown() {
             const now = new Date();
@@ -802,18 +775,11 @@
                 sEl.textContent = padZero(seconds);
                 labelEl.textContent = `${t.name}倒數 ${days} 天`;
 
-                // ★ 特效範圍：考前 5 天內（含倒數 5,4,3,2,1 天）
                 const isCritical = (days >= 1 && days <= 5);
                 if (isCritical) {
                     anyCritical = true;
                     cardEl.classList.add('glow-card');
                     dEl.classList.add('critical-days');
-                    const todayStr = new Date().toDateString();
-                    const modalKey = `${t.id}_${todayStr}`;
-                    if (!modalTriggeredToday[modalKey]) {
-                        modalTriggeredToday[modalKey] = true;
-                        showModal(t.name, days);
-                    }
                 } else {
                     cardEl.classList.remove('glow-card');
                     dEl.classList.remove('critical-days');
@@ -831,7 +797,7 @@
         }
 
         // ============================================================
-        // 7. 初始化
+        // 7. 初始化（每次刷新彈出最緊急的考試提醒）
         // ============================================================
         function init() {
             document.getElementById('cheerMessage').textContent = getTodayCheer();
@@ -845,9 +811,32 @@
                 if (todayStr !== lastDateStr) {
                     lastDateStr = todayStr;
                     document.getElementById('cheerMessage').textContent = getTodayCheer();
-                    modalTriggeredToday = {};
                 }
             }, 60000);
+
+            // 每次載入頁面檢查考前五天內，彈出最緊急的考試提醒
+            const now = new Date();
+            const criticalExams = targets.filter(t => {
+                const diff = t.date - now;
+                if (diff > 0) {
+                    const days = Math.ceil(diff / 86400000);
+                    return days >= 1 && days <= 5;
+                }
+                return false;
+            });
+
+            if (criticalExams.length > 0) {
+                criticalExams.sort((a, b) => {
+                    const da = Math.ceil((a.date - now) / 86400000);
+                    const db = Math.ceil((b.date - now) / 86400000);
+                    return da - db;
+                });
+                const exam = criticalExams[0];
+                const days = Math.ceil((exam.date - now) / 86400000);
+                setTimeout(() => {
+                    showModal(exam.name, days);
+                }, 500);
+            }
         }
 
         document.addEventListener('DOMContentLoaded', init);
