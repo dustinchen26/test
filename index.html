@@ -359,26 +359,42 @@
             border: 2px solid rgba(255, 255, 255, 0.8);
         }
         .modal-box .modal-icon {
-            font-size: 4rem;
-            margin-bottom: 6px;
+            font-size: 3.5rem;
+            margin-bottom: 4px;
         }
         .modal-box h2 {
             font-family: 'Quicksand', 'Noto Sans TC', sans-serif;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: #4a148c;
             margin-bottom: 8px;
         }
-        .modal-box p {
-            font-size: 1.1rem;
+        .modal-box .cheer-text {
+            font-size: 1.2rem;
             color: #4a148c;
-            line-height: 1.6;
-            margin-bottom: 16px;
-            font-weight: 500;
+            line-height: 1.7;
+            margin-bottom: 10px;
+            font-weight: 600;
+            padding: 0 4px;
+        }
+        .modal-box .date-text {
+            font-size: 0.95rem;
+            color: #7b4b8a;
+            margin-bottom: 12px;
+            font-weight: 400;
+        }
+        .modal-box .countdown-reminder {
+            font-size: 1rem;
+            color: #c2185b;
+            font-weight: 700;
+            background: rgba(233, 30, 99, 0.08);
+            padding: 8px 16px;
+            border-radius: 30px;
+            display: inline-block;
+            margin-bottom: 14px;
         }
         .modal-box .highlight {
             color: #c2185b;
             font-weight: 900;
-            font-size: 1.3rem;
         }
         .modal-close-btn {
             background: #e91e63;
@@ -423,8 +439,9 @@
             .footer-note { font-size: 0.8rem; padding-top: 10px; margin-top: 12px; }
             .bg-hearts span { font-size: 1.2rem !important; }
             .modal-box { padding: 20px 20px 20px; }
-            .modal-box h2 { font-size: 1.4rem; }
-            .modal-box p { font-size: 1rem; }
+            .modal-box h2 { font-size: 1.3rem; }
+            .modal-box .cheer-text { font-size: 1rem; }
+            .modal-box .countdown-reminder { font-size: 0.85rem; padding: 6px 14px; }
         }
         @media (max-width: 400px) {
             .container { padding: 12px 8px 16px; border-radius: 22px; }
@@ -440,6 +457,8 @@
             .cheer-message { font-size: 0.8rem; padding: 6px 12px; }
             .footer-note { font-size: 0.7rem; }
             .modal-box { padding: 16px 12px 18px; }
+            .modal-box .cheer-text { font-size: 0.9rem; }
+            .modal-box .countdown-reminder { font-size: 0.75rem; padding: 4px 12px; }
         }
     </style>
 </head>
@@ -537,55 +556,94 @@
         }));
 
         // ============================================================
-        // 2. 每日鼓勵小語（附日期註解）
+        // 2. ★ 74 條獨一無二的每日小語（2026/07/09 ~ 2026/09/20）
+        //    索引 0 對應 7/09，索引 73 對應 9/20
         // ============================================================
-        function getDailyMessage(index) {
-            const general = [
-                "今天也是充滿希望的一天！",
-                "你笑得最好看，記得常微笑 😊",
-                "全力以赴，但也要記得休息喔～",
-                "相信自己，你比你想像的更強大！",
-                "每天進步一點點，就是最大的成功。",
-                "保持開心，好事就會發生！",
-                "你是獨一無二的，無可取代！",
-                "加油！我永遠支持你 💪",
-                "放鬆心情，一切都會順利。",
-                "今天的你，依然閃閃發光 ✨",
-                "享受過程，結果自然美好。",
-                "無論如何，你都是最棒的！",
-                "積極的心態，是最好的魔法。",
-                "今天也要好好愛自己 ❤️",
-                "勇敢追夢，我會一直陪著你。",
-                "保持熱情，生活會回報你驚喜。",
-                "你是我的驕傲，加油！",
-                "笑一個，世界會更美好。",
-                "你擁有無限可能，盡情展現吧！",
-                "每天都是嶄新的開始，出發！",
-                "你的努力一定會開花結果 🌸",
-                "今天要對自己好一點，你值得。",
-                "不管多累，我都會在身邊。",
-                "保持節奏，穩穩地前進。",
-                "你已經做得很好了，繼續加油！",
-                "開心是最重要的，別忘了喔。",
-                "你是最閃亮的星星 🌟",
-                "今天也要元氣滿滿！",
-                "相信自己，你可以的！",
-                "無論風雨，我都陪你一起走。"
-            ];
+        const DAILY_MESSAGES = [
+            // ----- 基礎鞏固期：7/09 ~ 7/31 (索引 0~22) -----
+            "準備好迎接今天的挑戰了嗎？Winny，出發！", // 0: 7/09
+            "每天的你都在發光，今天也不例外 ✨", // 1: 7/10
+            "全力以赴，但也要記得休息喔～", // 2: 7/11
+            "相信自己，你比想像中更強大！", // 3: 7/12
+            "每天進步一點點，就是最大的成功。", // 4: 7/13
+            "保持開心，好事就會發生！", // 5: 7/14
+            "你是獨一無二的，無可取代！", // 6: 7/15
+            "加油！我永遠支持你 💪", // 7: 7/16
+            "放鬆心情，一切都會順利。", // 8: 7/17
+            "今天的你，依然閃閃發光 🌟", // 9: 7/18
+            "享受過程，結果自然美好。", // 10: 7/19
+            "無論如何，你都是最棒的！", // 11: 7/20
+            "積極的心態，是最好的魔法。", // 12: 7/21
+            "今天也要好好愛自己 ❤️", // 13: 7/22
+            "勇敢追夢，我會一直陪著你。", // 14: 7/23
+            "保持熱情，生活會回報你驚喜。", // 15: 7/24
+            "你是我的驕傲，加油！", // 16: 7/25
+            "笑一個，世界會更美好。", // 17: 7/26
+            "你擁有無限可能，盡情展現吧！", // 18: 7/27
+            "每天都是嶄新的開始，出發！", // 19: 7/28
+            "你的努力一定會開花結果 🌸", // 20: 7/29
+            "今天要對自己好一點，你值得。", // 21: 7/30
+            "不管多累，我都會在身邊。", // 22: 7/31
 
-            if (index <= 22) return general[index % general.length];
-            if (index <= 33) return general[index % general.length];
-            if (index === 34) return "📣 倒數3天！你超棒的，保持節奏，穩穩來！"; // 8/12
-            if (index === 35) return "📣 倒數2天！心情放鬆，發揮你的實力，一定沒問題！"; // 8/13
-            if (index === 36) return "📣 倒數1天！好好休息，明天帶著笑容上場，我為你加油！"; // 8/14
-            if (index === 37) return "🎉 就是今天！你準備好了，展現最棒的自己，我永遠支持你！"; // 8/15
-            if (index <= 69) return general[index % general.length];
-            if (index === 70) return "🎤 倒數3天！保持自信，你已經很棒了！"; // 9/17
-            if (index === 71) return "🎤 倒數2天！從容應對，你一定能做到！"; // 9/18
-            if (index === 72) return "🎤 倒數1天！放鬆心情，明天就是你的舞台！"; // 9/19
-            if (index === 73) return "🎉 就是今天！全力以赴，享受過程，我為你驕傲！"; // 9/20
-            return "💖 每一天都是新的開始，加油！";
-        }
+            // ----- 衝刺刷題期：8/01 ~ 8/11 (索引 23~33) -----
+            "保持節奏，穩穩地前進。", // 23: 8/01
+            "你已經做得很好了，繼續加油！", // 24: 8/02
+            "開心是最重要的，別忘了喔。", // 25: 8/03
+            "你是最閃亮的星星 ✨", // 26: 8/04
+            "今天也要元氣滿滿！", // 27: 8/05
+            "相信自己，你可以的！", // 28: 8/06
+            "無論風雨，我都陪你一起走。", // 29: 8/07
+            "專注當下，每一步都算數！", // 30: 8/08
+            "你的努力正在累積成力量 💪", // 31: 8/09
+            "保持信心，勝利就在前方！", // 32: 8/10
+            "衝刺最後一哩路，Winny 加油！", // 33: 8/11
+
+            // ----- 筆試前三天 + 筆試當天：8/12 ~ 8/15 (索引 34~37) -----
+            "📣 倒數3天！穩住心情，你準備得很充分了！", // 34: 8/12
+            "📣 倒數2天！保持節奏，相信自己的判斷！", // 35: 8/13
+            "📣 倒數1天！好好休息，明天帶著笑容上場！", // 36: 8/14
+            "🎉 就是今天！展現最棒的自己，我永遠支持你！", // 37: 8/15
+
+            // ----- 口試準備期：8/16 ~ 9/16 (索引 38~69，共32條) -----
+            "筆試結束了，你表現得很好！繼續向前！", // 38: 8/16
+            "轉換心情，口試準備開始囉！", // 39: 8/17
+            "每個練習都是進步的階梯。", // 40: 8/18
+            "保持專注，你正在變得更好。", // 41: 8/19
+            "今天的努力，是明天的從容。", // 42: 8/20
+            "穩住節奏，每天累積一點。", // 43: 8/21
+            "你已經越來越有自信了！", // 44: 8/22
+            "遇到困難時，記得深呼吸。", // 45: 8/23
+            "你的成長，我都看在眼裡 ❤️", // 46: 8/24
+            "今天也要保持微笑喔 😊", // 47: 8/25
+            "一步一步來，一切都會更好。", // 48: 8/26
+            "相信自己，你值得所有美好。", // 49: 8/27
+            "保持耐心，成功正在靠近。", // 50: 8/28
+            "每天都是新的練習機會。", // 51: 8/29
+            "你的努力不會白費的！", // 52: 8/30
+            "全力以赴，不留遺憾！", // 53: 8/31
+            "九月來了，繼續加油！", // 54: 9/01
+            "距離夢想又近了一步。", // 55: 9/02
+            "保持熱情，保持專注。", // 56: 9/03
+            "你比昨天更強大了！", // 57: 9/04
+            "穩穩地走好每一步。", // 58: 9/05
+            "我相信你的實力！", // 59: 9/06
+            "今天的你，依然很棒！", // 60: 9/07
+            "保持節奏，別急。", // 61: 9/08
+            "你的堅持，是最美的風景。", // 62: 9/09
+            "開心地迎接每一天吧！", // 63: 9/10
+            "你值得所有的掌聲 🌟", // 64: 9/11
+            "保持信心，一切都在掌握中。", // 65: 9/12
+            "今天的努力，明天會感謝你。", // 66: 9/13
+            "放鬆心情，你已經準備得很好了！", // 67: 9/14
+            "最後衝刺，全力以赴！", // 68: 9/15
+            "你已經準備萬全，Winny 加油！", // 69: 9/16
+
+            // ----- 口試前三天 + 口試當天：9/17 ~ 9/20 (索引 70~73) -----
+            "🎤 倒數3天！展現自信，你已經很棒了！", // 70: 9/17
+            "🎤 倒數2天！從容應對，展現最好的自己！", // 71: 9/18
+            "🎤 倒數1天！放鬆心情，明天就是你的舞台！", // 72: 9/19
+            "🎉 就是今天！全力以赴，我為你驕傲！" // 73: 9/20
+        ];
 
         // ============================================================
         // 3. 取得當日小語 + 顯示日期（民國年）
@@ -594,10 +652,11 @@
             const now = new Date();
             const baseDate = new Date(2026, 6, 9);
             const diffDays = Math.floor((now - baseDate) / (1000 * 60 * 60 * 24));
+
             let message;
-            if (diffDays >= 0 && diffDays <= 73) {
-                message = getDailyMessage(diffDays);
-            } else if (diffDays > 73) {
+            if (diffDays >= 0 && diffDays < DAILY_MESSAGES.length) {
+                message = DAILY_MESSAGES[diffDays];
+            } else if (diffDays >= DAILY_MESSAGES.length) {
                 message = "🎉 太棒了！所有挑戰都完成了，你超級厲害！🏆";
             } else {
                 message = "💖 準備好了嗎？每一天都是新的開始，加油！";
@@ -612,7 +671,7 @@
         }
 
         // ============================================================
-        // 4. ★ 飄落特效（調低密度、尺寸，更清爽）
+        // 4. ★ 飄落特效（輕柔版）
         // ============================================================
         const canvas = document.getElementById('confettiCanvas');
         const ctx = canvas.getContext('2d');
@@ -630,7 +689,6 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        // 只保留五種輕柔符號
         const symbols = ['💖', '✨', '🌸', '💕', '🦋'];
 
         class Particle {
@@ -638,15 +696,13 @@
             reset() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height - height;
-                // 尺寸縮小為 10~20px
                 this.size = Math.random() * 10 + 10;
-                // 速度稍微降低
                 this.speedY = Math.random() * 1.2 + 0.8;
                 this.speedX = (Math.random() - 0.5) * 0.8;
                 this.rotation = Math.random() * 360;
                 this.rotateSpeed = (Math.random() - 0.5) * 2;
                 this.symbol = symbols[Math.floor(Math.random() * symbols.length)];
-                this.opacity = Math.random() * 0.3 + 0.3; // 透明度降低
+                this.opacity = Math.random() * 0.3 + 0.3;
             }
             update() {
                 this.y += this.speedY;
@@ -671,7 +727,6 @@
         function startConfetti() {
             if (isConfettiRunning) return;
             isConfettiRunning = true;
-            // 粒子數量從 70 減少為 30
             for (let i = 0; i < 30; i++) {
                 const p = new Particle();
                 p.y = Math.random() * height;
@@ -697,21 +752,18 @@
         }
 
         // ============================================================
-        // 5. 彈出視窗（每次刷新都會彈出）
+        // 5. ★ 彈出視窗（內容 = 當日小語 + 考試倒數提醒）
         // ============================================================
-        function showModal(examName, days) {
-            let title = `💪 親愛的，加油！`;
-            let body = `${examName} 只剩 <span class="highlight">${days} 天</span> ！<br>你已經準備得超棒了，保持笑容，盡力就好！<br><span style="font-size:0.9rem; color:#7b4b8a;">我會一直在你身邊 💕</span>`;
+        function showModal(examName, days, cheerText) {
             let icon = '💖';
+            let title = '💖 今日專屬應援';
 
             if (examName.includes('內科筆試')) {
                 icon = '📖';
-                title = '📖 內科筆試倒數！';
-                body = `${examName} 只剩 <span class="highlight">${days} 天</span> ！<br>穩定心情，相信自己的實力，你一定可以！<br><span style="font-size:0.9rem; color:#7b4b8a;">盡力就是最好的表現 ✨</span>`;
+                title = '📖 內科筆試 今日應援';
             } else if (examName.includes('內科口試')) {
                 icon = '🎤';
-                title = '🎤 內科口試倒數！';
-                body = `${examName} 只剩 <span class="highlight">${days} 天</span> ！<br>從容應對，展現最自信的你，沒問題的！<br><span style="font-size:0.9rem; color:#7b4b8a;">你永遠是我的驕傲 🌟</span>`;
+                title = '🎤 內科口試 今日應援';
             }
 
             const overlay = document.createElement('div');
@@ -720,7 +772,8 @@
                 <div class="modal-box">
                     <div class="modal-icon">${icon}</div>
                     <h2>${title}</h2>
-                    <p>${body}</p>
+                    <div class="cheer-text">${cheerText}</div>
+                    <div class="countdown-reminder">⏰ ${examName} 只剩 <span class="highlight">${days} 天</span> 囉！</div>
                     <button class="modal-close-btn">好，我會加油！</button>
                 </div>
             `;
@@ -797,10 +850,11 @@
         }
 
         // ============================================================
-        // 7. 初始化（每次刷新彈出最緊急的考試提醒）
+        // 7. 初始化（每次刷新彈出「今日小語 + 考試倒數」視窗）
         // ============================================================
         function init() {
-            document.getElementById('cheerMessage').textContent = getTodayCheer();
+            const cheerText = getTodayCheer();
+            document.getElementById('cheerMessage').textContent = cheerText;
             updateCountdown();
             setInterval(updateCountdown, 1000);
 
@@ -810,11 +864,12 @@
                 const todayStr = now.toDateString();
                 if (todayStr !== lastDateStr) {
                     lastDateStr = todayStr;
-                    document.getElementById('cheerMessage').textContent = getTodayCheer();
+                    const newCheer = getTodayCheer();
+                    document.getElementById('cheerMessage').textContent = newCheer;
                 }
             }, 60000);
 
-            // 每次載入頁面檢查考前五天內，彈出最緊急的考試提醒
+            // 每次載入頁面檢查考前五天內，彈出「今日小語 + 倒數提醒」
             const now = new Date();
             const criticalExams = targets.filter(t => {
                 const diff = t.date - now;
@@ -833,8 +888,10 @@
                 });
                 const exam = criticalExams[0];
                 const days = Math.ceil((exam.date - now) / 86400000);
+                // 取得當日小語（不含日期括號，只取純訊息）
+                const pureMessage = getTodayCheer().replace(/（民國.*）/, '').trim();
                 setTimeout(() => {
-                    showModal(exam.name, days);
+                    showModal(exam.name, days, pureMessage);
                 }, 500);
             }
         }
