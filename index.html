@@ -461,8 +461,9 @@
 
         <!-- 小熊維尼專區（點擊按鈕後顯示） -->
         <div class="pooh-container" id="poohContainer">
-            <img src="https://raw.githubusercontent.com/dustinchen26/test/refs/heads/master/pooh-pooh-and-piglet.gif" alt="小熊維尼與小豬" />
-            <div class="pooh-text">🐻 維尼也來幫你加油！Winny 一定沒問題！ 💪</div>
+            <!-- ★ 修改點：這裡的 GIF 換成 hurray.gif -->
+            <img src="https://raw.githubusercontent.com/dustinchen26/test/refs/heads/master/hurray.gif" alt="歡呼慶祝" />
+            <div class="pooh-text">🎉 太棒了！Winny 一定沒問題！ 💪</div>
         </div>
 
         <div class="footer-note">
@@ -699,6 +700,8 @@
 
         // ============================================================
         // 4. 彈窗（含小熊維尼 GIF）+ 點擊按鈕後顯示小熊維尼專區
+        //    ★ 彈窗內的 GIF 保持原樣（pooh-pooh-and-piglet.gif）
+        //    ★ 點擊按鈕後頁面上顯示的 GIF 改為 hurray.gif（已在 HTML 中修改）
         // ============================================================
         function showModal(examName, days, cheerText) {
             const overlay = document.createElement('div');
@@ -706,6 +709,7 @@
             overlay.innerHTML = `
                 <div class="modal-box">
                     <div class="modal-icon">${examName.includes('筆試') ? '📖' : '🎤'}</div>
+                    <!-- 彈窗 GIF 維持原本的小熊維尼與小豬 -->
                     <img class="modal-gif" src="https://raw.githubusercontent.com/dustinchen26/test/refs/heads/master/pooh-pooh-and-piglet.gif" alt="小熊維尼與小豬" />
                     <h2>${examName} 倒數 ${days} 天</h2>
                     <div class="cheer-text">${cheerText}</div>
@@ -715,10 +719,9 @@
             `;
             document.body.appendChild(overlay);
 
-            // 關閉彈窗 + 顯示小熊維尼專區
+            // 關閉彈窗 + 顯示小熊維尼專區（此時顯示的是 hurray.gif）
             const closeModal = () => {
                 overlay.remove();
-                // 顯示頁面上的小熊維尼專區
                 const poohContainer = document.getElementById('poohContainer');
                 if (poohContainer) {
                     poohContainer.classList.add('show');
