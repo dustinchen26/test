@@ -2,13 +2,13 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>💕 Winny 加油！專屬倒數計時 💕</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700&family=Noto+Sans+TC:wght@300;400;700;900&display=swap" rel="stylesheet" />
     <style>
-        /* ----- 全局重置 & 背景（乾淨柔和） ----- */
+        /* ----- 全局重置 & 背景 ----- */
         * {
             margin: 0;
             padding: 0;
@@ -21,12 +21,13 @@
             align-items: center;
             font-family: 'Noto Sans TC', 'Quicksand', sans-serif;
             background: linear-gradient(145deg, #fce4ec 0%, #f3e5f5 100%);
-            padding: 16px;
+            padding: 8px;
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
+            line-height: 1.4; /* 縮小行距，解決 Line 網頁版行距過大問題 */
         }
 
-        /* 背景輕柔浮動愛心（點綴，不搶眼） */
+        /* 背景浮動愛心 */
         .bg-hearts {
             position: fixed;
             top: 0;
@@ -39,8 +40,8 @@
         }
         .bg-hearts span {
             position: absolute;
-            font-size: 2.4rem;
-            opacity: 0.10;
+            font-size: 2rem;
+            opacity: 0.08;
             animation: floatHeart 20s infinite alternate ease-in-out;
             color: #e91e63;
         }
@@ -48,38 +49,40 @@
         .bg-hearts span:nth-child(2) { top: 25%; right: 12%; animation-duration: 22s; animation-delay: 2s; }
         .bg-hearts span:nth-child(3) { bottom: 30%; left: 5%; animation-duration: 24s; animation-delay: 4s; }
         .bg-hearts span:nth-child(4) { bottom: 15%; right: 8%; animation-duration: 16s; animation-delay: 1s; }
-        .bg-hearts span:nth-child(5) { top: 50%; left: 50%; transform: translate(-50%, -50%); animation-duration: 28s; font-size: 6rem; opacity: 0.05; }
+        .bg-hearts span:nth-child(5) { display: none; }
 
         @keyframes floatHeart {
             0% { transform: translateY(0px) rotate(0deg); }
-            100% { transform: translateY(-30px) rotate(6deg); }
+            100% { transform: translateY(-20px) rotate(4deg); }
         }
 
-        /* ----- 主容器（乾淨玻璃質感） ----- */
+        /* ----- 主容器 ----- */
         .container {
             position: relative;
             z-index: 1;
             width: 100%;
             max-width: 780px;
-            background: rgba(255, 255, 255, 0.60);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 44px;
-            padding: 30px 28px 32px;
-            box-shadow: 0 20px 50px rgba(156, 39, 176, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 32px;
+            padding: 18px 16px 20px;
+            box-shadow: 0 10px 30px rgba(156, 39, 176, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            overflow: visible;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 16px;
+            margin-bottom: 8px;
         }
         .header h1 {
             font-family: 'Quicksand', sans-serif;
             font-weight: 700;
-            font-size: 2.0rem;
+            font-size: 1.6rem;
             color: #4a148c;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
         }
         .header h1 .heart {
             color: #e91e63;
@@ -88,25 +91,25 @@
         }
         @keyframes pulseHeart {
             0% { transform: scale(1); }
-            100% { transform: scale(1.15); }
+            100% { transform: scale(1.1); }
         }
         .header .sub {
-            font-size: 0.95rem;
+            font-size: 0.8rem;
             color: #7b4b8a;
             font-weight: 300;
-            margin-top: 2px;
-            letter-spacing: 2px;
+            margin-top: 0;
+            letter-spacing: 1px;
         }
 
         .divider {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 12px;
-            margin: 8px 0 18px;
+            gap: 8px;
+            margin: 4px 0 12px;
         }
         .divider .line {
-            width: 40px;
+            width: 30px;
             height: 2px;
             background: linear-gradient(90deg, transparent, #e91e63);
             border-radius: 2px;
@@ -114,94 +117,92 @@
         .divider .line:last-child {
             background: linear-gradient(90deg, #e91e63, transparent);
         }
-        .divider .dot { color: #e91e63; font-size: 0.9rem; }
+        .divider .dot { color: #e91e63; font-size: 0.7rem; }
 
         /* 倒數卡片 */
         .countdown-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 18px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 12px;
         }
         .card {
             background: rgba(255, 255, 255, 0.5);
-            border-radius: 24px;
-            padding: 18px 12px 20px;
+            border-radius: 20px;
+            padding: 12px 8px 14px;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 4px 16px rgba(156, 39, 176, 0.04);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 2px 10px rgba(156, 39, 176, 0.04);
+            transition: transform 0.2s ease;
         }
         .card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(156, 39, 176, 0.08);
+            transform: translateY(-2px);
         }
 
-        /* 考前兩天閃爍提醒（柔和） */
         .card.urgent {
             border: 2px solid #ff4081;
-            box-shadow: 0 0 20px rgba(255, 64, 129, 0.15);
+            box-shadow: 0 0 15px rgba(255, 64, 129, 0.15);
             animation: softGlow 1.5s infinite alternate;
         }
         @keyframes softGlow {
-            0% { box-shadow: 0 0 10px rgba(255, 64, 129, 0.1); }
-            100% { box-shadow: 0 0 30px rgba(255, 64, 129, 0.25); }
+            0% { box-shadow: 0 0 8px rgba(255, 64, 129, 0.1); }
+            100% { box-shadow: 0 0 20px rgba(255, 64, 129, 0.2); }
         }
 
         .card .exam-name {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
             color: #4a148c;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
         .card .exam-date {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             color: #7b4b8a;
-            margin: 2px 0 6px;
+            margin: 0 0 4px;
         }
         .card .exam-date .roc { font-weight: 500; color: #6a1b9a; }
         .card .countdown-label {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 600;
             color: #c2185b;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .countdown-display {
             display: flex;
             justify-content: center;
             align-items: baseline;
-            gap: 4px;
+            gap: 2px;
             flex-wrap: wrap;
         }
         .countdown-display .time-block {
             display: inline-flex;
             align-items: baseline;
-            gap: 2px;
+            gap: 1px;
         }
         .countdown-display .num {
             font-family: 'Quicksand', sans-serif;
             font-weight: 700;
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             color: #4a148c;
-            min-width: 36px;
+            min-width: 28px;
             text-align: center;
             background: rgba(233, 30, 99, 0.04);
-            border-radius: 6px;
-            padding: 0 4px;
+            border-radius: 4px;
+            padding: 0 2px;
             line-height: 1.2;
         }
         .countdown-display .num.days {
-            font-size: 2.6rem;
+            font-size: 2.2rem;
             color: #c2185b;
-            min-width: 48px;
+            min-width: 38px;
             background: rgba(233, 30, 99, 0.06);
         }
         .countdown-display .label {
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             font-weight: 400;
             color: #7b4b8a;
-            margin-right: 2px;
+            margin-right: 1px;
         }
 
         .card.done {
@@ -214,40 +215,41 @@
 
         /* 應援訊息 */
         .cheer-section {
-            margin-top: 6px;
-            padding-top: 16px;
+            margin-top: 4px;
+            padding-top: 10px;
             border-top: 2px dashed rgba(233, 30, 99, 0.12);
             text-align: center;
         }
         .cheer-message {
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             font-weight: 600;
             color: #4a148c;
             background: rgba(255, 255, 255, 0.4);
-            padding: 10px 22px;
-            border-radius: 40px;
+            padding: 6px 14px;
+            border-radius: 30px;
             display: inline-block;
             border: 1px solid rgba(255, 255, 255, 0.5);
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         .footer-note {
-            margin-top: 16px;
-            font-size: 0.85rem;
+            margin-top: 10px;
+            font-size: 0.75rem;
             color: #b39ddb;
             text-align: center;
             border-top: 1px solid rgba(233, 30, 99, 0.08);
-            padding-top: 14px;
-            letter-spacing: 1px;
+            padding-top: 10px;
+            padding-bottom: 2px;
+            letter-spacing: 0.5px;
         }
         .footer-note span { color: #e91e63; font-weight: 600; }
 
-        /* ----- ★ 主角：大熊 Emoji 由左往右逐漸放大 ★ ----- */
+        /* ----- 大熊特效 ----- */
         #bigBear {
             position: fixed;
-            bottom: 15%;
+            bottom: 12%;
             left: -20%;
-            font-size: 60px;
+            font-size: 50px;
             z-index: 9999;
             pointer-events: none;
             line-height: 1;
@@ -259,51 +261,47 @@
             opacity: 1;
             animation: bearWalk 6s ease-in-out infinite;
         }
-
         @keyframes bearWalk {
-            0% {
-                transform: translateX(-10vw) scale(0.4);
-                opacity: 0.6;
-            }
-            15% {
-                opacity: 1;
-            }
-            85% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateX(100vw) scale(2.8);
-                opacity: 0.4;
-            }
+            0% { transform: translateX(-10vw) scale(0.3); opacity: 0.6; }
+            15% { opacity: 1; }
+            85% { opacity: 1; }
+            100% { transform: translateX(100vw) scale(2.0); opacity: 0.4; }
         }
 
-        /* 響應式調整 */
+        /* ===== 響應式（手機優化） ===== */
         @media (max-width: 680px) {
-            .container { padding: 20px 16px; border-radius: 28px; }
-            .header h1 { font-size: 1.5rem; }
-            .countdown-grid { grid-template-columns: 1fr; gap: 12px; }
-            .countdown-display .num { font-size: 1.8rem; min-width: 28px; }
-            .countdown-display .num.days { font-size: 2.2rem; min-width: 38px; }
-            .cheer-message { font-size: 0.95rem; padding: 8px 16px; }
-            #bigBear { bottom: 10%; font-size: 40px; }
+            .container { padding: 12px 10px; border-radius: 24px; }
+            .header h1 { font-size: 1.3rem; }
+            .countdown-grid { grid-template-columns: 1fr; gap: 10px; }
+            .countdown-display .num { font-size: 1.6rem; min-width: 24px; }
+            .countdown-display .num.days { font-size: 2.0rem; min-width: 34px; }
+            .cheer-message { font-size: 0.85rem; padding: 4px 12px; }
+            #bigBear { bottom: 8%; font-size: 40px; }
             @keyframes bearWalk {
-                0% { transform: translateX(-10vw) scale(0.3); opacity: 0.6; }
-                100% { transform: translateX(100vw) scale(2.0); opacity: 0.4; }
+                0% { transform: translateX(-10vw) scale(0.25); opacity: 0.6; }
+                100% { transform: translateX(100vw) scale(1.6); opacity: 0.4; }
             }
         }
         @media (max-width: 400px) {
-            .container { padding: 12px 10px; border-radius: 20px; }
-            .header h1 { font-size: 1.2rem; }
-            .countdown-display .num { font-size: 1.4rem; min-width: 22px; }
-            .countdown-display .num.days { font-size: 1.8rem; min-width: 30px; }
-            #bigBear { bottom: 8%; font-size: 30px; }
+            body { padding: 4px; }
+            .container { padding: 8px 6px; border-radius: 18px; }
+            .header h1 { font-size: 1.1rem; }
+            .header .sub { font-size: 0.7rem; }
+            .card { padding: 8px 4px 10px; }
+            .card .exam-name { font-size: 0.9rem; }
+            .countdown-display .num { font-size: 1.3rem; min-width: 20px; }
+            .countdown-display .num.days { font-size: 1.6rem; min-width: 28px; }
+            .countdown-display .label { font-size: 0.5rem; }
+            .cheer-message { font-size: 0.8rem; padding: 4px 10px; }
+            .footer-note { font-size: 0.65rem; padding-top: 6px; margin-top: 6px; }
+            #bigBear { bottom: 5%; font-size: 30px; }
             @keyframes bearWalk {
                 0% { transform: translateX(-10vw) scale(0.2); opacity: 0.6; }
-                100% { transform: translateX(100vw) scale(1.8); opacity: 0.4; }
+                100% { transform: translateX(100vw) scale(1.4); opacity: 0.4; }
             }
         }
 
-        /* ===== 彈窗（含小熊維尼 GIF） ===== */
+        /* ===== 彈窗樣式 ===== */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -324,84 +322,79 @@
         }
         .modal-box {
             background: white;
-            border-radius: 32px;
-            padding: 28px 32px 24px;
-            max-width: 440px;
+            border-radius: 28px;
+            padding: 20px 20px 18px;
+            max-width: 400px;
             width: 90%;
             text-align: center;
-            box-shadow: 0 30px 60px rgba(233, 30, 99, 0.2);
+            box-shadow: 0 20px 40px rgba(233, 30, 99, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.5);
         }
-        .modal-box .modal-icon {
-            font-size: 3rem;
-            margin-bottom: 4px;
-        }
+        .modal-box .modal-icon { font-size: 2.5rem; margin-bottom: 2px; }
         .modal-box .modal-gif {
             width: 100%;
-            max-width: 200px;
+            max-width: 160px;
             height: auto;
-            border-radius: 16px;
-            margin: 8px auto 12px;
+            border-radius: 12px;
+            margin: 4px auto 8px;
             display: block;
         }
         .modal-box h2 {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             color: #4a148c;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
+            line-height: 1.3;
         }
         .modal-box .cheer-text {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #4a148c;
-            line-height: 1.6;
+            line-height: 1.5;
             font-weight: 600;
         }
         .modal-box .countdown-reminder {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             color: #c2185b;
             font-weight: 700;
             background: rgba(233, 30, 99, 0.06);
-            padding: 8px 16px;
+            padding: 6px 14px;
             border-radius: 30px;
             display: inline-block;
-            margin: 10px 0 14px;
+            margin: 6px 0 10px;
         }
         .modal-close-btn {
             background: #e91e63;
             color: white;
             border: none;
-            padding: 10px 36px;
+            padding: 8px 28px;
             border-radius: 50px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 700;
             cursor: pointer;
             transition: transform 0.2s;
-            box-shadow: 0 6px 16px rgba(233, 30, 99, 0.3);
+            box-shadow: 0 4px 12px rgba(233, 30, 99, 0.25);
         }
         .modal-close-btn:hover { transform: scale(1.04); }
 
-        /* 點擊按鈕後出現的小熊維尼專區 */
         .pooh-container {
             display: none;
             text-align: center;
-            margin-top: 16px;
-            padding-top: 14px;
+            margin-top: 10px;
+            padding-top: 10px;
             border-top: 2px dashed rgba(233, 30, 99, 0.15);
         }
-        .pooh-container.show {
-            display: block;
-        }
+        .pooh-container.show { display: block; }
         .pooh-container img {
-            max-width: 180px;
+            max-width: 150px;
             width: 100%;
             height: auto;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(233, 30, 99, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(233, 30, 99, 0.08);
         }
         .pooh-container .pooh-text {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             color: #4a148c;
             font-weight: 600;
-            margin-top: 6px;
+            margin-top: 4px;
         }
     </style>
 </head>
@@ -412,7 +405,7 @@
         <span>💕</span><span>🌸</span><span>✨</span><span>💖</span><span>💗</span>
     </div>
 
-    <!-- ★ 主角：超大熊符號（由左往右逐漸放大） -->
+    <!-- 大熊特效 -->
     <div id="bigBear">🐻</div>
 
     <div class="container">
@@ -428,7 +421,7 @@
         </div>
 
         <div class="countdown-grid" id="countdownGrid">
-            <!-- 卡片 1：內科筆試 -->
+            <!-- 卡片 1 -->
             <div class="card" id="card1">
                 <div class="exam-name">📖 內科筆試</div>
                 <div class="exam-date">民國 <span class="roc">115/08/15</span></div>
@@ -441,7 +434,7 @@
                 </div>
             </div>
 
-            <!-- 卡片 2：內科口試 -->
+            <!-- 卡片 2 -->
             <div class="card" id="card2">
                 <div class="exam-name">🎤 內科口試</div>
                 <div class="exam-date">民國 <span class="roc">115/09/20</span></div>
@@ -459,9 +452,8 @@
             <div class="cheer-message" id="cheerMessage">💖 載入中...</div>
         </div>
 
-        <!-- 小熊維尼專區（點擊按鈕後顯示） -->
+        <!-- 點擊按鈕後顯示的專區（GIF 換成 hurray.gif） -->
         <div class="pooh-container" id="poohContainer">
-            <!-- ★ 修改點：這裡的 GIF 換成 hurray.gif -->
             <img src="https://raw.githubusercontent.com/dustinchen26/test/refs/heads/master/hurray.gif" alt="歡呼慶祝" />
             <div class="pooh-text">🎉 太棒了！Winny 一定沒問題！ 💪</div>
         </div>
@@ -596,7 +588,7 @@
             "🎉 就是今天！全力以赴，我為你驕傲！" // 73: 9/20
         ];
 
-        // 安全取得今日訊息（絕不返回 undefined）
+        // 安全取得今日訊息
         function getTodayCheer() {
             const now = new Date();
             const baseDate = new Date(2026, 6, 9); // 7月9日
@@ -611,7 +603,6 @@
                 message = "💖 準備好了嗎？每一天都是新的開始，加油！";
             }
 
-            // 補上日期（確保不為空）
             const year = now.getFullYear();
             const month = String(now.getMonth() + 1).padStart(2, '0');
             const day = String(now.getDate()).padStart(2, '0');
@@ -629,7 +620,6 @@
 
         function updateCountdown() {
             const now = new Date();
-            let anyUrgent = false;
             let anyBear = false;
 
             targets.forEach(t => {
@@ -672,7 +662,6 @@
 
                 // 考前5天內：卡片加微光
                 if (days >= 1 && days <= 5) {
-                    anyUrgent = true;
                     cardEl.classList.add('urgent');
                 } else {
                     cardEl.classList.remove('urgent');
@@ -699,9 +688,9 @@
         }
 
         // ============================================================
-        // 4. 彈窗（含小熊維尼 GIF）+ 點擊按鈕後顯示小熊維尼專區
-        //    ★ 彈窗內的 GIF 保持原樣（pooh-pooh-and-piglet.gif）
-        //    ★ 點擊按鈕後頁面上顯示的 GIF 改為 hurray.gif（已在 HTML 中修改）
+        // 4. 彈窗（Modal）與按鈕事件
+        //    - 彈窗內 GIF 為 pooh-pooh-and-piglet.gif
+        //    - 點擊按鈕後頁面上顯示的 GIF 為 hurray.gif（已在 HTML 中設定）
         // ============================================================
         function showModal(examName, days, cheerText) {
             const overlay = document.createElement('div');
@@ -709,7 +698,6 @@
             overlay.innerHTML = `
                 <div class="modal-box">
                     <div class="modal-icon">${examName.includes('筆試') ? '📖' : '🎤'}</div>
-                    <!-- 彈窗 GIF 維持原本的小熊維尼與小豬 -->
                     <img class="modal-gif" src="https://raw.githubusercontent.com/dustinchen26/test/refs/heads/master/pooh-pooh-and-piglet.gif" alt="小熊維尼與小豬" />
                     <h2>${examName} 倒數 ${days} 天</h2>
                     <div class="cheer-text">${cheerText}</div>
@@ -719,9 +707,9 @@
             `;
             document.body.appendChild(overlay);
 
-            // 關閉彈窗 + 顯示小熊維尼專區（此時顯示的是 hurray.gif）
             const closeModal = () => {
                 overlay.remove();
+                // 顯示頁面上的小熊維尼專區（此處 GIF 已換成 hurray.gif）
                 const poohContainer = document.getElementById('poohContainer');
                 if (poohContainer) {
                     poohContainer.classList.add('show');
