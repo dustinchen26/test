@@ -24,7 +24,7 @@
             padding: 8px;
             position: relative;
             overflow-x: hidden;
-            line-height: 1.4; /* 縮小行距，解決 Line 網頁版行距過大問題 */
+            line-height: 1.4;
         }
 
         /* 背景浮動愛心 */
@@ -232,6 +232,27 @@
             line-height: 1.5;
         }
 
+        /* ----- 維尼專區（永遠顯示） ----- */
+        .pooh-container {
+            text-align: center;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 2px dashed rgba(233, 30, 99, 0.15);
+        }
+        .pooh-container img {
+            max-width: 150px;
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(233, 30, 99, 0.08);
+        }
+        .pooh-container .pooh-text {
+            font-size: 0.85rem;
+            color: #4a148c;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
         .footer-note {
             margin-top: 10px;
             font-size: 0.75rem;
@@ -244,7 +265,7 @@
         }
         .footer-note span { color: #e91e63; font-weight: 600; }
 
-        /* ----- 大熊特效 ----- */
+        /* ----- 大熊特效（永遠顯示） ----- */
         #bigBear {
             position: fixed;
             bottom: 12%;
@@ -268,7 +289,22 @@
             100% { transform: translateX(100vw) scale(2.0); opacity: 0.4; }
         }
 
-        /* ===== 響應式（手機優化） ===== */
+        /* ----- 煙火特效 Canvas (全螢幕覆蓋) ----- */
+        #fireworksCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            display: none;
+        }
+        #fireworksCanvas.active {
+            display: block;
+        }
+
+        /* ===== 響應式 ===== */
         @media (max-width: 680px) {
             .container { padding: 12px 10px; border-radius: 24px; }
             .header h1 { font-size: 1.3rem; }
@@ -374,28 +410,6 @@
             box-shadow: 0 4px 12px rgba(233, 30, 99, 0.25);
         }
         .modal-close-btn:hover { transform: scale(1.04); }
-
-        .pooh-container {
-            display: none;
-            text-align: center;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 2px dashed rgba(233, 30, 99, 0.15);
-        }
-        .pooh-container.show { display: block; }
-        .pooh-container img {
-            max-width: 150px;
-            width: 100%;
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(233, 30, 99, 0.08);
-        }
-        .pooh-container .pooh-text {
-            font-size: 0.85rem;
-            color: #4a148c;
-            font-weight: 600;
-            margin-top: 4px;
-        }
     </style>
 </head>
 <body>
@@ -405,8 +419,11 @@
         <span>💕</span><span>🌸</span><span>✨</span><span>💖</span><span>💗</span>
     </div>
 
-    <!-- 大熊特效 -->
-    <div id="bigBear">🐻</div>
+    <!-- 大熊特效（永遠 active） -->
+    <div id="bigBear" class="active">🐻</div>
+
+    <!-- 煙火 Canvas -->
+    <canvas id="fireworksCanvas"></canvas>
 
     <div class="container">
         <div class="header">
@@ -452,7 +469,7 @@
             <div class="cheer-message" id="cheerMessage">💖 載入中...</div>
         </div>
 
-        <!-- 點擊按鈕後顯示的專區（GIF 換成 hurray.gif） -->
+        <!-- 維尼專區（永遠顯示） -->
         <div class="pooh-container" id="poohContainer">
             <img src="https://raw.githubusercontent.com/dustinchen26/test/refs/heads/master/hurray.gif" alt="歡呼慶祝" />
             <div class="pooh-text">🎉 太棒了！Winny 一定沒問題！ 💪</div>
@@ -500,10 +517,9 @@
 
         // ============================================================
         // 2. ★ 74 條獨一無二的每日小語（2026/07/09 ~ 2026/09/20）
-        //    索引 0 對應 7/09，索引 73 對應 9/20
+        //    每一條後面都附有日期註解，完全保留！
         // ============================================================
         const DAILY_MESSAGES = [
-            // ----- 基礎鞏固期：7/09 ~ 7/31 (索引 0~22) -----
             "準備好迎接今天的挑戰了嗎？Winny，出發！", // 0: 7/09
             "每天的你都在發光，今天也不例外 ✨", // 1: 7/10
             "全力以赴，但也要記得休息喔～", // 2: 7/11
@@ -527,8 +543,6 @@
             "你的努力一定會開花結果 🌸", // 20: 7/29
             "今天要對自己好一點，你值得。", // 21: 7/30
             "不管多累，我都會在身邊。", // 22: 7/31
-
-            // ----- 衝刺刷題期：8/01 ~ 8/11 (索引 23~33) -----
             "保持節奏，穩穩地前進。", // 23: 8/01
             "你已經做得很好了，繼續加油！", // 24: 8/02
             "開心是最重要的，別忘了喔。", // 25: 8/03
@@ -540,14 +554,10 @@
             "你的努力正在累積成力量 💪", // 31: 8/09
             "保持信心，勝利就在前方！", // 32: 8/10
             "衝刺最後一哩路，Winny 加油！", // 33: 8/11
-
-            // ----- 筆試前三天 + 筆試當天：8/12 ~ 8/15 (索引 34~37) -----
             "📣 倒數3天！穩住心情，你準備得很充分了！", // 34: 8/12
             "📣 倒數2天！保持節奏，相信自己的判斷！", // 35: 8/13
             "📣 倒數1天！好好休息，明天帶著笑容上場！", // 36: 8/14
             "🎉 就是今天！展現最棒的自己，我永遠支持你！", // 37: 8/15
-
-            // ----- 口試準備期：8/16 ~ 9/16 (索引 38~69，共32條) -----
             "筆試結束了，你表現得很好！繼續向前！", // 38: 8/16
             "轉換心情，口試準備開始囉！", // 39: 8/17
             "每個練習都是進步的階梯。", // 40: 8/18
@@ -580,8 +590,6 @@
             "放鬆心情，你已經準備得很好了！", // 67: 9/14
             "最後衝刺，全力以赴！", // 68: 9/15
             "你已經準備萬全，Winny 加油！", // 69: 9/16
-
-            // ----- 口試前三天 + 口試當天：9/17 ~ 9/20 (索引 70~73) -----
             "🎤 倒數3天！展現自信，你已經很棒了！", // 70: 9/17
             "🎤 倒數2天！從容應對，展現最好的自己！", // 71: 9/18
             "🎤 倒數1天！放鬆心情，明天就是你的舞台！", // 72: 9/19
@@ -611,16 +619,125 @@
         }
 
         // ============================================================
-        // 3. 倒數更新 & 熊特效觸發
+        // 3. 倒數更新 & 煙火觸發
         // ============================================================
-        const bearElement = document.getElementById('bigBear');
-        let bearActive = false;
-
         function padZero(n) { return String(n).padStart(2, '0'); }
 
+        // ----- 煙火系統 -----
+        const canvas = document.getElementById('fireworksCanvas');
+        const ctx = canvas.getContext('2d');
+        let fireworksActive = false;
+        let particles = [];
+        let animationId = null;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.velocity = {
+                    x: (Math.random() - 0.5) * 8,
+                    y: (Math.random() - 0.5) * 8 - 2
+                };
+                this.alpha = 1;
+                this.decay = 0.01 + Math.random() * 0.02;
+                this.size = 2 + Math.random() * 4;
+                this.gravity = 0.05;
+            }
+            update() {
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+                this.velocity.y += this.gravity;
+                this.alpha -= this.decay;
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        function createExplosion(x, y) {
+            const colors = ['#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#ff6bb5', '#f9ca24', '#ff9ff3'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const count = 40 + Math.floor(Math.random() * 30);
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle(x, y, color));
+            }
+        }
+
+        function animateFireworks() {
+            if (!fireworksActive) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                return;
+            }
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // 隨機產生新煙火
+            if (Math.random() < 0.08) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height * 0.6;
+                createExplosion(x, y);
+            }
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.update();
+                p.draw();
+                if (p.alpha <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+            animationId = requestAnimationFrame(animateFireworks);
+        }
+
+        function startFireworks() {
+            if (fireworksActive) return;
+            fireworksActive = true;
+            canvas.classList.add('active');
+            particles = [];
+            if (animationId) cancelAnimationFrame(animationId);
+            animateFireworks();
+        }
+
+        function stopFireworks() {
+            fireworksActive = false;
+            canvas.classList.remove('active');
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+            }
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles = [];
+        }
+
+        // 檢查今天是否為考試日
+        function isExamDay() {
+            const now = new Date();
+            const y = now.getFullYear();
+            const m = now.getMonth();
+            const d = now.getDate();
+            return targets.some(t => t.year === y && t.month === m && t.day === d);
+        }
+
+        // ----- 倒數更新函數 -----
         function updateCountdown() {
             const now = new Date();
-            let anyBear = false;
+            const examDay = isExamDay();
+            if (examDay) {
+                startFireworks();
+            } else {
+                stopFireworks();
+            }
 
             targets.forEach(t => {
                 const targetDate = t.date;
@@ -660,48 +777,32 @@
                 sEl.textContent = padZero(seconds);
                 labelEl.textContent = t.name + ' 倒數 ' + days + ' 天';
 
-                // 考前5天內：卡片加微光
                 if (days >= 1 && days <= 5) {
                     cardEl.classList.add('urgent');
                 } else {
                     cardEl.classList.remove('urgent');
                 }
-
-                // 考前2天內：觸發熊特效
-                if (days >= 1 && days <= 2) {
-                    anyBear = true;
-                }
             });
-
-            // 控制熊特效
-            if (anyBear) {
-                if (!bearActive) {
-                    bearActive = true;
-                    bearElement.classList.add('active');
-                }
-            } else {
-                if (bearActive) {
-                    bearActive = false;
-                    bearElement.classList.remove('active');
-                }
-            }
         }
 
         // ============================================================
         // 4. 彈窗（Modal）與按鈕事件
-        //    - 彈窗內 GIF 為 pooh-pooh-and-piglet.gif
-        //    - 點擊按鈕後頁面上顯示的 GIF 為 hurray.gif（已在 HTML 中設定）
         // ============================================================
         function showModal(examName, days, cheerText) {
+            // 如果 days === 0（考試當天），顯示特別的提醒文字
+            const reminderHtml = days === 0 
+                ? '🎉 就是今天！全力以赴，Winny 加油！ 🎉' 
+                : `⏰ 只剩 <strong>${days}</strong> 天，Winny 加油！`;
+
             const overlay = document.createElement('div');
             overlay.className = 'modal-overlay';
             overlay.innerHTML = `
                 <div class="modal-box">
                     <div class="modal-icon">${examName.includes('筆試') ? '📖' : '🎤'}</div>
                     <img class="modal-gif" src="https://raw.githubusercontent.com/dustinchen26/test/refs/heads/master/pooh-pooh-and-piglet.gif" alt="小熊維尼與小豬" />
-                    <h2>${examName} 倒數 ${days} 天</h2>
+                    <h2>${examName} ${days === 0 ? '就是今天！' : '倒數 ' + days + ' 天'}</h2>
                     <div class="cheer-text">${cheerText}</div>
-                    <div class="countdown-reminder">⏰ 只剩 <strong>${days}</strong> 天，Winny 加油！</div>
+                    <div class="countdown-reminder">${reminderHtml}</div>
                     <button class="modal-close-btn" id="modalCloseBtn">我會全力以赴！</button>
                 </div>
             `;
@@ -709,11 +810,6 @@
 
             const closeModal = () => {
                 overlay.remove();
-                // 顯示頁面上的小熊維尼專區（此處 GIF 已換成 hurray.gif）
-                const poohContainer = document.getElementById('poohContainer');
-                if (poohContainer) {
-                    poohContainer.classList.add('show');
-                }
             };
 
             const closeBtn = overlay.querySelector('#modalCloseBtn');
@@ -727,11 +823,10 @@
         // 5. 初始化
         // ============================================================
         function init() {
-            // 更新每日小語
-            const cheerText = getTodayCheer();
-            document.getElementById('cheerMessage').textContent = cheerText;
+            // 每日小語
+            document.getElementById('cheerMessage').textContent = getTodayCheer();
 
-            // 更新倒數（每秒）
+            // 倒數更新（每秒）
             updateCountdown();
             setInterval(updateCountdown, 1000);
 
@@ -745,15 +840,13 @@
                 }
             }, 60000);
 
-            // 彈窗：考前5天內，優先顯示最近的考試
+            // ★★★ 修改點：彈窗觸發條件改為「考前 0~5 天」（包含考試當天）★★★
             const now = new Date();
             const urgentExams = targets.filter(t => {
                 const diff = t.date - now;
-                if (diff > 0) {
-                    const days = Math.ceil(diff / 86400000);
-                    return days >= 1 && days <= 5;
-                }
-                return false;
+                const days = Math.ceil(diff / 86400000);
+                // 包含今天 (days === 0) 到 5 天前 (days === 5)
+                return days >= 0 && days <= 5;
             });
 
             if (urgentExams.length > 0) {
