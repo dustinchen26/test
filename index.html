@@ -20,11 +20,36 @@
             justify-content: center;
             align-items: center;
             font-family: 'Noto Sans TC', 'Quicksand', sans-serif;
-            background: linear-gradient(145deg, #fce4ec 0%, #f3e5f5 100%);
+            /* 動態背景漸變 - 緩慢流動 */
+            background: linear-gradient(145deg, #fce4ec 0%, #f3e5f5 40%, #e8dff5 70%, #fce4ec 100%);
+            background-size: 300% 300%;
+            animation: gradientFlow 12s ease-in-out infinite alternate;
             padding: 8px;
             position: relative;
             overflow-x: hidden;
             line-height: 1.4;
+        }
+        @keyframes gradientFlow {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* ----- 背景飄落花瓣 (Canvas) ----- */
+        #petalCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
         }
 
         /* 背景浮動愛心 */
@@ -36,38 +61,81 @@
             height: 100%;
             pointer-events: none;
             overflow: hidden;
-            z-index: 0;
+            z-index: 1;
         }
         .bg-hearts span {
             position: absolute;
             font-size: 2rem;
-            opacity: 0.08;
+            opacity: 0.10;
             animation: floatHeart 20s infinite alternate ease-in-out;
             color: #e91e63;
         }
-        .bg-hearts span:nth-child(1) { top: 10%; left: 8%; animation-duration: 18s; }
-        .bg-hearts span:nth-child(2) { top: 25%; right: 12%; animation-duration: 22s; animation-delay: 2s; }
-        .bg-hearts span:nth-child(3) { bottom: 30%; left: 5%; animation-duration: 24s; animation-delay: 4s; }
-        .bg-hearts span:nth-child(4) { bottom: 15%; right: 8%; animation-duration: 16s; animation-delay: 1s; }
-        .bg-hearts span:nth-child(5) { display: none; }
+        .bg-hearts span:nth-child(1) {
+            top: 10%;
+            left: 8%;
+            animation-duration: 18s;
+        }
+        .bg-hearts span:nth-child(2) {
+            top: 25%;
+            right: 12%;
+            animation-duration: 22s;
+            animation-delay: 2s;
+        }
+        .bg-hearts span:nth-child(3) {
+            bottom: 30%;
+            left: 5%;
+            animation-duration: 24s;
+            animation-delay: 4s;
+        }
+        .bg-hearts span:nth-child(4) {
+            bottom: 15%;
+            right: 8%;
+            animation-duration: 16s;
+            animation-delay: 1s;
+        }
+        .bg-hearts span:nth-child(5) {
+            top: 45%;
+            left: 45%;
+            animation-duration: 20s;
+            animation-delay: 3s;
+            font-size: 3rem;
+        }
+        .bg-hearts span:nth-child(6) {
+            top: 60%;
+            left: 20%;
+            animation-duration: 26s;
+            animation-delay: 5s;
+            font-size: 1.8rem;
+        }
+        .bg-hearts span:nth-child(7) {
+            top: 15%;
+            left: 55%;
+            animation-duration: 19s;
+            animation-delay: 6s;
+            font-size: 2.4rem;
+        }
 
         @keyframes floatHeart {
-            0% { transform: translateY(0px) rotate(0deg); }
-            100% { transform: translateY(-20px) rotate(4deg); }
+            0% {
+                transform: translateY(0px) rotate(0deg) scale(1);
+            }
+            100% {
+                transform: translateY(-25px) rotate(6deg) scale(1.05);
+            }
         }
 
         /* ----- 主容器 ----- */
         .container {
             position: relative;
-            z-index: 1;
+            z-index: 2;
             width: 100%;
             max-width: 780px;
-            background: rgba(255, 255, 255, 0.65);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.60);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             border-radius: 32px;
             padding: 18px 16px 20px;
-            box-shadow: 0 10px 30px rgba(156, 39, 176, 0.06);
+            box-shadow: 0 10px 30px rgba(156, 39, 176, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.5);
             overflow: visible;
         }
@@ -90,8 +158,12 @@
             animation: pulseHeart 1.6s infinite alternate;
         }
         @keyframes pulseHeart {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.1);
+            }
         }
         .header .sub {
             font-size: 0.8rem;
@@ -117,7 +189,10 @@
         .divider .line:last-child {
             background: linear-gradient(90deg, #e91e63, transparent);
         }
-        .divider .dot { color: #e91e63; font-size: 0.7rem; }
+        .divider .dot {
+            color: #e91e63;
+            font-size: 0.7rem;
+        }
 
         /* 倒數卡片 */
         .countdown-grid {
@@ -145,8 +220,12 @@
             animation: softGlow 1.5s infinite alternate;
         }
         @keyframes softGlow {
-            0% { box-shadow: 0 0 8px rgba(255, 64, 129, 0.1); }
-            100% { box-shadow: 0 0 20px rgba(255, 64, 129, 0.2); }
+            0% {
+                box-shadow: 0 0 8px rgba(255, 64, 129, 0.1);
+            }
+            100% {
+                box-shadow: 0 0 20px rgba(255, 64, 129, 0.25);
+            }
         }
 
         .card .exam-name {
@@ -160,7 +239,10 @@
             color: #7b4b8a;
             margin: 0 0 4px;
         }
-        .card .exam-date .roc { font-weight: 500; color: #6a1b9a; }
+        .card .exam-date .roc {
+            font-weight: 500;
+            color: #6a1b9a;
+        }
         .card .countdown-label {
             font-size: 0.75rem;
             font-weight: 600;
@@ -206,11 +288,14 @@
         }
 
         .card.done {
-            opacity: 0.6;
+            opacity: 0.5;
         }
         .card.done .num {
             color: #9e9e9e !important;
             background: rgba(0, 0, 0, 0.03) !important;
+        }
+        .card.done .exam-name {
+            color: #9e9e9e;
         }
 
         /* 應援訊息 */
@@ -263,7 +348,10 @@
             padding-bottom: 2px;
             letter-spacing: 0.5px;
         }
-        .footer-note span { color: #e91e63; font-weight: 600; }
+        .footer-note span {
+            color: #e91e63;
+            font-weight: 600;
+        }
 
         /* ----- 大熊特效（永遠顯示） ----- */
         #bigBear {
@@ -283,10 +371,20 @@
             animation: bearWalk 6s ease-in-out infinite;
         }
         @keyframes bearWalk {
-            0% { transform: translateX(-10vw) scale(0.3); opacity: 0.6; }
-            15% { opacity: 1; }
-            85% { opacity: 1; }
-            100% { transform: translateX(100vw) scale(2.0); opacity: 0.4; }
+            0% {
+                transform: translateX(-10vw) scale(0.3);
+                opacity: 0.6;
+            }
+            15% {
+                opacity: 1;
+            }
+            85% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100vw) scale(2.0);
+                opacity: 0.4;
+            }
         }
 
         /* ----- 煙火特效 Canvas (全螢幕覆蓋) ----- */
@@ -306,34 +404,97 @@
 
         /* ===== 響應式 ===== */
         @media (max-width: 680px) {
-            .container { padding: 12px 10px; border-radius: 24px; }
-            .header h1 { font-size: 1.3rem; }
-            .countdown-grid { grid-template-columns: 1fr; gap: 10px; }
-            .countdown-display .num { font-size: 1.6rem; min-width: 24px; }
-            .countdown-display .num.days { font-size: 2.0rem; min-width: 34px; }
-            .cheer-message { font-size: 0.85rem; padding: 4px 12px; }
-            #bigBear { bottom: 8%; font-size: 40px; }
+            .container {
+                padding: 12px 10px;
+                border-radius: 24px;
+            }
+            .header h1 {
+                font-size: 1.3rem;
+            }
+            .countdown-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .countdown-display .num {
+                font-size: 1.6rem;
+                min-width: 24px;
+            }
+            .countdown-display .num.days {
+                font-size: 2.0rem;
+                min-width: 34px;
+            }
+            .cheer-message {
+                font-size: 0.85rem;
+                padding: 4px 12px;
+            }
+            #bigBear {
+                bottom: 8%;
+                font-size: 40px;
+            }
             @keyframes bearWalk {
-                0% { transform: translateX(-10vw) scale(0.25); opacity: 0.6; }
-                100% { transform: translateX(100vw) scale(1.6); opacity: 0.4; }
+                0% {
+                    transform: translateX(-10vw) scale(0.25);
+                    opacity: 0.6;
+                }
+                100% {
+                    transform: translateX(100vw) scale(1.6);
+                    opacity: 0.4;
+                }
             }
         }
         @media (max-width: 400px) {
-            body { padding: 4px; }
-            .container { padding: 8px 6px; border-radius: 18px; }
-            .header h1 { font-size: 1.1rem; }
-            .header .sub { font-size: 0.7rem; }
-            .card { padding: 8px 4px 10px; }
-            .card .exam-name { font-size: 0.9rem; }
-            .countdown-display .num { font-size: 1.3rem; min-width: 20px; }
-            .countdown-display .num.days { font-size: 1.6rem; min-width: 28px; }
-            .countdown-display .label { font-size: 0.5rem; }
-            .cheer-message { font-size: 0.8rem; padding: 4px 10px; }
-            .footer-note { font-size: 0.65rem; padding-top: 6px; margin-top: 6px; }
-            #bigBear { bottom: 5%; font-size: 30px; }
+            body {
+                padding: 4px;
+            }
+            .container {
+                padding: 8px 6px;
+                border-radius: 18px;
+            }
+            .header h1 {
+                font-size: 1.1rem;
+            }
+            .header .sub {
+                font-size: 0.7rem;
+            }
+            .card {
+                padding: 8px 4px 10px;
+            }
+            .card .exam-name {
+                font-size: 0.9rem;
+            }
+            .countdown-display .num {
+                font-size: 1.3rem;
+                min-width: 20px;
+            }
+            .countdown-display .num.days {
+                font-size: 1.6rem;
+                min-width: 28px;
+            }
+            .countdown-display .label {
+                font-size: 0.5rem;
+            }
+            .cheer-message {
+                font-size: 0.8rem;
+                padding: 4px 10px;
+            }
+            .footer-note {
+                font-size: 0.65rem;
+                padding-top: 6px;
+                margin-top: 6px;
+            }
+            #bigBear {
+                bottom: 5%;
+                font-size: 30px;
+            }
             @keyframes bearWalk {
-                0% { transform: translateX(-10vw) scale(0.2); opacity: 0.6; }
-                100% { transform: translateX(100vw) scale(1.4); opacity: 0.4; }
+                0% {
+                    transform: translateX(-10vw) scale(0.2);
+                    opacity: 0.6;
+                }
+                100% {
+                    transform: translateX(100vw) scale(1.4);
+                    opacity: 0.4;
+                }
             }
         }
 
@@ -344,7 +505,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.30);
             backdrop-filter: blur(6px);
             z-index: 99999;
             display: flex;
@@ -353,8 +514,14 @@
             animation: fadeIn 0.4s ease;
         }
         @keyframes fadeIn {
-            0% { opacity: 0; transform: scale(0.9); }
-            100% { opacity: 1; transform: scale(1); }
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
         .modal-box {
             background: white;
@@ -366,7 +533,10 @@
             box-shadow: 0 20px 40px rgba(233, 30, 99, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.5);
         }
-        .modal-box .modal-icon { font-size: 2.5rem; margin-bottom: 2px; }
+        .modal-box .modal-icon {
+            font-size: 2.5rem;
+            margin-bottom: 2px;
+        }
         .modal-box .modal-gif {
             width: 100%;
             max-width: 160px;
@@ -406,17 +576,23 @@
             font-size: 0.95rem;
             font-weight: 700;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
             box-shadow: 0 4px 12px rgba(233, 30, 99, 0.25);
         }
-        .modal-close-btn:hover { transform: scale(1.04); }
+        .modal-close-btn:hover {
+            transform: scale(1.04);
+            box-shadow: 0 6px 18px rgba(233, 30, 99, 0.35);
+        }
     </style>
 </head>
 <body>
 
+    <!-- 背景飄落花瓣 Canvas (最底層) -->
+    <canvas id="petalCanvas"></canvas>
+
     <!-- 背景點綴 -->
     <div class="bg-hearts">
-        <span>💕</span><span>🌸</span><span>✨</span><span>💖</span><span>💗</span>
+        <span>💕</span><span>🌸</span><span>✨</span><span>💖</span><span>💗</span><span>🌷</span><span>🦋</span>
     </div>
 
     <!-- 大熊特效（永遠 active） -->
@@ -495,7 +671,8 @@
             mId: 'm1',
             sId: 's1',
             cardId: 'card1',
-            labelId: 'label1'
+            labelId: 'label1',
+            emoji: '📖'
         }, {
             id: 2,
             name: '內科口試',
@@ -507,7 +684,8 @@
             mId: 'm2',
             sId: 's2',
             cardId: 'card2',
-            labelId: 'label2'
+            labelId: 'label2',
+            emoji: '🎤'
         }];
 
         const targets = TARGETS.map(t => ({
@@ -517,7 +695,6 @@
 
         // ============================================================
         // 2. ★ 74 條獨一無二的每日小語（2026/07/09 ~ 2026/09/20）
-        //    每一條後面都附有日期註解，完全保留！
         // ============================================================
         const DAILY_MESSAGES = [
             "準備好迎接今天的挑戰了嗎？Winny，出發！", // 0: 7/09
@@ -599,7 +776,7 @@
         // 安全取得今日訊息
         function getTodayCheer() {
             const now = new Date();
-            const baseDate = new Date(2026, 6, 9); // 7月9日
+            const baseDate = new Date(2026, 6, 9);
             const diffDays = Math.floor((now - baseDate) / (1000 * 60 * 60 * 24));
 
             let message = '';
@@ -619,7 +796,105 @@
         }
 
         // ============================================================
-        // 3. 倒數更新 & 煙火觸發
+        // 3. 背景飄落花瓣 (動態背景)
+        // ============================================================
+        const petalCanvas = document.getElementById('petalCanvas');
+        const pCtx = petalCanvas.getContext('2d');
+        let petals = [];
+        let pAnimationId = null;
+
+        function resizePetalCanvas() {
+            petalCanvas.width = window.innerWidth;
+            petalCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizePetalCanvas);
+        resizePetalCanvas();
+
+        class Petal {
+            constructor() {
+                this.reset(true);
+            }
+            reset(init) {
+                this.x = Math.random() * petalCanvas.width;
+                this.y = init ? Math.random() * petalCanvas.height : -20 - Math.random() * 40;
+                this.size = 6 + Math.random() * 12;
+                this.speedY = 0.4 + Math.random() * 0.8;
+                this.speedX = (Math.random() - 0.5) * 0.6;
+                this.rotation = Math.random() * Math.PI * 2;
+                this.rotSpeed = (Math.random() - 0.5) * 0.02;
+                this.wobble = Math.random() * 0.03;
+                this.wobbleSpeed = 0.005 + Math.random() * 0.01;
+                this.phase = Math.random() * Math.PI * 2;
+                this.alpha = 0.5 + Math.random() * 0.4;
+                // 花瓣顏色 (粉色系)
+                const colors = [
+                    'rgba(244, 143, 177, ', // 粉紅
+                    'rgba(233, 30, 99, ', // 桃紅
+                    'rgba(255, 182, 193, ', // 淺粉
+                    'rgba(240, 98, 146, ', // 粉紫
+                    'rgba(255, 105, 180, ' // 熱粉
+                ];
+                this.colorBase = colors[Math.floor(Math.random() * colors.length)];
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX + Math.sin(this.phase) * this.wobble;
+                this.phase += this.wobbleSpeed;
+                this.rotation += this.rotSpeed;
+                // 左右邊界彈回
+                if (this.x < 0) this.x = petalCanvas.width;
+                if (this.x > petalCanvas.width) this.x = 0;
+                if (this.y > petalCanvas.height + 30) {
+                    this.reset(false);
+                }
+            }
+            draw() {
+                pCtx.save();
+                pCtx.globalAlpha = this.alpha;
+                pCtx.translate(this.x, this.y);
+                pCtx.rotate(this.rotation);
+                const s = this.size;
+                // 畫花瓣形狀 (橢圓)
+                pCtx.beginPath();
+                pCtx.ellipse(0, 0, s * 0.6, s * 0.4, 0, 0, Math.PI * 2);
+                pCtx.fillStyle = this.colorBase + this.alpha + ')';
+                pCtx.fill();
+                pCtx.restore();
+            }
+        }
+
+        function initPetals(count = 45) {
+            petals = [];
+            for (let i = 0; i < count; i++) {
+                petals.push(new Petal());
+            }
+        }
+
+        function animatePetals() {
+            pCtx.clearRect(0, 0, petalCanvas.width, petalCanvas.height);
+            petals.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            pAnimationId = requestAnimationFrame(animatePetals);
+        }
+
+        function startPetals() {
+            if (pAnimationId) return;
+            initPetals(45);
+            animatePetals();
+        }
+
+        function stopPetals() {
+            if (pAnimationId) {
+                cancelAnimationFrame(pAnimationId);
+                pAnimationId = null;
+            }
+            pCtx.clearRect(0, 0, petalCanvas.width, petalCanvas.height);
+        }
+
+        // ============================================================
+        // 4. 倒數更新 & 煙火觸發 (考前三天開始)
         // ============================================================
         function padZero(n) { return String(n).padStart(2, '0'); }
 
@@ -628,16 +903,16 @@
         const ctx = canvas.getContext('2d');
         let fireworksActive = false;
         let particles = [];
-        let animationId = null;
+        let fAnimationId = null;
 
-        function resizeCanvas() {
+        function resizeFireworksCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+        window.addEventListener('resize', resizeFireworksCanvas);
+        resizeFireworksCanvas();
 
-        class Particle {
+        class FireworkParticle {
             constructor(x, y, color) {
                 this.x = x;
                 this.y = y;
@@ -647,7 +922,7 @@
                     y: (Math.random() - 0.5) * 8 - 2
                 };
                 this.alpha = 1;
-                this.decay = 0.01 + Math.random() * 0.02;
+                this.decay = 0.008 + Math.random() * 0.018;
                 this.size = 2 + Math.random() * 4;
                 this.gravity = 0.05;
             }
@@ -669,11 +944,11 @@
         }
 
         function createExplosion(x, y) {
-            const colors = ['#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#ff6bb5', '#f9ca24', '#ff9ff3'];
+            const colors = ['#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#ff6bb5', '#f9ca24', '#ff9ff3', '#ff4757', '#2ed573'];
             const color = colors[Math.floor(Math.random() * colors.length)];
-            const count = 40 + Math.floor(Math.random() * 30);
+            const count = 45 + Math.floor(Math.random() * 35);
             for (let i = 0; i < count; i++) {
-                particles.push(new Particle(x, y, color));
+                particles.push(new FireworkParticle(x, y, color));
             }
         }
 
@@ -683,10 +958,10 @@
                 return;
             }
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            // 隨機產生新煙火
-            if (Math.random() < 0.08) {
+            // 隨機產生新煙火 (頻率提高)
+            if (Math.random() < 0.12) {
                 const x = Math.random() * canvas.width;
-                const y = Math.random() * canvas.height * 0.6;
+                const y = Math.random() * canvas.height * 0.6 + 20;
                 createExplosion(x, y);
             }
             for (let i = particles.length - 1; i >= 0; i--) {
@@ -697,7 +972,7 @@
                     particles.splice(i, 1);
                 }
             }
-            animationId = requestAnimationFrame(animateFireworks);
+            fAnimationId = requestAnimationFrame(animateFireworks);
         }
 
         function startFireworks() {
@@ -705,35 +980,50 @@
             fireworksActive = true;
             canvas.classList.add('active');
             particles = [];
-            if (animationId) cancelAnimationFrame(animationId);
+            if (fAnimationId) cancelAnimationFrame(fAnimationId);
             animateFireworks();
         }
 
         function stopFireworks() {
             fireworksActive = false;
             canvas.classList.remove('active');
-            if (animationId) {
-                cancelAnimationFrame(animationId);
-                animationId = null;
+            if (fAnimationId) {
+                cancelAnimationFrame(fAnimationId);
+                fAnimationId = null;
             }
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles = [];
         }
 
-        // 檢查今天是否為考試日
-        function isExamDay() {
+        // ----- 檢查是否在考前三天內 (包含考試當天) -----
+        function isInFireworksWindow(targetDate) {
             const now = new Date();
-            const y = now.getFullYear();
-            const m = now.getMonth();
-            const d = now.getDate();
-            return targets.some(t => t.year === y && t.month === m && t.day === d);
+            const diffMs = targetDate - now;
+            const days = Math.ceil(diffMs / 86400000);
+            // 考前三天到考試當天: 0 <= days <= 3
+            return days >= 0 && days <= 3;
+        }
+
+        // ----- 檢查是否有任何考試在煙火窗口內 -----
+        function shouldFireworksBeActive() {
+            const now = new Date();
+            for (const t of targets) {
+                const diffMs = t.date - now;
+                const days = Math.ceil(diffMs / 86400000);
+                // 未結束且考前三天內
+                if (days >= 0 && days <= 3) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         // ----- 倒數更新函數 -----
         function updateCountdown() {
             const now = new Date();
-            const examDay = isExamDay();
-            if (examDay) {
+
+            // 煙火控制：考前三天開始放
+            if (shouldFireworksBeActive()) {
                 startFireworks();
             } else {
                 stopFireworks();
@@ -760,7 +1050,7 @@
                     sEl.textContent = '00';
                     cardEl.classList.add('done');
                     cardEl.classList.remove('urgent');
-                    labelEl.textContent = t.name + ' 已結束';
+                    labelEl.textContent = t.name + ' ✅ 已完成';
                     return;
                 }
 
@@ -786,24 +1076,40 @@
         }
 
         // ============================================================
-        // 4. 彈窗（Modal）與按鈕事件
+        // 5. 彈窗（Modal）- 每天顯示，但只聚焦未結束的考試
         // ============================================================
-        function showModal(examName, days, cheerText) {
-            // 如果 days === 0（考試當天），顯示特別的提醒文字
-            const reminderHtml = days === 0 
-                ? '🎉 就是今天！全力以赴，Winny 加油！ 🎉' 
-                : `⏰ 只剩 <strong>${days}</strong> 天，Winny 加油！`;
+        function showModal(examName, days, cheerText, isAllDone, emoji) {
+            let titleText, reminderHtml, iconEmoji;
+
+            if (isAllDone) {
+                iconEmoji = '🏆';
+                titleText = '🎉 所有考試已完成！Winny 你太棒了！ 🎉';
+                reminderHtml = '🌟 你已經完成了所有挑戰，超級厲害！ 🌟';
+            } else if (days === 0) {
+                iconEmoji = emoji || '🎯';
+                titleText = examName + ' 就是今天！';
+                reminderHtml = '🎉 就是今天！全力以赴，Winny 加油！ 🎉';
+            } else if (days > 0) {
+                iconEmoji = emoji || '📚';
+                titleText = examName + ' 倒數 ' + days + ' 天';
+                reminderHtml = '⏰ 只剩 <strong>' + days + '</strong> 天，Winny 加油！ 💪';
+            } else {
+                // 理論上不會走到這裡，因為已過濾
+                iconEmoji = '✅';
+                titleText = examName + ' 已結束！';
+                reminderHtml = '🎉 你已經完成了 ' + examName + '，表現超級棒！ 🎉';
+            }
 
             const overlay = document.createElement('div');
             overlay.className = 'modal-overlay';
             overlay.innerHTML = `
                 <div class="modal-box">
-                    <div class="modal-icon">${examName.includes('筆試') ? '📖' : '🎤'}</div>
+                    <div class="modal-icon">${iconEmoji}</div>
                     <img class="modal-gif" src="https://raw.githubusercontent.com/dustinchen26/test/refs/heads/master/pooh-pooh-and-piglet.gif" alt="小熊維尼與小豬" />
-                    <h2>${examName} ${days === 0 ? '就是今天！' : '倒數 ' + days + ' 天'}</h2>
+                    <h2>${titleText}</h2>
                     <div class="cheer-text">${cheerText}</div>
                     <div class="countdown-reminder">${reminderHtml}</div>
-                    <button class="modal-close-btn" id="modalCloseBtn">我會全力以赴！</button>
+                    <button class="modal-close-btn" id="modalCloseBtn">💪 我會全力以赴！</button>
                 </div>
             `;
             document.body.appendChild(overlay);
@@ -820,9 +1126,12 @@
         }
 
         // ============================================================
-        // 5. 初始化
+        // 6. ★ 核心初始化 - 每天彈窗（聚焦未結束考試）
         // ============================================================
         function init() {
+            // 啟動背景花瓣
+            startPetals();
+
             // 每日小語
             document.getElementById('cheerMessage').textContent = getTodayCheer();
 
@@ -840,28 +1149,34 @@
                 }
             }, 60000);
 
-            // ★★★ 修改點：彈窗觸發條件改為「考前 0~5 天」（包含考試當天）★★★
+            // ============================================================
+            // ★★★ 彈窗邏輯：只顯示「未結束」的考試，並選擇最近的 ★★★
+            // ============================================================
             const now = new Date();
-            const urgentExams = targets.filter(t => {
-                const diff = t.date - now;
-                const days = Math.ceil(diff / 86400000);
-                // 包含今天 (days === 0) 到 5 天前 (days === 5)
-                return days >= 0 && days <= 5;
-            });
 
-            if (urgentExams.length > 0) {
-                urgentExams.sort((a, b) => {
-                    const da = Math.ceil((a.date - now) / 86400000);
-                    const db = Math.ceil((b.date - now) / 86400000);
-                    return da - db;
-                });
-                const exam = urgentExams[0];
-                const days = Math.ceil((exam.date - now) / 86400000);
-                const pureMsg = getTodayCheer().replace(/（民國.*）/, '').trim();
-                setTimeout(() => {
-                    showModal(exam.name, days, pureMsg);
-                }, 400);
-            }
+            // 計算每個考試的剩餘天數，篩選未結束的 (days >= 0)
+            const upcomingExams = targets
+                .map(t => {
+                    const diff = t.date - now;
+                    const days = Math.ceil(diff / 86400000);
+                    return { ...t, diff, days };
+                })
+                .filter(e => e.days >= 0);
+
+            // 純粹的每日小語（不含日期）
+            const pureMsg = getTodayCheer().replace(/（民國.*）/, '').trim();
+
+            // 延遲顯示彈窗
+            setTimeout(() => {
+                if (upcomingExams.length === 0) {
+                    // 所有考試都已完成 → 慶祝彈窗
+                    showModal('所有考試', 0, pureMsg, true, '🏆');
+                } else {
+                    // 選擇最近的考試 (days 最小)
+                    const nearest = upcomingExams.reduce((a, b) => a.days < b.days ? a : b);
+                    showModal(nearest.name, nearest.days, pureMsg, false, nearest.emoji);
+                }
+            }, 500);
         }
 
         document.addEventListener('DOMContentLoaded', init);
