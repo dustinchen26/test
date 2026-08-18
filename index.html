@@ -8,14 +8,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700&family=Noto+Sans+TC:wght@300;400;700;900&display=swap" rel="stylesheet" />
     <style>
-        /* ----- 全局重置 & 背景 ----- */
+        /* ===== 全局重置 ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+        html,
         body {
-            min-height: 100vh;
+            height: 100%;
+            overflow: hidden;
+        }
+        body {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -23,18 +27,24 @@
             background: linear-gradient(145deg, #fce4ec 0%, #f3e5f5 40%, #e8dff5 70%, #fce4ec 100%);
             background-size: 300% 300%;
             animation: gradientFlow 12s ease-in-out infinite alternate;
-            padding: 8px;
+            padding: 4px;
             position: relative;
-            overflow-x: hidden;
-            line-height: 1.4;
+            overflow: hidden;
+            line-height: 1.2;
         }
         @keyframes gradientFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
-        /* ----- 花瓣 Canvas (平時) ----- */
+        /* ===== 花瓣 Canvas (平時) ===== */
         #petalCanvas {
             position: fixed;
             top: 0;
@@ -43,8 +53,10 @@
             height: 100%;
             pointer-events: none;
             z-index: 0;
+            display: block;
         }
-        /* ----- 愛心雨 Canvas (七夕專屬) ----- */
+
+        /* ===== 愛心雨 Canvas (七夕專屬) ===== */
         #heartRainCanvas {
             position: fixed;
             top: 0;
@@ -59,7 +71,7 @@
             display: block;
         }
 
-        /* 背景浮動愛心 (保留) */
+        /* ===== 背景浮動愛心 ===== */
         .bg-hearts {
             position: fixed;
             top: 0;
@@ -72,48 +84,96 @@
         }
         .bg-hearts span {
             position: absolute;
-            font-size: 2rem;
-            opacity: 0.10;
+            font-size: 1.4rem;
+            opacity: 0.06;
             animation: floatHeart 20s infinite alternate ease-in-out;
             color: #e91e63;
         }
-        .bg-hearts span:nth-child(1) { top: 10%; left: 8%; animation-duration: 18s; }
-        .bg-hearts span:nth-child(2) { top: 25%; right: 12%; animation-duration: 22s; animation-delay: 2s; }
-        .bg-hearts span:nth-child(3) { bottom: 30%; left: 5%; animation-duration: 24s; animation-delay: 4s; }
-        .bg-hearts span:nth-child(4) { bottom: 15%; right: 8%; animation-duration: 16s; animation-delay: 1s; }
-        .bg-hearts span:nth-child(5) { top: 45%; left: 45%; animation-duration: 20s; animation-delay: 3s; font-size: 3rem; }
-        .bg-hearts span:nth-child(6) { top: 60%; left: 20%; animation-duration: 26s; animation-delay: 5s; font-size: 1.8rem; }
-        .bg-hearts span:nth-child(7) { top: 15%; left: 55%; animation-duration: 19s; animation-delay: 6s; font-size: 2.4rem; }
+        .bg-hearts span:nth-child(1) {
+            top: 8%;
+            left: 5%;
+            animation-duration: 18s;
+        }
+        .bg-hearts span:nth-child(2) {
+            top: 20%;
+            right: 8%;
+            animation-duration: 22s;
+            animation-delay: 2s;
+        }
+        .bg-hearts span:nth-child(3) {
+            bottom: 25%;
+            left: 3%;
+            animation-duration: 24s;
+            animation-delay: 4s;
+        }
+        .bg-hearts span:nth-child(4) {
+            bottom: 10%;
+            right: 5%;
+            animation-duration: 16s;
+            animation-delay: 1s;
+        }
+        .bg-hearts span:nth-child(5) {
+            top: 40%;
+            left: 45%;
+            animation-duration: 20s;
+            animation-delay: 3s;
+            font-size: 2rem;
+        }
+        .bg-hearts span:nth-child(6) {
+            top: 55%;
+            left: 15%;
+            animation-duration: 26s;
+            animation-delay: 5s;
+            font-size: 1.2rem;
+        }
+        .bg-hearts span:nth-child(7) {
+            top: 12%;
+            left: 50%;
+            animation-duration: 19s;
+            animation-delay: 6s;
+            font-size: 1.6rem;
+        }
         @keyframes floatHeart {
-            0% { transform: translateY(0px) rotate(0deg) scale(1); }
-            100% { transform: translateY(-25px) rotate(6deg) scale(1.05); }
+            0% {
+                transform: translateY(0px) rotate(0deg) scale(1);
+            }
+            100% {
+                transform: translateY(-18px) rotate(6deg) scale(1.05);
+            }
         }
 
-        /* ----- 主容器 ----- */
+        /* ===== 主容器 (手機優先，緊湊) ===== */
         .container {
             position: relative;
             z-index: 2;
             width: 100%;
-            max-width: 780px;
-            background: rgba(255, 255, 255, 0.60);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-radius: 32px;
-            padding: 18px 16px 20px;
-            box-shadow: 0 10px 30px rgba(156, 39, 176, 0.08);
+            max-width: 480px;
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 10px 12px 12px;
+            box-shadow: 0 6px 24px rgba(156, 39, 176, 0.06);
             border: 1px solid rgba(255, 255, 255, 0.5);
-            overflow: visible;
+            max-height: 98vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.2s ease;
         }
+
+        /* --- 標題區 --- */
         .header {
             text-align: center;
-            margin-bottom: 8px;
+            margin-bottom: 2px;
+            flex-shrink: 0;
         }
         .header h1 {
             font-family: 'Quicksand', sans-serif;
             font-weight: 700;
-            font-size: 1.6rem;
+            font-size: 1.1rem;
             color: #4a148c;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             line-height: 1.2;
         }
         .header h1 .heart {
@@ -122,38 +182,34 @@
             animation: pulseHeart 1.6s infinite alternate;
         }
         @keyframes pulseHeart {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.08);
+            }
         }
         .header .sub {
-            font-size: 0.8rem;
+            font-size: 0.65rem;
             color: #7b4b8a;
-            font-weight: 300;
+            font-weight: 400;
             margin-top: 0;
-            letter-spacing: 1px;
-        }
-        .header .qixi-title {
-            font-size: 1.2rem;
-            color: #e91e63;
-            font-weight: 700;
-            margin-top: 2px;
-            animation: lovePulse 1s ease-in-out infinite alternate;
-        }
-        @keyframes lovePulse {
-            0% { opacity: 0.7; transform: scale(0.98); }
-            100% { opacity: 1; transform: scale(1.05); }
+            letter-spacing: 0.5px;
+            line-height: 1.1;
         }
 
+        /* --- 分隔線 --- */
         .divider {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 8px;
-            margin: 4px 0 12px;
+            gap: 6px;
+            margin: 2px 0 6px;
+            flex-shrink: 0;
         }
         .divider .line {
-            width: 30px;
-            height: 2px;
+            width: 20px;
+            height: 1.5px;
             background: linear-gradient(90deg, transparent, #e91e63);
             border-radius: 2px;
         }
@@ -162,50 +218,64 @@
         }
         .divider .dot {
             color: #e91e63;
-            font-size: 0.7rem;
+            font-size: 0.55rem;
         }
 
-        /* 倒數卡片 */
+        /* --- 倒數卡片 --- */
         .countdown-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 12px;
+            gap: 6px;
+            margin-bottom: 4px;
+            flex-shrink: 0;
         }
         .card {
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 20px;
-            padding: 12px 8px 14px;
+            background: rgba(255, 255, 255, 0.45);
+            border-radius: 14px;
+            padding: 6px 4px 8px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 2px 10px rgba(156, 39, 176, 0.04);
-            transition: transform 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 1px 6px rgba(156, 39, 176, 0.03);
+            transition: transform 0.15s ease;
         }
-        .card:hover {
-            transform: translateY(-2px);
+        .card:active {
+            transform: scale(0.97);
         }
         .card.urgent {
-            border: 2px solid #ff4081;
-            box-shadow: 0 0 15px rgba(255, 64, 129, 0.15);
+            border: 1.5px solid #ff4081;
+            box-shadow: 0 0 12px rgba(255, 64, 129, 0.12);
             animation: softGlow 1.5s infinite alternate;
         }
         @keyframes softGlow {
-            0% { box-shadow: 0 0 8px rgba(255, 64, 129, 0.1); }
-            100% { box-shadow: 0 0 20px rgba(255, 64, 129, 0.25); }
+            0% {
+                box-shadow: 0 0 6px rgba(255, 64, 129, 0.08);
+            }
+            100% {
+                box-shadow: 0 0 16px rgba(255, 64, 129, 0.18);
+            }
         }
+        /* 七夕卡片光暈 */
         .card.qixi {
             background: linear-gradient(135deg, #ffdde1, #fad0c4, #fbc2eb) !important;
-            border: 2px solid #ff6b81 !important;
-            box-shadow: 0 0 25px rgba(255, 107, 129, 0.3) !important;
+            border: 1.5px solid #ff6b81 !important;
+            box-shadow: 0 0 18px rgba(255, 107, 129, 0.2) !important;
             animation: qixiGlow 0.8s ease-in-out infinite alternate !important;
+        }
+        @keyframes qixiGlow {
+            0% {
+                box-shadow: 0 0 10px rgba(255, 107, 129, 0.15);
+            }
+            100% {
+                box-shadow: 0 0 28px rgba(255, 107, 129, 0.35);
+            }
         }
         .card.qixi .num {
             color: #d63031 !important;
-            background: rgba(214, 48, 49, 0.08) !important;
+            background: rgba(214, 48, 49, 0.06) !important;
         }
         .card.qixi .num.days {
             color: #e17055 !important;
-            background: rgba(225, 112, 85, 0.12) !important;
+            background: rgba(225, 112, 85, 0.08) !important;
         }
         .card.qixi .exam-name {
             color: #6c2a3e !important;
@@ -216,146 +286,156 @@
         .card.qixi .exam-date .roc {
             color: #6c2a3e !important;
         }
-        @keyframes qixiGlow {
-            0% { box-shadow: 0 0 15px rgba(255, 107, 129, 0.2); }
-            100% { box-shadow: 0 0 35px rgba(255, 107, 129, 0.5); }
-        }
 
         .card .exam-name {
-            font-size: 1rem;
+            font-size: 0.7rem;
             font-weight: 700;
             color: #4a148c;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
+            line-height: 1.1;
         }
         .card .exam-date {
-            font-size: 0.7rem;
+            font-size: 0.55rem;
             color: #7b4b8a;
-            margin: 0 0 4px;
+            margin: 0 0 2px;
+            line-height: 1.1;
         }
         .card .exam-date .roc {
             font-weight: 500;
             color: #6a1b9a;
         }
         .card .countdown-label {
-            font-size: 0.75rem;
+            font-size: 0.55rem;
             font-weight: 600;
             color: #c2185b;
-            margin-bottom: 4px;
+            margin-bottom: 1px;
+            line-height: 1.1;
         }
-
         .countdown-display {
             display: flex;
             justify-content: center;
             align-items: baseline;
-            gap: 2px;
-            flex-wrap: wrap;
+            gap: 1px;
+            flex-wrap: nowrap;
         }
         .countdown-display .time-block {
             display: inline-flex;
             align-items: baseline;
-            gap: 1px;
+            gap: 0px;
         }
         .countdown-display .num {
             font-family: 'Quicksand', sans-serif;
             font-weight: 700;
-            font-size: 1.8rem;
+            font-size: 1.2rem;
             color: #4a148c;
-            min-width: 28px;
+            min-width: 18px;
             text-align: center;
-            background: rgba(233, 30, 99, 0.04);
-            border-radius: 4px;
-            padding: 0 2px;
-            line-height: 1.2;
+            background: rgba(233, 30, 99, 0.03);
+            border-radius: 3px;
+            padding: 0 1px;
+            line-height: 1.1;
         }
         .countdown-display .num.days {
-            font-size: 2.2rem;
+            font-size: 1.5rem;
             color: #c2185b;
-            min-width: 38px;
-            background: rgba(233, 30, 99, 0.06);
+            min-width: 26px;
+            background: rgba(233, 30, 99, 0.05);
         }
         .countdown-display .label {
-            font-size: 0.6rem;
+            font-size: 0.45rem;
             font-weight: 400;
             color: #7b4b8a;
-            margin-right: 1px;
+            margin-right: 0px;
         }
-
         .card.done {
-            opacity: 0.5;
+            opacity: 0.4;
         }
         .card.done .num {
             color: #9e9e9e !important;
-            background: rgba(0, 0, 0, 0.03) !important;
+            background: rgba(0, 0, 0, 0.02) !important;
         }
         .card.done .exam-name {
             color: #9e9e9e;
         }
 
+        /* --- 應援訊息 --- */
         .cheer-section {
-            margin-top: 4px;
-            padding-top: 10px;
-            border-top: 2px dashed rgba(233, 30, 99, 0.12);
+            margin-top: 2px;
+            padding-top: 4px;
+            border-top: 1.5px dashed rgba(233, 30, 99, 0.10);
             text-align: center;
+            flex-shrink: 0;
         }
         .cheer-message {
-            font-size: 0.95rem;
+            font-size: 0.7rem;
             font-weight: 600;
             color: #4a148c;
-            background: rgba(255, 255, 255, 0.4);
-            padding: 6px 14px;
-            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.35);
+            padding: 4px 10px;
+            border-radius: 20px;
             display: inline-block;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            line-height: 1.5;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            line-height: 1.3;
         }
+        /* 七夕應援光暈 */
         .cheer-message.qixi {
-            background: rgba(255, 107, 129, 0.15);
+            background: rgba(255, 107, 129, 0.12);
             border-color: #ff6b81;
             color: #c0392b;
-            box-shadow: 0 0 20px rgba(255, 107, 129, 0.15);
-            font-size: 1.0rem;
+            box-shadow: 0 0 14px rgba(255, 107, 129, 0.10);
+            font-size: 0.75rem;
         }
 
+        /* --- 維尼專區 --- */
         .pooh-container {
             text-align: center;
-            margin-top: 12px;
-            padding-top: 10px;
-            border-top: 2px dashed rgba(233, 30, 99, 0.15);
+            margin-top: 4px;
+            padding-top: 4px;
+            border-top: 1.5px dashed rgba(233, 30, 99, 0.10);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         .pooh-container img {
-            max-width: 150px;
+            max-width: 56px;
             width: 100%;
             height: auto;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(233, 30, 99, 0.08);
+            border-radius: 8px;
+            box-shadow: 0 1px 8px rgba(233, 30, 99, 0.06);
         }
         .pooh-container .pooh-text {
-            font-size: 0.85rem;
+            font-size: 0.6rem;
             color: #4a148c;
             font-weight: 600;
-            margin-top: 4px;
+            line-height: 1.2;
         }
 
+        /* --- 頁尾 --- */
         .footer-note {
-            margin-top: 10px;
-            font-size: 0.75rem;
+            margin-top: 3px;
+            font-size: 0.5rem;
             color: #b39ddb;
             text-align: center;
-            border-top: 1px solid rgba(233, 30, 99, 0.08);
-            padding-top: 10px;
-            padding-bottom: 2px;
-            letter-spacing: 0.5px;
+            border-top: 1px solid rgba(233, 30, 99, 0.06);
+            padding-top: 4px;
+            padding-bottom: 1px;
+            letter-spacing: 0.3px;
+            flex-shrink: 0;
+            line-height: 1.1;
         }
         .footer-note span {
             color: #e91e63;
             font-weight: 600;
         }
 
+        /* --- 大熊 (手機版小巧) --- */
         #bigBear {
             position: fixed;
-            bottom: 12%;
-            left: -20%;
-            font-size: 50px;
+            bottom: 5%;
+            left: -15%;
+            font-size: 32px;
             z-index: 9999;
             pointer-events: none;
             line-height: 1;
@@ -364,16 +444,27 @@
             transition: opacity 0.3s ease;
         }
         #bigBear.active {
-            opacity: 1;
-            animation: bearWalk 6s ease-in-out infinite;
+            opacity: 0.7;
+            animation: bearWalk 7s ease-in-out infinite;
         }
         @keyframes bearWalk {
-            0% { transform: translateX(-10vw) scale(0.3); opacity: 0.6; }
-            15% { opacity: 1; }
-            85% { opacity: 1; }
-            100% { transform: translateX(100vw) scale(2.0); opacity: 0.4; }
+            0% {
+                transform: translateX(-10vw) scale(0.2);
+                opacity: 0.5;
+            }
+            15% {
+                opacity: 0.8;
+            }
+            85% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateX(100vw) scale(1.8);
+                opacity: 0.3;
+            }
         }
 
+        /* --- 煙火 --- */
         #fireworksCanvas {
             position: fixed;
             top: 0;
@@ -388,138 +479,416 @@
             display: block;
         }
 
-        /* 彈窗 */
+        /* --- 彈窗 (手機優化) --- */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.30);
-            backdrop-filter: blur(6px);
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             z-index: 99999;
             display: flex;
             justify-content: center;
             align-items: center;
-            animation: fadeIn 0.4s ease;
+            animation: fadeIn 0.35s ease;
         }
         @keyframes fadeIn {
-            0% { opacity: 0; transform: scale(0.9); }
-            100% { opacity: 1; transform: scale(1); }
+            0% {
+                opacity: 0;
+                transform: scale(0.92);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
         .modal-box {
             background: white;
-            border-radius: 28px;
-            padding: 20px 20px 18px;
-            max-width: 400px;
+            border-radius: 22px;
+            padding: 16px 16px 14px;
+            max-width: 340px;
             width: 90%;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(233, 30, 99, 0.15);
+            box-shadow: 0 16px 32px rgba(233, 30, 99, 0.12);
             border: 1px solid rgba(255, 255, 255, 0.5);
         }
         .modal-box .modal-icon {
-            font-size: 2.5rem;
-            margin-bottom: 2px;
+            font-size: 2rem;
+            margin-bottom: 0px;
         }
         .modal-box .modal-gif {
             width: 100%;
-            max-width: 160px;
+            max-width: 100px;
             height: auto;
-            border-radius: 12px;
-            margin: 4px auto 8px;
+            border-radius: 10px;
+            margin: 2px auto 6px;
             display: block;
         }
         .modal-box h2 {
-            font-size: 1.2rem;
+            font-size: 1.0rem;
             color: #4a148c;
-            margin-bottom: 4px;
-            line-height: 1.3;
+            margin-bottom: 2px;
+            line-height: 1.2;
         }
         .modal-box .cheer-text {
-            font-size: 1rem;
+            font-size: 0.85rem;
             color: #4a148c;
-            line-height: 1.5;
+            line-height: 1.4;
             font-weight: 600;
         }
         .modal-box .countdown-reminder {
-            font-size: 0.85rem;
+            font-size: 0.7rem;
             color: #c2185b;
             font-weight: 700;
-            background: rgba(233, 30, 99, 0.06);
-            padding: 6px 14px;
-            border-radius: 30px;
+            background: rgba(233, 30, 99, 0.05);
+            padding: 4px 12px;
+            border-radius: 20px;
             display: inline-block;
-            margin: 6px 0 10px;
+            margin: 4px 0 8px;
         }
         .modal-close-btn {
             background: #e91e63;
             color: white;
             border: none;
-            padding: 8px 28px;
-            border-radius: 50px;
-            font-size: 0.95rem;
+            padding: 6px 22px;
+            border-radius: 40px;
+            font-size: 0.8rem;
             font-weight: 700;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 12px rgba(233, 30, 99, 0.25);
+            transition: transform 0.15s, box-shadow 0.15s;
+            box-shadow: 0 3px 10px rgba(233, 30, 99, 0.2);
         }
-        .modal-close-btn:hover {
-            transform: scale(1.04);
-            box-shadow: 0 6px 18px rgba(233, 30, 99, 0.35);
+        .modal-close-btn:active {
+            transform: scale(0.95);
         }
 
-        @media (max-width: 680px) {
-            .container { padding: 12px 10px; border-radius: 24px; }
-            .header h1 { font-size: 1.3rem; }
-            .countdown-grid { grid-template-columns: 1fr; gap: 10px; }
-            .countdown-display .num { font-size: 1.6rem; min-width: 24px; }
-            .countdown-display .num.days { font-size: 2.0rem; min-width: 34px; }
-            .cheer-message { font-size: 0.85rem; padding: 4px 12px; }
-            #bigBear { bottom: 8%; font-size: 40px; }
+        /* ================================================================
+                   ★★★ 電腦版自動放大 (寬度 > 600px) ★★★
+                   ================================================================ */
+        @media (min-width: 600px) {
+            body {
+                padding: 16px;
+            }
+            .container {
+                max-width: 780px;
+                padding: 28px 36px 32px;
+                border-radius: 36px;
+                max-height: 96vh;
+                box-shadow: 0 12px 40px rgba(156, 39, 176, 0.08);
+            }
+
+            /* 標題 */
+            .header h1 {
+                font-size: 2.0rem;
+                letter-spacing: 0.5px;
+            }
+            .header .sub {
+                font-size: 1.0rem;
+                letter-spacing: 1px;
+            }
+
+            /* 分隔線 */
+            .divider {
+                gap: 12px;
+                margin: 6px 0 14px;
+            }
+            .divider .line {
+                width: 50px;
+                height: 2px;
+            }
+            .divider .dot {
+                font-size: 1.0rem;
+            }
+
+            /* 卡片網格 */
+            .countdown-grid {
+                gap: 16px;
+                margin-bottom: 10px;
+            }
+            .card {
+                padding: 16px 12px 18px;
+                border-radius: 20px;
+                border: 1.5px solid rgba(255, 255, 255, 0.6);
+            }
+            .card .exam-name {
+                font-size: 1.05rem;
+                letter-spacing: 0.5px;
+            }
+            .card .exam-date {
+                font-size: 0.8rem;
+                margin: 0 0 4px;
+            }
+            .card .countdown-label {
+                font-size: 0.85rem;
+                margin-bottom: 3px;
+            }
+            .countdown-display {
+                gap: 4px;
+            }
+            .countdown-display .num {
+                font-size: 2.0rem;
+                min-width: 32px;
+                padding: 0 4px;
+                border-radius: 6px;
+            }
+            .countdown-display .num.days {
+                font-size: 2.6rem;
+                min-width: 52px;
+            }
+            .countdown-display .label {
+                font-size: 0.75rem;
+                margin-right: 2px;
+            }
+
+            /* 應援訊息 */
+            .cheer-section {
+                margin-top: 6px;
+                padding-top: 10px;
+                border-top: 2px dashed rgba(233, 30, 99, 0.10);
+            }
+            .cheer-message {
+                font-size: 1.05rem;
+                padding: 8px 24px;
+                border-radius: 40px;
+                line-height: 1.5;
+            }
+            .cheer-message.qixi {
+                font-size: 1.1rem;
+                padding: 10px 28px;
+            }
+
+            /* ★ 維尼專區 (電腦版放大到跟之前一樣舒適) ★ */
+            .pooh-container {
+                margin-top: 10px;
+                padding-top: 10px;
+                border-top: 2px dashed rgba(233, 30, 99, 0.10);
+                gap: 14px;
+            }
+            .pooh-container img {
+                max-width: 150px;   /* ★ 恢復到原始大小 ★ */
+                border-radius: 12px;
+            }
+            .pooh-container .pooh-text {
+                font-size: 0.95rem;
+            }
+
+            /* 頁尾 */
+            .footer-note {
+                margin-top: 8px;
+                font-size: 0.8rem;
+                padding-top: 10px;
+                border-top: 1.5px solid rgba(233, 30, 99, 0.06);
+                letter-spacing: 0.5px;
+            }
+
+            /* 大熊 (電腦版放大) */
+            #bigBear {
+                bottom: 8%;
+                font-size: 70px;
+            }
             @keyframes bearWalk {
-                0% { transform: translateX(-10vw) scale(0.25); opacity: 0.6; }
-                100% { transform: translateX(100vw) scale(1.6); opacity: 0.4; }
+                0% {
+                    transform: translateX(-10vw) scale(0.3);
+                    opacity: 0.5;
+                }
+                15% {
+                    opacity: 0.9;
+                }
+                85% {
+                    opacity: 0.9;
+                }
+                100% {
+                    transform: translateX(110vw) scale(2.2);
+                    opacity: 0.3;
+                }
+            }
+
+            /* 彈窗 (電腦版放大) */
+            .modal-box {
+                max-width: 440px;
+                padding: 28px 32px 24px;
+                border-radius: 32px;
+            }
+            .modal-box .modal-icon {
+                font-size: 3.0rem;
+            }
+            .modal-box .modal-gif {
+                max-width: 140px;
+            }
+            .modal-box h2 {
+                font-size: 1.4rem;
+            }
+            .modal-box .cheer-text {
+                font-size: 1.05rem;
+                line-height: 1.6;
+            }
+            .modal-box .countdown-reminder {
+                font-size: 0.9rem;
+                padding: 6px 18px;
+            }
+            .modal-close-btn {
+                font-size: 1.0rem;
+                padding: 10px 36px;
             }
         }
-        @media (max-width: 400px) {
-            body { padding: 4px; }
-            .container { padding: 8px 6px; border-radius: 18px; }
-            .header h1 { font-size: 1.1rem; }
-            .header .sub { font-size: 0.7rem; }
-            .card { padding: 8px 4px 10px; }
-            .card .exam-name { font-size: 0.9rem; }
-            .countdown-display .num { font-size: 1.3rem; min-width: 20px; }
-            .countdown-display .num.days { font-size: 1.6rem; min-width: 28px; }
-            .countdown-display .label { font-size: 0.5rem; }
-            .cheer-message { font-size: 0.8rem; padding: 4px 10px; }
-            .footer-note { font-size: 0.65rem; padding-top: 6px; margin-top: 6px; }
-            #bigBear { bottom: 5%; font-size: 30px; }
-            @keyframes bearWalk {
-                0% { transform: translateX(-10vw) scale(0.2); opacity: 0.6; }
-                100% { transform: translateX(100vw) scale(1.4); opacity: 0.4; }
+
+        /* ===== 極小螢幕微調 (寬度 < 380px) ===== */
+        @media (max-width: 380px) {
+            .container {
+                padding: 6px 8px 8px;
+                border-radius: 18px;
+            }
+            .header h1 {
+                font-size: 0.95rem;
+            }
+            .header .sub {
+                font-size: 0.55rem;
+            }
+            .card .exam-name {
+                font-size: 0.6rem;
+            }
+            .card .exam-date {
+                font-size: 0.45rem;
+            }
+            .card .countdown-label {
+                font-size: 0.45rem;
+            }
+            .countdown-display .num {
+                font-size: 1.0rem;
+                min-width: 14px;
+            }
+            .countdown-display .num.days {
+                font-size: 1.2rem;
+                min-width: 20px;
+            }
+            .countdown-display .label {
+                font-size: 0.35rem;
+            }
+            .cheer-message {
+                font-size: 0.6rem;
+                padding: 3px 8px;
+            }
+            .cheer-message.qixi {
+                font-size: 0.65rem;
+            }
+            .pooh-container img {
+                max-width: 40px;
+            }
+            .pooh-container .pooh-text {
+                font-size: 0.5rem;
+            }
+            .footer-note {
+                font-size: 0.4rem;
+                padding-top: 3px;
+            }
+            .countdown-grid {
+                gap: 4px;
+            }
+            .card {
+                padding: 4px 3px 5px;
+                border-radius: 10px;
+            }
+        }
+
+        /* ===== 高度不足時 (小手機) ===== */
+        @media (max-height: 700px) and (max-width: 599px) {
+            .container {
+                padding: 6px 10px 8px;
+                border-radius: 18px;
+            }
+            .header h1 {
+                font-size: 0.95rem;
+            }
+            .header .sub {
+                font-size: 0.55rem;
+            }
+            .divider {
+                margin: 1px 0 4px;
+            }
+            .countdown-grid {
+                gap: 4px;
+            }
+            .card {
+                padding: 4px 3px 5px;
+                border-radius: 10px;
+            }
+            .card .exam-name {
+                font-size: 0.6rem;
+            }
+            .card .exam-date {
+                font-size: 0.45rem;
+                margin: 0 0 1px;
+            }
+            .card .countdown-label {
+                font-size: 0.45rem;
+                margin-bottom: 0px;
+            }
+            .countdown-display .num {
+                font-size: 1.0rem;
+                min-width: 14px;
+            }
+            .countdown-display .num.days {
+                font-size: 1.2rem;
+                min-width: 20px;
+            }
+            .countdown-display .label {
+                font-size: 0.35rem;
+            }
+            .cheer-section {
+                margin-top: 1px;
+                padding-top: 3px;
+            }
+            .cheer-message {
+                font-size: 0.6rem;
+                padding: 3px 8px;
+            }
+            .cheer-message.qixi {
+                font-size: 0.65rem;
+            }
+            .pooh-container {
+                margin-top: 2px;
+                padding-top: 3px;
+                gap: 4px;
+            }
+            .pooh-container img {
+                max-width: 40px;
+            }
+            .pooh-container .pooh-text {
+                font-size: 0.5rem;
+            }
+            .footer-note {
+                font-size: 0.4rem;
+                padding-top: 2px;
+                margin-top: 1px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- 花瓣 Canvas -->
+    <!-- 花瓣 Canvas (平時) -->
     <canvas id="petalCanvas"></canvas>
     <!-- 愛心雨 Canvas (七夕) -->
     <canvas id="heartRainCanvas"></canvas>
 
+    <!-- 背景浮動愛心 -->
     <div class="bg-hearts">
         <span>💕</span><span>🌸</span><span>✨</span><span>💖</span><span>💗</span><span>🌷</span><span>🦋</span>
     </div>
 
+    <!-- 大熊 -->
     <div id="bigBear" class="active">🐻</div>
+
+    <!-- 煙火 Canvas -->
     <canvas id="fireworksCanvas"></canvas>
 
     <div class="container">
         <div class="header">
             <h1><span class="heart">💕</span> Winny 加油！專屬倒數 <span class="heart">💕</span></h1>
             <div class="sub" id="subText">每天都為你打氣，開心迎接挑戰 ✨</div>
-            <div id="qixiTitle" style="display:none;" class="qixi-title">❤️ Winny，我愛你 ❤️</div>
         </div>
 
         <div class="divider">
@@ -604,19 +973,26 @@
             date: new Date(t.year, t.month, t.day)
         }));
 
+        // 判斷是否為七夕 (2026/08/19)
         function isQixi() {
             const now = new Date();
             return (now.getFullYear() === 2026 && now.getMonth() === 7 && now.getDate() === 19);
         }
 
+        // 計算從相識日 (2025/01/04) 到現在的天數
+        // ★ 方法：不含起算日當天，純粹經過天數 = 592
+        // ★ 若想改成 594 (含頭含尾)，請將 +2
         function getDaysTogether() {
             const start = new Date(2025, 0, 4);
             const now = new Date();
-            return Math.floor((now - start) / (1000 * 60 * 60 * 24));
+            // 目前為 592 天 (實質經過)
+            // 若想顯示 594 (含頭含尾)，改為 +2
+            return Math.floor((now - start) / (1000 * 60 * 60 * 24)); // 592
+            // return Math.floor((now - start) / (1000 * 60 * 60 * 24)) + 2; // 594
         }
 
         // ============================================================
-        // 2. 每日小語
+        // 2. 每日小語 (平時用)
         // ============================================================
         const DAILY_MESSAGES = [
             "準備好迎接今天的挑戰了嗎？Winny，出發！", // 0: 7/09
@@ -696,10 +1072,13 @@
         ];
 
         function getTodayCheer() {
+            // 七夕專屬
             if (isQixi()) {
                 const days = getDaysTogether();
                 return `Winny，我愛你 ❤️ 從2025/01/04相識到今天，我們一起走了 ${days} 天，每一天都更愛你。七夕快樂，我的寶貝。`;
             }
+
+            // 平時邏輯
             const now = new Date();
             const baseDate = new Date(2026, 6, 9);
             const diffDays = Math.floor((now - baseDate) / (1000 * 60 * 60 * 24));
@@ -719,8 +1098,9 @@
         }
 
         // ============================================================
-        // 3. 花瓣 (平時)
+        // 3. 花瓣 (平時) 與 愛心雨 (七夕)
         // ============================================================
+        // ----- 花瓣 -----
         const petalCanvas = document.getElementById('petalCanvas');
         const pCtx = petalCanvas.getContext('2d');
         let petals = [];
@@ -801,9 +1181,7 @@
             petalCanvas.style.display = 'none';
         }
 
-        // ============================================================
-        // 4. ★★★ 炫酷愛心雨 (七夕) ★★★
-        // ============================================================
+        // ----- 愛心雨 (七夕) -----
         const heartCanvas = document.getElementById('heartRainCanvas');
         const hCtx = heartCanvas.getContext('2d');
         let hearts = [];
@@ -816,62 +1194,44 @@
         window.addEventListener('resize', resizeHeartCanvas);
         resizeHeartCanvas();
 
-        // ============================================================
-        // ★ 全局速度倍率 (調整此數值可統一改變所有愛心運動速度)
-        //    數值 > 1 變快，< 1 變慢，建議範圍 0.3 ~ 3.0
-        // ============================================================
-        const HEART_SPEED_MULTIPLIER = 2.5;  // 快速版！
+        const HEART_SPEED_MULTIPLIER = 2.5;
 
         class Heart {
             constructor() { this.reset(true); }
             reset(init) {
                 this.x = Math.random() * heartCanvas.width;
                 this.y = init ? Math.random() * heartCanvas.height : -20 - Math.random() * 80;
-                // 愛心大小（隨機，稍大一點）
                 this.size = 18 + Math.random() * 32;
-                // 垂直速度 (快速)
                 this.speedY = (1.2 + Math.random() * 2.0) * HEART_SPEED_MULTIPLIER;
-                // 水平飄移 (快速)
                 this.speedX = (Math.random() - 0.5) * 2.0 * HEART_SPEED_MULTIPLIER;
-                // 旋轉速度 (快速自轉)
                 this.rotSpeed = (Math.random() - 0.5) * 0.15 * HEART_SPEED_MULTIPLIER;
-                // 縮放脈動 (心跳)
                 this.scale = 0.8 + Math.random() * 0.6;
                 this.scaleSpeed = (0.02 + Math.random() * 0.04) * HEART_SPEED_MULTIPLIER;
                 this.scalePhase = Math.random() * Math.PI * 2;
-                // 左右擺動 (波浪)
                 this.wobble = 0.03 + Math.random() * 0.06;
                 this.wobbleSpeed = 0.01 + Math.random() * 0.025;
                 this.phase = Math.random() * Math.PI * 2;
-                // 透明度 (呼吸)
                 this.alphaBase = 0.6 + Math.random() * 0.4;
                 this.alphaSpeed = (0.005 + Math.random() * 0.015) * HEART_SPEED_MULTIPLIER;
                 this.alphaPhase = Math.random() * Math.PI * 2;
-                // 顏色 (隨機粉紅/桃紅/紅/紫)
-                const colors = [
-                    '#e91e63', '#ff4081', '#f06292', '#ec407a',
-                    '#d81b60', '#c2185b', '#ad1457', '#880e4f',
+                const colors = ['#e91e63', '#ff4081', '#f06292', '#ec407a', '#d81b60', '#c2185b', '#ad1457', '#880e4f',
                     '#ff6b6b', '#ff4757', '#ff2d55', '#ff3b30'
                 ];
                 this.color = colors[Math.floor(Math.random() * colors.length)];
-                // 是否畫出光暈 (部分愛心有光暈)
                 this.glow = Math.random() > 0.6;
+                this.rotation = 0;
+                this.currentScale = 1;
+                this.currentAlpha = 1;
             }
             update() {
-                // 垂直移動
                 this.y += this.speedY;
-                // 水平移動 + 波浪
                 this.x += this.speedX + Math.sin(this.phase) * this.wobble;
                 this.phase += this.wobbleSpeed;
-                // 旋轉
                 this.rotation += this.rotSpeed;
-                // 縮放脈動
                 this.scalePhase += this.scaleSpeed;
                 this.currentScale = this.scale * (1 + 0.3 * Math.sin(this.scalePhase));
-                // 呼吸透明度
                 this.alphaPhase += this.alphaSpeed;
                 this.currentAlpha = this.alphaBase * (0.6 + 0.4 * Math.sin(this.alphaPhase));
-                // 邊界重置
                 if (this.x < -50) this.x = heartCanvas.width + 50;
                 if (this.x > heartCanvas.width + 50) this.x = -50;
                 if (this.y > heartCanvas.height + 60) this.reset(false);
@@ -882,25 +1242,20 @@
                 hCtx.translate(this.x, this.y);
                 hCtx.rotate(this.rotation);
                 hCtx.scale(this.currentScale, this.currentScale);
-
-                // 光暈 (若有)
                 if (this.glow) {
                     hCtx.shadowColor = this.color;
                     hCtx.shadowBlur = 25;
                 }
-
-                // 繪製愛心 (使用自定義形狀，比單純文字更細緻)
                 hCtx.font = this.size + 'px "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif';
                 hCtx.textAlign = 'center';
                 hCtx.textBaseline = 'middle';
                 hCtx.fillStyle = this.color;
                 hCtx.fillText('❤️', 0, 0);
-
                 hCtx.restore();
             }
         }
 
-        function initHearts(count = 80) {
+        function initHearts(count = 70) {
             hearts = [];
             for (let i = 0; i < count; i++) hearts.push(new Heart());
         }
@@ -914,7 +1269,7 @@
 
         function startHeartRain() {
             if (hAnimationId) return;
-            initHearts(80);
+            initHearts(70);
             animateHearts();
             heartCanvas.classList.add('active');
         }
@@ -927,7 +1282,7 @@
         }
 
         // ============================================================
-        // 5. 倒數 & 煙火
+        // 4. 倒數 & 煙火 (同之前)
         // ============================================================
         function padZero(n) { return String(n).padStart(2, '0'); }
 
@@ -1081,7 +1436,7 @@
         }
 
         // ============================================================
-        // 6. 彈窗
+        // 5. 彈窗
         // ============================================================
         function showModal(examName, days, cheerText, isAllDone, emoji, qixi = false) {
             let titleText, reminderHtml, iconEmoji;
@@ -1127,12 +1482,12 @@
         }
 
         // ============================================================
-        // 7. 初始化
+        // 6. 初始化
         // ============================================================
         function init() {
             const qixi = isQixi();
 
-            // 背景切換
+            // ---- 背景切換 ----
             if (qixi) {
                 stopPetals();
                 startHeartRain();
@@ -1141,24 +1496,22 @@
                 startPetals();
             }
 
-            // 小語
+            // ---- 應援訊息 ----
             const cheerEl = document.getElementById('cheerMessage');
             cheerEl.textContent = getTodayCheer();
             if (qixi) {
                 cheerEl.classList.add('qixi');
-                document.getElementById('qixiTitle').style.display = 'block';
-                document.getElementById('subText').textContent = 'Winny，我愛你 ❤️';
+                document.getElementById('subText').textContent = '💖 七夕快樂，我的寶貝';
             } else {
                 cheerEl.classList.remove('qixi');
-                document.getElementById('qixiTitle').style.display = 'none';
                 document.getElementById('subText').textContent = '每天都為你打氣，開心迎接挑戰 ✨';
             }
 
-            // 倒數
+            // ---- 倒數更新 ----
             updateCountdown();
             setInterval(updateCountdown, 1000);
 
-            // 午夜更新
+            // ---- 午夜更新 ----
             let lastDateStr = new Date().toDateString();
             setInterval(() => {
                 const now = new Date();
@@ -1169,13 +1522,11 @@
                     const isQixiNow = isQixi();
                     if (isQixiNow) {
                         document.getElementById('cheerMessage').classList.add('qixi');
-                        document.getElementById('qixiTitle').style.display = 'block';
-                        document.getElementById('subText').textContent = 'Winny，我愛你 ❤️';
+                        document.getElementById('subText').textContent = '💖 七夕快樂，我的寶貝';
                         stopPetals();
                         startHeartRain();
                     } else {
                         document.getElementById('cheerMessage').classList.remove('qixi');
-                        document.getElementById('qixiTitle').style.display = 'none';
                         document.getElementById('subText').textContent = '每天都為你打氣，開心迎接挑戰 ✨';
                         stopHeartRain();
                         startPetals();
@@ -1183,7 +1534,7 @@
                 }
             }, 60000);
 
-            // 彈窗
+            // ---- 彈窗 ----
             const now = new Date();
             const upcomingExams = targets
                 .map(t => {
