@@ -318,19 +318,20 @@
             padding: 6px 14px;
         }
 
-        /* --- 維尼專區 --- */
+        /* ================================================================
+           ★★★ 維尼專區 — 改回「獨立一行」(垂直排列) ★★★
+           ================================================================ */
         .pooh-container {
             text-align: center;
             margin-top: 6px;
             padding-top: 6px;
             border-top: 1.5px dashed rgba(233, 30, 99, 0.10);
             flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            display: block;  /* 改回 block，圖片與文字垂直排列 */
         }
         .pooh-container img {
+            display: block;
+            margin: 0 auto 4px;  /* 圖片置中，下方留一點間距 */
             max-width: 56px;
             width: 100%;
             height: auto;
@@ -342,6 +343,7 @@
             color: #4a148c;
             font-weight: 600;
             line-height: 1.2;
+            display: block;  /* 確保文字獨立一行 */
         }
 
         /* --- 頁尾 --- */
@@ -402,8 +404,8 @@
         }
 
         /* ================================================================
-                   ★★★ 彈窗 (維尼獨立一行，上下留白) ★★★
-                   ================================================================ */
+           ★★★ 彈窗 (維尼獨立一行) ★★★
+           ================================================================ */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -437,7 +439,6 @@
             font-size: 2rem;
             margin-bottom: 2px;
         }
-        /* ★★★ 維尼獨立一行 + 上下留白 ★★★ */
         .modal-box .modal-gif {
             display: block;
             margin: 8px auto 12px;
@@ -485,8 +486,8 @@
         }
 
         /* ================================================================
-                   ★★★ 電腦版自動放大 (寬度 > 600px) ★★★
-                   ================================================================ */
+           ★★★ 電腦版自動放大 (寬度 > 600px) ★★★
+           ================================================================ */
         @media (min-width: 600px) {
             body { padding: 16px; }
             .container {
@@ -513,9 +514,12 @@
             .cheer-section { margin-top: 8px; padding-top: 12px; border-top: 2px dashed rgba(233, 30, 99, 0.10); }
             .cheer-message { font-size: 1.05rem; padding: 10px 24px; border-radius: 40px; line-height: 1.6; }
             .cheer-message.qixi { font-size: 1.1rem; padding: 12px 28px; }
-            .pooh-container { margin-top: 12px; padding-top: 12px; border-top: 2px dashed rgba(233, 30, 99, 0.10); gap: 14px; }
-            .pooh-container img { max-width: 150px; border-radius: 12px; }
+
+            /* ★ 電腦版維尼 — 垂直排列，圖片放大 ★ */
+            .pooh-container { margin-top: 12px; padding-top: 12px; border-top: 2px dashed rgba(233, 30, 99, 0.10); }
+            .pooh-container img { max-width: 150px; margin: 0 auto 8px; border-radius: 12px; }
             .pooh-container .pooh-text { font-size: 0.95rem; }
+
             .footer-note { margin-top: 10px; font-size: 0.8rem; padding-top: 10px; border-top: 1.5px solid rgba(233, 30, 99, 0.06); letter-spacing: 0.5px; }
             #bigBear { bottom: 8%; font-size: 70px; }
             @keyframes bearWalk {
@@ -524,7 +528,6 @@
                 85% { opacity: 0.9; }
                 100% { transform: translateX(110vw) scale(2.2); opacity: 0.3; }
             }
-            /* ★ 電腦版彈窗維尼獨立一行 + 原始大小 ★ */
             .modal-box { max-width: 440px; padding: 30px 36px 26px; border-radius: 32px; }
             .modal-box .modal-icon { font-size: 3.0rem; }
             .modal-box .modal-gif { max-width: 160px; margin: 10px auto 16px; }
@@ -572,7 +575,7 @@
             .cheer-section { margin-top: 2px; padding-top: 4px; }
             .cheer-message { font-size: 0.6rem; padding: 4px 8px; }
             .cheer-message.qixi { font-size: 0.65rem; padding: 4px 10px; }
-            .pooh-container { margin-top: 4px; padding-top: 4px; gap: 4px; }
+            .pooh-container { margin-top: 4px; padding-top: 4px; }
             .pooh-container img { max-width: 40px; }
             .pooh-container .pooh-text { font-size: 0.5rem; }
             .modal-box .modal-gif { max-width: 90px; }
@@ -639,6 +642,7 @@
             <div class="cheer-message" id="cheerMessage">💖 載入中...</div>
         </div>
 
+        <!-- 維尼專區 — 現在圖片與文字各自獨立一行 (垂直排列) -->
         <div class="pooh-container" id="poohContainer">
             <img src="https://raw.githubusercontent.com/dustinchen26/test/refs/heads/master/hurray.gif" alt="歡呼慶祝" />
             <div class="pooh-text">🎉 太棒了！Winny 一定沒問題！ 💪</div>
@@ -798,7 +802,7 @@
         }
 
         // ============================================================
-        // 3. 花瓣 (平時) 與 愛心雨 (七夕) — 速度調慢、數量減少
+        // 3. 花瓣 (平時) 與 愛心雨 (七夕)
         // ============================================================
         // ----- 花瓣 -----
         const petalCanvas = document.getElementById('petalCanvas');
@@ -1163,7 +1167,6 @@
             overlay.innerHTML = `
                 <div class="modal-box">
                     <div class="modal-icon">${iconEmoji}</div>
-                    <!-- 維尼獨立一行 (CSS 已設定 display:block + margin) -->
                     <img class="modal-gif" src="https://raw.githubusercontent.com/dustinchen26/test/refs/heads/master/pooh-pooh-and-piglet.gif" alt="小熊維尼與小豬" />
                     <h2>${titleText}</h2>
                     <div class="cheer-text">${cheerText}</div>
