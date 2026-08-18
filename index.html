@@ -91,7 +91,7 @@
             100% { transform: translateY(-18px) rotate(6deg) scale(1.05); }
         }
 
-        /* ===== 主容器 (手機版舒適排版) ===== */
+        /* ===== 主容器 ===== */
         .container {
             position: relative;
             z-index: 2;
@@ -315,31 +315,31 @@
         }
 
         /* ================================================================
-           ★★★ 維尼專區 — 手機版明顯放大 (80px) ★★★
+           ★★★ 主畫面維尼 — 手機版放大到 110px ★★★
            ================================================================ */
         .pooh-container {
             text-align: center;
-            margin-top: 8px;
-            padding-top: 8px;
+            margin-top: 10px;
+            padding-top: 10px;
             border-top: 1.5px dashed rgba(233, 30, 99, 0.10);
             flex-shrink: 0;
             display: block;
         }
         .pooh-container img {
             display: block;
-            margin: 0 auto 6px;
-            max-width: 80px;   /* ★ 手機版從 56px → 80px，明顯放大 ★ */
+            margin: 0 auto 8px;
+            max-width: 110px;   /* ★ 手機版從 80px → 110px，明顯放大 ★ */
             width: 100%;
             height: auto;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(233, 30, 99, 0.08);
+            border-radius: 14px;
+            box-shadow: 0 4px 16px rgba(233, 30, 99, 0.10);
             transition: transform 0.2s ease;
         }
         .pooh-container img:active {
             transform: scale(0.95);
         }
         .pooh-container .pooh-text {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             color: #4a148c;
             font-weight: 600;
             line-height: 1.3;
@@ -402,7 +402,7 @@
         #fireworksCanvas.active { display: block; }
 
         /* ================================================================
-           ★★★ 彈窗 (手機版維尼放大到 140px) ★★★
+           ★★★ 彈窗 (維尼獨立一行) ★★★
            ================================================================ */
         .modal-overlay {
             position: fixed;
@@ -440,7 +440,7 @@
         .modal-box .modal-gif {
             display: block;
             margin: 8px auto 14px;
-            max-width: 140px;  /* ★ 手機彈窗維尼明顯放大 ★ */
+            max-width: 140px;
             width: 100%;
             height: auto;
             border-radius: 12px;
@@ -485,7 +485,7 @@
         }
 
         /* ================================================================
-           ★★★ 電腦版自動放大 (寬度 > 600px) ★★★
+           ★★★ 電腦版自動放大 ★★★
            ================================================================ */
         @media (min-width: 600px) {
             body { padding: 16px; }
@@ -514,9 +514,9 @@
             .cheer-message { font-size: 1.05rem; padding: 10px 24px; border-radius: 40px; line-height: 1.6; }
             .cheer-message.qixi { font-size: 1.1rem; padding: 12px 28px; }
 
-            /* 電腦版維尼 */
+            /* ★ 電腦版維尼 150px ★ */
             .pooh-container { margin-top: 12px; padding-top: 12px; border-top: 2px dashed rgba(233, 30, 99, 0.10); }
-            .pooh-container img { max-width: 150px; margin: 0 auto 8px; border-radius: 14px; }
+            .pooh-container img { max-width: 150px; margin: 0 auto 10px; border-radius: 14px; }
             .pooh-container .pooh-text { font-size: 0.95rem; }
 
             .footer-note { margin-top: 10px; font-size: 0.8rem; padding-top: 10px; border-top: 1.5px solid rgba(233, 30, 99, 0.06); letter-spacing: 0.5px; }
@@ -549,15 +549,15 @@
             .countdown-display .label { font-size: 0.35rem; }
             .cheer-message { font-size: 0.65rem; padding: 4px 10px; }
             .cheer-message.qixi { font-size: 0.7rem; padding: 4px 12px; }
-            .pooh-container img { max-width: 64px; }
-            .pooh-container .pooh-text { font-size: 0.6rem; }
+            .pooh-container img { max-width: 90px; }
+            .pooh-container .pooh-text { font-size: 0.65rem; }
             .modal-box .modal-gif { max-width: 110px; }
             .footer-note { font-size: 0.5rem; padding-top: 4px; }
             .countdown-grid { gap: 4px; }
             .card { padding: 6px 4px 8px; border-radius: 12px; }
         }
 
-        /* ===== 高度不足時 (小手機) ===== */
+        /* ===== 高度不足時 ===== */
         @media (max-height: 700px) and (max-width: 599px) {
             .container { padding: 10px 14px 12px; border-radius: 20px; }
             .header h1 { font-size: 1.0rem; }
@@ -574,9 +574,9 @@
             .cheer-section { margin-top: 2px; padding-top: 4px; }
             .cheer-message { font-size: 0.65rem; padding: 4px 10px; }
             .cheer-message.qixi { font-size: 0.7rem; padding: 4px 12px; }
-            .pooh-container { margin-top: 4px; padding-top: 4px; }
-            .pooh-container img { max-width: 64px; }
-            .pooh-container .pooh-text { font-size: 0.6rem; }
+            .pooh-container { margin-top: 6px; padding-top: 6px; }
+            .pooh-container img { max-width: 90px; }
+            .pooh-container .pooh-text { font-size: 0.65rem; }
             .modal-box .modal-gif { max-width: 110px; }
             .footer-note { font-size: 0.5rem; padding-top: 3px; margin-top: 3px; }
         }
@@ -640,7 +640,7 @@
             <div class="cheer-message" id="cheerMessage">💖 載入中...</div>
         </div>
 
-        <!-- ★ 維尼專區 — 手機版 80px，獨立一行 ★ -->
+        <!-- ★ 主畫面維尼 — 手機版 110px ★ -->
         <div class="pooh-container" id="poohContainer">
             <img src="https://raw.githubusercontent.com/dustinchen26/test/refs/heads/master/hurray.gif" alt="歡呼慶祝" />
             <div class="pooh-text">🎉 太棒了！Winny 一定沒問題！ 💪</div>
