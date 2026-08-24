@@ -286,7 +286,9 @@
             color: #9e9e9e;
         }
 
-        /* --- 應援訊息 --- */
+        /* ================================================================
+           ★★★ 應援訊息 — 整體輕柔上下浮動（呼吸感） ★★★
+           ================================================================ */
         .cheer-section {
             margin-top: 4px;
             padding-top: 8px;
@@ -304,6 +306,14 @@
             display: inline-block;
             border: 1px solid rgba(255, 255, 255, 0.4);
             line-height: 1.5;
+            /* ★ 整體輕柔上下浮動 ★ */
+            animation: cheerFloat 3.2s ease-in-out infinite;
+            transform-origin: center;
+        }
+        @keyframes cheerFloat {
+            0% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-4px) scale(1.01); }
+            100% { transform: translateY(0px) scale(1); }
         }
         .cheer-message.qixi {
             background: rgba(255, 107, 129, 0.12);
@@ -339,7 +349,7 @@
             transform: scale(0.95);
         }
 
-        /* ★★★ 維尼文字動畫：柔和的上下浮動（波浪感） ★★★ */
+        /* ★★★ 維尼文字 — 逐字波浪（從左到右掃過） ★★★ */
         .pooh-text {
             display: inline-block;
             font-size: 0.85rem;
@@ -352,15 +362,58 @@
             border-radius: 30px;
             backdrop-filter: blur(2px);
             border: 1px solid rgba(233, 30, 99, 0.08);
-            /* 溫柔的上下浮動 + 微縮放（像在呼吸） */
-            animation: poohFloat 2.6s ease-in-out infinite;
-            transform-origin: center;
             box-shadow: 0 2px 8px rgba(233, 30, 99, 0.02);
         }
-        @keyframes poohFloat {
-            0% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-6px) scale(1.02); }
-            100% { transform: translateY(0px) scale(1); }
+        .pooh-text .char {
+            display: inline-block;
+            animation: waveChar 1.8s ease-in-out infinite;
+        }
+        .pooh-text .char:nth-child(1) { animation-delay: 0.00s; }
+        .pooh-text .char:nth-child(2) { animation-delay: 0.08s; }
+        .pooh-text .char:nth-child(3) { animation-delay: 0.16s; }
+        .pooh-text .char:nth-child(4) { animation-delay: 0.24s; }
+        .pooh-text .char:nth-child(5) { animation-delay: 0.32s; }
+        .pooh-text .char:nth-child(6) { animation-delay: 0.40s; }
+        .pooh-text .char:nth-child(7) { animation-delay: 0.48s; }
+        .pooh-text .char:nth-child(8) { animation-delay: 0.56s; }
+        .pooh-text .char:nth-child(9) { animation-delay: 0.64s; }
+        .pooh-text .char:nth-child(10) { animation-delay: 0.72s; }
+        .pooh-text .char:nth-child(11) { animation-delay: 0.80s; }
+        .pooh-text .char:nth-child(12) { animation-delay: 0.88s; }
+        .pooh-text .char:nth-child(13) { animation-delay: 0.96s; }
+        .pooh-text .char:nth-child(14) { animation-delay: 1.04s; }
+        .pooh-text .char:nth-child(15) { animation-delay: 1.12s; }
+        .pooh-text .char:nth-child(16) { animation-delay: 1.20s; }
+        .pooh-text .char:nth-child(17) { animation-delay: 1.28s; }
+        .pooh-text .char:nth-child(18) { animation-delay: 1.36s; }
+        .pooh-text .char:nth-child(19) { animation-delay: 1.44s; }
+        .pooh-text .char:nth-child(20) { animation-delay: 1.52s; }
+        .pooh-text .char:nth-child(21) { animation-delay: 1.60s; }
+        .pooh-text .char:nth-child(22) { animation-delay: 1.68s; }
+        .pooh-text .char:nth-child(23) { animation-delay: 1.76s; }
+        .pooh-text .char:nth-child(24) { animation-delay: 1.84s; }
+        .pooh-text .char:nth-child(25) { animation-delay: 1.92s; }
+        .pooh-text .char:nth-child(26) { animation-delay: 2.00s; }
+        .pooh-text .char:nth-child(27) { animation-delay: 2.08s; }
+        .pooh-text .char:nth-child(28) { animation-delay: 2.16s; }
+        .pooh-text .char:nth-child(29) { animation-delay: 2.24s; }
+        .pooh-text .char:nth-child(30) { animation-delay: 2.32s; }
+        .pooh-text .char:nth-child(31) { animation-delay: 2.40s; }
+        .pooh-text .char:nth-child(32) { animation-delay: 2.48s; }
+        .pooh-text .char:nth-child(33) { animation-delay: 2.56s; }
+        .pooh-text .char:nth-child(34) { animation-delay: 2.64s; }
+        .pooh-text .char:nth-child(35) { animation-delay: 2.72s; }
+        .pooh-text .char:nth-child(36) { animation-delay: 2.80s; }
+        .pooh-text .char:nth-child(37) { animation-delay: 2.88s; }
+        .pooh-text .char:nth-child(38) { animation-delay: 2.96s; }
+        .pooh-text .char:nth-child(39) { animation-delay: 3.04s; }
+        .pooh-text .char:nth-child(40) { animation-delay: 3.12s; }
+
+        @keyframes waveChar {
+            0% { transform: translateY(0px) rotate(0deg); }
+            40% { transform: translateY(-6px) rotate(1deg); }
+            70% { transform: translateY(-2px) rotate(-0.5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
         }
 
         /* --- 頁尾 --- */
@@ -419,7 +472,7 @@
         #fireworksCanvas.active { display: block; }
 
         /* ================================================================
-           ★★★ 彈窗 (維尼獨立一行) ★★★
+           ★★★ 彈窗 ★★★
            ================================================================ */
         .modal-overlay {
             position: fixed;
@@ -527,22 +580,39 @@
             .countdown-display .num { font-size: 2.0rem; min-width: 32px; padding: 0 4px; border-radius: 6px; }
             .countdown-display .num.days { font-size: 2.6rem; min-width: 52px; }
             .countdown-display .label { font-size: 0.75rem; margin-right: 2px; }
+
+            /* 應援訊息 — 電腦版微調 */
             .cheer-section { margin-top: 8px; padding-top: 12px; border-top: 2px dashed rgba(233, 30, 99, 0.10); }
-            .cheer-message { font-size: 1.05rem; padding: 10px 24px; border-radius: 40px; line-height: 1.6; }
+            .cheer-message {
+                font-size: 1.05rem;
+                padding: 10px 24px;
+                border-radius: 40px;
+                line-height: 1.6;
+                animation-duration: 4s;
+            }
+            @keyframes cheerFloat {
+                0% { transform: translateY(0px) scale(1); }
+                50% { transform: translateY(-6px) scale(1.01); }
+                100% { transform: translateY(0px) scale(1); }
+            }
             .cheer-message.qixi { font-size: 1.1rem; padding: 12px 28px; }
 
+            /* 維尼 — 電腦版微調 */
             .pooh-container { margin-top: 12px; padding-top: 12px; border-top: 2px dashed rgba(233, 30, 99, 0.10); }
             .pooh-container img { max-width: 150px; margin: 0 auto 10px; border-radius: 14px; }
             .pooh-text {
                 font-size: 1.1rem;
                 padding: 6px 28px;
                 border-radius: 40px;
-                animation-duration: 3s;
             }
-            @keyframes poohFloat {
-                0% { transform: translateY(0px) scale(1); }
-                50% { transform: translateY(-8px) scale(1.02); }
-                100% { transform: translateY(0px) scale(1); }
+            .pooh-text .char {
+                animation-duration: 2.2s;
+            }
+            @keyframes waveChar {
+                0% { transform: translateY(0px) rotate(0deg); }
+                40% { transform: translateY(-8px) rotate(1.5deg); }
+                70% { transform: translateY(-3px) rotate(-0.5deg); }
+                100% { transform: translateY(0px) rotate(0deg); }
             }
 
             .footer-note { margin-top: 10px; font-size: 0.8rem; padding-top: 10px; border-top: 1.5px solid rgba(233, 30, 99, 0.06); letter-spacing: 0.5px; }
@@ -573,10 +643,17 @@
             .countdown-display .num { font-size: 0.95rem; min-width: 14px; }
             .countdown-display .num.days { font-size: 1.15rem; min-width: 20px; }
             .countdown-display .label { font-size: 0.35rem; }
-            .cheer-message { font-size: 0.65rem; padding: 4px 10px; }
+            .cheer-message { font-size: 0.65rem; padding: 4px 10px; animation-duration: 2.8s; }
             .cheer-message.qixi { font-size: 0.7rem; padding: 4px 12px; }
             .pooh-container img { max-width: 90px; }
             .pooh-text { font-size: 0.7rem; padding: 2px 12px; }
+            .pooh-text .char { animation-duration: 1.6s; }
+            @keyframes waveChar {
+                0% { transform: translateY(0px); }
+                40% { transform: translateY(-4px); }
+                70% { transform: translateY(-1px); }
+                100% { transform: translateY(0px); }
+            }
             .modal-box .modal-gif { max-width: 130px; }
             .footer-note { font-size: 0.5rem; padding-top: 4px; }
             .countdown-grid { gap: 4px; }
@@ -669,7 +746,6 @@
         <!-- ★ 主畫面維尼 ★ -->
         <div class="pooh-container" id="poohContainer">
             <img src="https://raw.githubusercontent.com/dustinchen26/test/refs/heads/master/hurray.gif" alt="歡呼慶祝" />
-            <!-- 文字改為動態產生，並套用浮動動畫 -->
             <div class="pooh-text" id="poohText">載入中...</div>
         </div>
 
@@ -826,22 +902,19 @@
             return message + ' （民國 ' + rocYear + '/' + month + '/' + day + '）';
         }
 
-        // ★★★ 維尼專屬文字：只保留一句核心小語 + 特殊情境變換 ★★★
+        // ★★★ 維尼專屬文字：精簡核心語句 + 特殊情境變換 ★★★
         function getPoohText() {
             const now = new Date();
 
-            // 1. 七夕特別版
             if (isQixi()) {
                 return 'Winny，我愛你 ❤️ 七夕快樂！';
             }
 
-            // 2. 檢查是否所有考試都結束了
             const allDone = targets.every(t => t.date - now <= 0);
             if (allDone) {
                 return '🎉 超級厲害！我永遠為你驕傲！ 🏆';
             }
 
-            // 3. 檢查最近一場考試的倒數天數（僅看尚未結束的）
             let minDays = Infinity;
             for (const t of targets) {
                 const diff = t.date - now;
@@ -851,13 +924,20 @@
                 }
             }
 
-            // 如果倒數 5 天以內（且大於 0），給予溫柔的倒數陪伴
             if (minDays <= 5 && minDays > 0) {
                 return `Winny，剩下 ${minDays} 天，我陪你 💪`;
             }
 
-            // 4. 平常日：唯一一句溫暖的核心話語（簡潔、不搶戲）
             return 'Winny，我會一直陪著你 💕';
+        }
+
+        // ★★★ 將文字拆成獨立字元，每個字包在 <span class="char"> 裡 ★★★
+        function renderPoohText(text) {
+            const container = document.getElementById('poohText');
+            if (!container) return;
+            // 用空字串 split 拆成單字，保留 emoji
+            const chars = [...text];
+            container.innerHTML = chars.map(ch => `<span class="char">${ch}</span>`).join('');
         }
 
         // ============================================================
@@ -1262,11 +1342,8 @@
                 document.getElementById('subText').textContent = '每天都為你打氣，開心迎接挑戰 ✨';
             }
 
-            // ★ 設定維尼底下的文字（使用精簡且動態的核心語句） ★
-            const poohTextEl = document.getElementById('poohText');
-            if (poohTextEl) {
-                poohTextEl.textContent = getPoohText();
-            }
+            // ★ 設定維尼底下的文字（使用 renderPoohText 拆字） ★
+            renderPoohText(getPoohText());
 
             updateCountdown();
             setInterval(updateCountdown, 1000);
@@ -1290,11 +1367,8 @@
                         stopHeartRain();
                         startPetals();
                     }
-                    // ★ 同步更新維尼文字 ★
-                    const poohTextEl2 = document.getElementById('poohText');
-                    if (poohTextEl2) {
-                        poohTextEl2.textContent = getPoohText();
-                    }
+                    // ★ 同步更新維尼文字（拆字） ★
+                    renderPoohText(getPoohText());
                 }
             }, 60000);
 
