@@ -303,7 +303,6 @@
             display: inline-block;
             line-height: 1.5;
             padding: 4px 4px;
-            /* ★ 卡拉OK效果：紅字由左往右漸變 ★ */
             background: linear-gradient(to right, #e91e63 0%, #e91e63 50%, #7b4b8a 50%, #7b4b8a 100%);
             background-size: 200% 100%;
             background-position: 0% 0%;
@@ -347,7 +346,6 @@
             transform: scale(0.95);
         }
 
-        /* ★★★ 維尼文字 — 去掉外框（無背景、無邊框、無圓角） ★★★ */
         .pooh-text {
             display: inline-block;
             font-size: 0.85rem;
@@ -355,7 +353,6 @@
             font-weight: 700;
             line-height: 1.4;
             letter-spacing: 0.5px;
-            /* 移除所有外框樣式 */
             background: transparent;
             padding: 0;
             border: none;
@@ -408,7 +405,6 @@
         .pooh-text .char:nth-child(39) { animation-delay: 3.04s; }
         .pooh-text .char:nth-child(40) { animation-delay: 3.12s; }
 
-        /* ★ 晃動幅度加大（手機版 -14px） ★ */
         @keyframes waveChar {
             0% { transform: translateY(0px) rotate(0deg); }
             40% { transform: translateY(-14px) rotate(2deg); }
@@ -522,12 +518,35 @@
             margin-bottom: 2px;
             line-height: 1.2;
         }
+
+        /* ================================================================
+           ★★★ 彈窗加油小語 — 卡拉OK特效（超醒目版） ★★★
+           ================================================================ */
         .modal-box .cheer-text {
-            font-size: 0.9rem;
-            color: #4a148c;
-            line-height: 1.5;
-            font-weight: 600;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            font-weight: 700;
+            /* 亮粉色 → 亮橙色，比主頁面更鮮豔 */
+            background: linear-gradient(to right, #ff1493 0%, #ff1493 45%, #ff8c00 45%, #ff8c00 100%);
+            background-size: 200% 100%;
+            background-position: 0% 0%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: karaokeModal 2.8s ease-in-out infinite;
+            /* 發光效果，讓文字更突出 */
+            filter: drop-shadow(0 0 12px rgba(255, 20, 147, 0.25));
+            /* 增加一點文字陰影輔助（對不支援 clip 的瀏覽器） */
+            text-shadow: 0 0 20px rgba(255, 20, 147, 0.15);
+            letter-spacing: 0.3px;
         }
+        @keyframes karaokeModal {
+            0% { background-position: 100% 0%; }
+            50% { background-position: 0% 0%; }
+            100% { background-position: 100% 0%; }
+        }
+
+        /* 彈窗倒數提醒保持原樣 */
         .modal-box .countdown-reminder {
             font-size: 0.75rem;
             color: #c2185b;
@@ -581,7 +600,6 @@
             .countdown-display .num.days { font-size: 2.6rem; min-width: 52px; }
             .countdown-display .label { font-size: 0.75rem; margin-right: 2px; }
 
-            /* 應援訊息 — 電腦版微調（卡拉OK） */
             .cheer-section { margin-top: 8px; padding-top: 12px; border-top: 2px dashed rgba(233, 30, 99, 0.10); }
             .cheer-message {
                 font-size: 1.05rem;
@@ -591,7 +609,6 @@
             }
             .cheer-message.qixi { font-size: 1.1rem; }
 
-            /* 維尼 — 電腦版微調（晃動幅度加大到 -20px） */
             .pooh-container { margin-top: 12px; padding-top: 12px; border-top: 2px dashed rgba(233, 30, 99, 0.10); }
             .pooh-container img { max-width: 150px; margin: 0 auto 10px; border-radius: 14px; }
             .pooh-text {
@@ -620,11 +637,23 @@
                 85% { opacity: 0.9; }
                 100% { transform: translateX(110vw) scale(2.2); opacity: 0.3; }
             }
-            .modal-box { max-width: 440px; padding: 32px 38px 28px; border-radius: 32px; }
+            .modal-box {
+                max-width: 440px;
+                padding: 32px 38px 28px;
+                border-radius: 32px;
+            }
             .modal-box .modal-icon { font-size: 3.0rem; }
             .modal-box .modal-gif { max-width: 160px; margin: 10px auto 16px; }
             .modal-box h2 { font-size: 1.4rem; }
-            .modal-box .cheer-text { font-size: 1.05rem; line-height: 1.6; }
+
+            /* ★ 電腦版彈窗加油小語 — 放大 & 更強特效 ★ */
+            .modal-box .cheer-text {
+                font-size: 1.15rem;
+                line-height: 1.7;
+                filter: drop-shadow(0 0 18px rgba(255, 20, 147, 0.30));
+                animation-duration: 3.2s;
+                letter-spacing: 0.5px;
+            }
             .modal-box .countdown-reminder { font-size: 0.9rem; padding: 6px 18px; }
             .modal-close-btn { font-size: 1.0rem; padding: 10px 36px; }
         }
@@ -655,6 +684,13 @@
             .footer-note { font-size: 0.5rem; padding-top: 4px; }
             .countdown-grid { gap: 4px; }
             .card { padding: 6px 4px 8px; border-radius: 12px; }
+
+            /* 極小螢幕彈窗加油小語微調 */
+            .modal-box .cheer-text {
+                font-size: 0.85rem;
+                filter: drop-shadow(0 0 8px rgba(255, 20, 147, 0.20));
+                animation-duration: 2.4s;
+            }
         }
 
         /* ===== 高度不足時 ===== */
@@ -679,6 +715,12 @@
             .pooh-text { font-size: 0.7rem; padding: 0; }
             .modal-box .modal-gif { max-width: 130px; }
             .footer-note { font-size: 0.5rem; padding-top: 3px; margin-top: 3px; }
+
+            .modal-box .cheer-text {
+                font-size: 0.85rem;
+                filter: drop-shadow(0 0 8px rgba(255, 20, 147, 0.20));
+                animation-duration: 2.4s;
+            }
         }
     </style>
 </head>
@@ -899,19 +941,15 @@
             return message + ' （民國 ' + rocYear + '/' + month + '/' + day + '）';
         }
 
-        // ★★★ 維尼專屬文字：精簡核心語句 + 特殊情境變換 ★★★
         function getPoohText() {
             const now = new Date();
-
             if (isQixi()) {
                 return 'Winny，我愛你 ❤️ 七夕快樂！';
             }
-
             const allDone = targets.every(t => t.date - now <= 0);
             if (allDone) {
                 return '🎉 超級厲害！我永遠為你驕傲！ 🏆';
             }
-
             let minDays = Infinity;
             for (const t of targets) {
                 const diff = t.date - now;
@@ -920,15 +958,12 @@
                     if (days < minDays) minDays = days;
                 }
             }
-
             if (minDays <= 5 && minDays > 0) {
                 return `Winny，剩下 ${minDays} 天，我陪你 💪`;
             }
-
             return 'Winny，我會一直陪著你 💕';
         }
 
-        // ★★★ 將文字拆成獨立字元，每個字包在 <span class="char"> 裡 ★★★
         function renderPoohText(text) {
             const container = document.getElementById('poohText');
             if (!container) return;
@@ -1012,7 +1047,8 @@
         }
 
         function stopPetals() {
-            if (pAnimationId) { cancelAnimationFrame(pAnimationId); pAnimationId = null; }
+            if (pAnimationId) { cancelAnimationFrame(pAnimationId);
+                pAnimationId = null; }
             pCtx.clearRect(0, 0, petalCanvas.width, petalCanvas.height);
             petalCanvas.style.display = 'none';
         }
@@ -1110,7 +1146,8 @@
         }
 
         function stopHeartRain() {
-            if (hAnimationId) { cancelAnimationFrame(hAnimationId); hAnimationId = null; }
+            if (hAnimationId) { cancelAnimationFrame(hAnimationId);
+                hAnimationId = null; }
             hCtx.clearRect(0, 0, heartCanvas.width, heartCanvas.height);
             heartCanvas.classList.remove('active');
         }
@@ -1199,7 +1236,8 @@
         function stopFireworks() {
             fireworksActive = false;
             canvas.classList.remove('active');
-            if (fAnimationId) { cancelAnimationFrame(fAnimationId); fAnimationId = null; }
+            if (fAnimationId) { cancelAnimationFrame(fAnimationId);
+                fAnimationId = null; }
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles = [];
         }
@@ -1269,7 +1307,7 @@
         }
 
         // ============================================================
-        // 5. 彈窗
+        // 5. 彈窗 — 加油小語已套用 .cheer-text 卡拉OK特效（CSS）
         // ============================================================
         function showModal(examName, days, cheerText, isAllDone, emoji, qixi = false) {
             let titleText, reminderHtml, iconEmoji;
@@ -1303,6 +1341,7 @@
                     <div class="modal-icon">${iconEmoji}</div>
                     <img class="modal-gif" src="https://raw.githubusercontent.com/dustinchen26/test/refs/heads/master/pooh-pooh-and-piglet.gif" alt="小熊維尼與小豬" />
                     <h2>${titleText}</h2>
+                    <!-- ★ cheer-text 已套用卡拉OK特效（CSS） -->
                     <div class="cheer-text">${cheerText}</div>
                     <div class="countdown-reminder">${reminderHtml}</div>
                     <button class="modal-close-btn" id="modalCloseBtn">${qixi ? '💕 我也愛你 💕' : '💪 我會全力以赴！'}</button>
@@ -1338,7 +1377,6 @@
                 document.getElementById('subText').textContent = '每天都為你打氣，開心迎接挑戰 ✨';
             }
 
-            // ★ 設定維尼底下的文字（使用 renderPoohText 拆字） ★
             renderPoohText(getPoohText());
 
             updateCountdown();
@@ -1363,7 +1401,6 @@
                         stopHeartRain();
                         startPetals();
                     }
-                    // ★ 同步更新維尼文字（拆字） ★
                     renderPoohText(getPoohText());
                 }
             }, 60000);
