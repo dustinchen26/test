@@ -14,23 +14,28 @@
             padding: 0;
             box-sizing: border-box;
         }
-        html,
-        body {
-            height: 100%;
-            overflow: hidden;
+        /* 修正1：移除 height: 100% 與 overflow: hidden，改為允許垂直捲動 */
+        html {
+            min-height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
         body {
+            min-height: 100vh;
+            min-height: 100dvh; /* 兼容手機動態網址列 */
             display: flex;
             justify-content: center;
-            align-items: center;
+            /* 修正2：改為 flex-start，確保內容過長時從頂部開始向下延伸 */
+            align-items: flex-start;
             font-family: 'Noto Sans TC', 'Quicksand', sans-serif;
             background: linear-gradient(145deg, #fce4ec 0%, #f3e5f5 40%, #e8dff5 70%, #fce4ec 100%);
             background-size: 300% 300%;
             animation: gradientFlow 12s ease-in-out infinite alternate;
-            padding: 4px;
+            padding: 10px 4px;
             position: relative;
-            overflow: hidden;
             line-height: 1.5;
+            overflow-x: hidden;
         }
         @keyframes gradientFlow {
             0% { background-position: 0% 50%; }
@@ -104,11 +109,12 @@
             padding: 16px 18px 18px;
             box-shadow: 0 8px 32px rgba(156, 39, 176, 0.06);
             border: 1px solid rgba(255, 255, 255, 0.5);
-            max-height: 98vh;
-            overflow: hidden;
+            /* 修正3：移除 max-height 與 overflow: hidden，讓內容自然延伸 */
+            margin: auto; /* 完美置中且不裁切 */
             display: flex;
             flex-direction: column;
             transition: all 0.2s ease;
+            flex-shrink: 0;
         }
 
         /* --- 標題區 --- */
@@ -484,6 +490,8 @@
             justify-content: center;
             align-items: center;
             animation: fadeIn 0.35s ease;
+            overflow-y: auto; /* 確保彈窗內容過長時可滾動 */
+            padding: 20px;
         }
         @keyframes fadeIn {
             0% { opacity: 0; transform: scale(0.92); }
@@ -494,10 +502,11 @@
             border-radius: 24px;
             padding: 20px 20px 18px;
             max-width: 340px;
-            width: 90%;
+            width: 100%;
             text-align: center;
             box-shadow: 0 20px 40px rgba(233, 30, 99, 0.12);
             border: 1px solid rgba(255, 255, 255, 0.5);
+            margin: auto;
         }
         .modal-box .modal-icon {
             font-size: 2.2rem;
@@ -526,7 +535,6 @@
             font-size: 0.95rem;
             line-height: 1.6;
             font-weight: 700;
-            /* 亮粉色 → 亮橙色，比主頁面更鮮豔 */
             background: linear-gradient(to right, #ff1493 0%, #ff1493 45%, #ff8c00 45%, #ff8c00 100%);
             background-size: 200% 100%;
             background-position: 0% 0%;
@@ -534,9 +542,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: karaokeModal 2.8s ease-in-out infinite;
-            /* 發光效果，讓文字更突出 */
             filter: drop-shadow(0 0 12px rgba(255, 20, 147, 0.25));
-            /* 增加一點文字陰影輔助（對不支援 clip 的瀏覽器） */
             text-shadow: 0 0 20px rgba(255, 20, 147, 0.15);
             letter-spacing: 0.3px;
         }
@@ -546,7 +552,6 @@
             100% { background-position: 100% 0%; }
         }
 
-        /* 彈窗倒數提醒保持原樣 */
         .modal-box .countdown-reminder {
             font-size: 0.75rem;
             color: #c2185b;
@@ -582,8 +587,8 @@
                 max-width: 780px;
                 padding: 32px 44px 36px;
                 border-radius: 40px;
-                max-height: 96vh;
                 box-shadow: 0 12px 48px rgba(156, 39, 176, 0.08);
+                margin: auto; /* 確保電腦版居中且不裁切 */
             }
             .header h1 { font-size: 2.0rem; letter-spacing: 0.5px; }
             .header .sub { font-size: 1.0rem; letter-spacing: 1px; }
@@ -646,7 +651,6 @@
             .modal-box .modal-gif { max-width: 160px; margin: 10px auto 16px; }
             .modal-box h2 { font-size: 1.4rem; }
 
-            /* ★ 電腦版彈窗加油小語 — 放大 & 更強特效 ★ */
             .modal-box .cheer-text {
                 font-size: 1.15rem;
                 line-height: 1.7;
@@ -685,7 +689,6 @@
             .countdown-grid { gap: 4px; }
             .card { padding: 6px 4px 8px; border-radius: 12px; }
 
-            /* 極小螢幕彈窗加油小語微調 */
             .modal-box .cheer-text {
                 font-size: 0.85rem;
                 filter: drop-shadow(0 0 8px rgba(255, 20, 147, 0.20));
@@ -693,7 +696,7 @@
             }
         }
 
-        /* ===== 高度不足時 ===== */
+        /* ===== 高度不足時（包含橫向顯示） ===== */
         @media (max-height: 700px) and (max-width: 599px) {
             .container { padding: 10px 14px 12px; border-radius: 20px; }
             .header h1 { font-size: 1.0rem; }
@@ -721,6 +724,32 @@
                 filter: drop-shadow(0 0 8px rgba(255, 20, 147, 0.20));
                 animation-duration: 2.4s;
             }
+        }
+
+        /* ===== 新增：手機橫向專屬優化（讓橫向也能盡量完整顯示） ===== */
+        @media (orientation: landscape) and (max-height: 500px) {
+            .container {
+                padding: 8px 20px;
+                max-width: 95%;
+                margin: 5px auto;
+                border-radius: 16px;
+            }
+            .header h1 { font-size: 1.1rem; }
+            .header .sub { font-size: 0.7rem; }
+            .divider { margin: 2px 0 4px; }
+            .divider .line { width: 30px; }
+            .countdown-grid { gap: 6px; margin-bottom: 6px; }
+            .card { padding: 6px 4px; }
+            .card .exam-name { font-size: 0.7rem; }
+            .card .exam-date { font-size: 0.5rem; }
+            .countdown-display .num { font-size: 1rem; }
+            .countdown-display .num.days { font-size: 1.3rem; }
+            .cheer-section { margin-top: 4px; padding-top: 6px; }
+            .cheer-message { font-size: 0.7rem; }
+            .pooh-container { margin-top: 6px; padding-top: 6px; }
+            .pooh-container img { max-width: 80px; margin-bottom: 4px; }
+            .pooh-text { font-size: 0.75rem; }
+            .footer-note { font-size: 0.5rem; padding-top: 4px; margin-top: 4px; }
         }
     </style>
 </head>
