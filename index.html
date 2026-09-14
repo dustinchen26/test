@@ -37,7 +37,7 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* 情人節背景 */
+        /* 情人節快樂!!!背景 */
         body.valentine-mode {
             background: linear-gradient(145deg,
                 #ffe0ec 0%, #ffc9e0 15%, #f9c6ff 30%,
@@ -132,7 +132,7 @@
             margin-top: 1px; letter-spacing: 0.5px; line-height: 1.2;
         }
 
-        /* 情人節橫幅 */
+        /* 情人節快樂!!!橫幅 */
         .valentine-banner {
             display: none; margin: 6px auto 2px; padding: 5px 16px;
             border-radius: 999px; font-size: 0.72rem; font-weight: 900;
@@ -776,7 +776,7 @@
                     loading="lazy"
                     onerror="this.style.display='none'; this.parentElement.querySelector('.polaroid-caption').textContent='照片載入失敗 😢';"
                 />
-                <div class="polaroid-caption">🎶 音樂情人節快樂 🎶</div>
+                <div class="polaroid-caption">🎶 音樂情人節快樂!!!🎶</div>
             </div>
             <div class="music-hint show" id="musicHint">
                 💡 點擊右下角 🎹 按鈕，聽聽我為你彈的鋼琴曲
@@ -830,20 +830,20 @@
             return Math.floor((now - start) / (1000 * 60 * 60 * 24));
         }
 
-        // 每月 14 號情人節資料
+        // 每月 14 號情人節快樂!!!資料
         const VALENTINE_DATA = [
-            { name: '日記情人節', emoji: '📔', msg: '翻開我們的日記，每一頁都寫滿了你的名字 ❤️' },
-            { name: '西洋情人節', emoji: '💝', msg: '全世界都在提醒我有多愛你，這一天尤其大聲 💘' },
-            { name: '白色情人節', emoji: '🤍', msg: '回禮是我的整顆心，請 Winny 好好收下 🤍' },
-            { name: '黑色情人節', emoji: '🖤', msg: '不管什麼顏色，我的世界都因你而發亮 🖤' },
-            { name: '玫瑰情人節', emoji: '🌹', msg: '送你 999 朵玫瑰，還是不夠表達我的喜歡 🌹' },
-            { name: '親吻情人節', emoji: '💋', msg: '隔著螢幕也要偷親你一下，啾 💋' },
-            { name: '銀色情人節', emoji: '💍', msg: '願我們的未來，像銀河一樣閃閃發亮 💍' },
-            { name: '綠色情人節', emoji: '🌿', msg: '牽著你的手，走進每一片森林與草原 🌿' },
-            { name: '音樂情人節 · 相片情人節', emoji: '🎶', msg: '這首鋼琴曲，是我想你的聲音；這張照片，是我們最美的瞬間。' },
-            { name: '葡萄酒情人節', emoji: '🍷', msg: '和你在一起，日子越久越香醇，越陳越甜 🍷' },
-            { name: '電影情人節', emoji: '🎬', msg: '我的人生電影裡，女主角永遠只有你 🎬' },
-            { name: '擁抱情人節', emoji: '🫂', msg: '想緊緊抱住你，把整個冬天都變暖 🫂' }
+            { name: '日記情人節快樂!!!', emoji: '📔', msg: '翻開我們的日記，每一頁都寫滿了你的名字 ❤️' },
+            { name: '西洋情人節快樂!!!', emoji: '💝', msg: '全世界都在提醒我有多愛你，這一天尤其大聲 💘' },
+            { name: '白色情人節快樂!!!', emoji: '🤍', msg: '回禮是我的整顆心，請 Winny 好好收下 🤍' },
+            { name: '黑色情人節快樂!!!', emoji: '🖤', msg: '不管什麼顏色，我的世界都因你而發亮 🖤' },
+            { name: '玫瑰情人節快樂!!!', emoji: '🌹', msg: '送你 999 朵玫瑰，還是不夠表達我的喜歡 🌹' },
+            { name: '親吻情人節快樂!!!', emoji: '💋', msg: '隔著螢幕也要偷親你一下，啾 💋' },
+            { name: '銀色情人節快樂!!!', emoji: '💍', msg: '願我們的未來，像銀河一樣閃閃發亮 💍' },
+            { name: '綠色情人節快樂!!!', emoji: '🌿', msg: '牽著你的手，走進每一片森林與草原 🌿' },
+            { name: '9/14 音樂 & 相片情人節快樂!!!', emoji: '🎶', msg: '還記得這首這首鋼琴曲嗎?~，是我想你的聲音；這張照片，是我們最美的瞬間。' },
+            { name: '葡萄酒情人節快樂!!!', emoji: '🍷', msg: '和你在一起，日子越久越香醇，越陳越甜 🍷' },
+            { name: '電影情人節快樂!!!', emoji: '🎬', msg: '我的人生電影裡，女主角永遠只有你 🎬' },
+            { name: '擁抱情人節快樂!!!', emoji: '🫂', msg: '想緊緊抱住你，把整個冬天都變暖 🫂' }
         ];
 
         function getValentineInfo() {
@@ -856,7 +856,7 @@
             return getValentineInfo() !== null;
         }
 
-        // ★ 9/14 專屬：音樂／相片情人節
+        // ★ 9/14 專屬：音樂／相片情人節快樂!!!
         function isMusicPhotoValentine() {
             const now = new Date();
             return now.getMonth() === 8 && now.getDate() === 14;
@@ -933,7 +933,7 @@
             "你值得所有的掌聲 🌟", // 64: 9/11
             "保持信心，一切都在掌握中。", // 65: 9/12
             "今天的努力，明天會感謝你。", // 66: 9/13
-            "🎶 音樂情人節 / 相片情人節快樂！這首鋼琴曲，是我想你的聲音。", // 67: 9/14 ★ 音樂/相片情人節
+            "🎶9/14 音樂 & 相片情人節快樂!!!", // 67: 9/14 ★ 音樂/相片情人節快樂!!!
             "最後衝刺，全力以赴！", // 68: 9/15
             "你已經準備萬全，Winny 加油！", // 69: 9/16
             "🎤 倒數3天！展現自信，你已經很棒了！", // 70: 9/17
@@ -945,7 +945,7 @@
         function getTodayCheer() {
             if (isQixi()) {
                 const days = getDaysTogether();
-                return `Winny，我愛你 ❤️ 從2025/01/04相識到今天，我們一起走了 ${days} 天，每一天都更愛你。七夕快樂，我的寶貝。`;
+                return `Winny，我愛你 ❤️ 從2025/01/04相識到今天，我們一起走了 ${days} 天，每一天都更愛你。情人節快樂，我的寶貝。`;
             }
             const v = getValentineInfo();
             if (v) {
@@ -956,7 +956,7 @@
                 const rocYear = year - 1911;
                 const days = getDaysTogether();
                 if (isMusicPhotoValentine()) {
-                    return `🎶 音樂情人節 / 相片情人節快樂！${v.msg} 📸 我們一起走了 ${days} 天，每一天都更愛你。 （民國 ${rocYear}/${month}/${day}）`;
+                    return `Winny，我愛你 ❤️ 從2025/01/04相識到今天，我們一起走了 ${days} 天，每一天都更愛你。情人節快樂，我的寶貝。 （民國 ${rocYear}/${month}/${day}）`;
                 }
                 return `${v.emoji} ${v.name}快樂！${v.msg} 我們已經一起走了 ${days} 天，每一天都更愛你。 （民國 ${rocYear}/${month}/${day}）`;
             }
@@ -984,7 +984,7 @@
             const v = getValentineInfo();
             if (v) {
                 if (isMusicPhotoValentine()) {
-                    return '🎶 這首鋼琴曲，是我彈給你的 🎶';
+                    return '🎶 感謝winny為我彈奏這首鋼琴曲🎶';
                 }
                 return `${v.emoji} ${v.name}快樂，我最愛你！ ${v.emoji}`;
             }
@@ -1196,7 +1196,7 @@
             heartCanvas.classList.remove('active');
         }
 
-        // ----- 情人節浮誇特效 -----
+        // ----- 情人節快樂!!!浮誇特效 -----
         const vCanvas = document.getElementById('valentineCanvas');
         const vCtx = vCanvas.getContext('2d');
         let vHearts = [];
@@ -1634,9 +1634,9 @@
             if (musicPhoto) {
                 boxClass = 'valentine-box';
                 iconEmoji = '🎶';
-                titleText = '🎶 音樂情人節 · 相片情人節 🎶';
-                reminderHtml = '這首鋼琴曲，是我想你的聲音。這張照片，是我們最美的瞬間。';
-                btnText = '🎹 聽聽我的鋼琴曲 🎹';
+                titleText = '🎶9/14音樂&相片情人節快樂!🎶';
+                reminderHtml = '與妳相遇~好幸運❤️';
+                btnText = '🎹 聽聽這首小幸運 🎹';
             } else if (valentine) {
                 boxClass = 'valentine-box';
                 iconEmoji = valentine.emoji;
@@ -1728,7 +1728,7 @@
             cheerEl.textContent = getTodayCheer();
 
             if (isMusicPhoto) {
-                bannerEl.textContent = '🎶 音樂情人節 · 相片情人節 ・ 專屬 Winny 的浪漫日 🎶';
+                bannerEl.textContent = '🎶 音樂&相片情人節快樂!~專屬 Winny 的浪漫日 🎶';
                 bannerEl.classList.add('show');
             } else if (isV && !qixi) {
                 bannerEl.textContent = `${valentine.emoji} 今天是 ${valentine.name} ・ 專屬 Winny 的浪漫日 ${valentine.emoji}`;
@@ -1741,7 +1741,7 @@
             if (qixi) {
                 subEl.textContent = '💖 七夕快樂，我的寶貝';
             } else if (isMusicPhoto) {
-                subEl.textContent = '🎶 音樂情人節 · 相片情人節，聽聽我彈的琴';
+                subEl.textContent = '🎶 音樂情人節快樂!!! · 相片情人節快樂!!!，聽聽我彈的琴';
             } else if (isV) {
                 subEl.textContent = `${valentine.emoji} ${valentine.name}快樂，我最愛你`;
             } else {
@@ -1821,7 +1821,7 @@
                 } else if (isMusicPhoto) {
                     showModal({
                         musicPhoto: true,
-                        cheerText: '🎶 這首鋼琴曲，是我想你的聲音。\n📸 這張照片，是我們最美的瞬間。\n\n音樂情人節 · 相片情人節快樂，我的 Winny。'
+                        cheerText: '🎶 還記得這首這首鋼琴曲嗎?~My Dear~'
                     });
                 } else if (valentine) {
                     showModal({ valentine, cheerText: pureMsg });
