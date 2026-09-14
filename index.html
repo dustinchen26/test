@@ -14,7 +14,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-        /* 修正1：移除 height: 100% 與 overflow: hidden，改為允許垂直捲動 */
         html {
             min-height: 100%;
             overflow-x: hidden;
@@ -26,7 +25,6 @@
             min-height: 100dvh; /* 兼容手機動態網址列 */
             display: flex;
             justify-content: center;
-            /* 修正2：改為 flex-start，確保內容過長時從頂部開始向下延伸 */
             align-items: flex-start;
             font-family: 'Noto Sans TC', 'Quicksand', sans-serif;
             background: linear-gradient(145deg, #fce4ec 0%, #f3e5f5 40%, #e8dff5 70%, #fce4ec 100%);
@@ -38,6 +36,23 @@
             overflow-x: hidden;
         }
         @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ================================================================
+           ★★★ 情人節模式（每月 14 號）— 背景超浮誇流動 ★★★
+           ================================================================ */
+        body.valentine-mode {
+            background: linear-gradient(145deg,
+                #ffe0ec 0%, #ffc9e0 15%, #f9c6ff 30%,
+                #ffd6e8 45%, #ffc1d9 60%, #e9c7ff 75%,
+                #ffd9ea 90%, #ffe0ec 100%);
+            background-size: 500% 500%;
+            animation: valentineFlow 7s ease-in-out infinite alternate;
+        }
+        @keyframes valentineFlow {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
@@ -65,6 +80,19 @@
             display: none;
         }
         #heartRainCanvas.active { display: block; }
+
+        /* ===== 情人節專屬浮誇 Canvas ===== */
+        #valentineCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            display: none;
+        }
+        #valentineCanvas.active { display: block; }
 
         /* ===== 背景浮動愛心 ===== */
         .bg-hearts {
@@ -109,12 +137,29 @@
             padding: 16px 18px 18px;
             box-shadow: 0 8px 32px rgba(156, 39, 176, 0.06);
             border: 1px solid rgba(255, 255, 255, 0.5);
-            /* 修正3：移除 max-height 與 overflow: hidden，讓內容自然延伸 */
-            margin: auto; /* 完美置中且不裁切 */
+            margin: auto;
             display: flex;
             flex-direction: column;
             transition: all 0.2s ease;
             flex-shrink: 0;
+        }
+
+        /* ★ 情人節：彩虹流光邊框 + 呼吸光暈 */
+        .container.valentine-mode {
+            border: 2px solid transparent;
+            background:
+                linear-gradient(rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.86)) padding-box,
+                linear-gradient(120deg, #ff1744, #ff80ab, #ffd700, #ff4081, #d500f9, #ff1744) border-box;
+            background-size: 100% 100%, 400% 400%;
+            animation: rainbowBorder 4s linear infinite, valentinePulse 1.8s ease-in-out infinite alternate;
+        }
+        @keyframes rainbowBorder {
+            0% { background-position: 0 0, 0% 50%; }
+            100% { background-position: 0 0, 400% 50%; }
+        }
+        @keyframes valentinePulse {
+            0% { box-shadow: 0 0 22px rgba(255, 23, 68, 0.22), 0 0 60px rgba(213, 0, 249, 0.12); }
+            100% { box-shadow: 0 0 46px rgba(255, 23, 68, 0.45), 0 0 110px rgba(213, 0, 249, 0.30); }
         }
 
         /* --- 標題區 --- */
@@ -147,6 +192,33 @@
             margin-top: 1px;
             letter-spacing: 0.5px;
             line-height: 1.2;
+        }
+
+        /* ★ 情人節浮誇橫幅 */
+        .valentine-banner {
+            display: none;
+            margin: 6px auto 2px;
+            padding: 5px 16px;
+            border-radius: 999px;
+            font-size: 0.72rem;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, #ff1744, #ff4081, #d500f9, #ff8a00, #ff1744);
+            background-size: 300% 100%;
+            animation: bannerFlow 2.2s linear infinite;
+            box-shadow: 0 0 18px rgba(255, 23, 68, 0.5);
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.22);
+            width: fit-content;
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .valentine-banner.show { display: block; }
+        @keyframes bannerFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 300% 50%; }
         }
 
         /* --- 分隔線 --- */
@@ -220,6 +292,29 @@
         .card.qixi .exam-name { color: #6c2a3e !important; }
         .card.qixi .countdown-label { color: #6c2a3e !important; }
         .card.qixi .exam-date .roc { color: #6c2a3e !important; }
+
+        /* ★ 情人節卡片：粉金漸層 + 流光 */
+        .card.valentine {
+            background: linear-gradient(135deg, #fff0f6, #ffe1f0, #ffeaf8, #fff5fb) !important;
+            border: 1.5px solid #ff4081 !important;
+            box-shadow: 0 0 18px rgba(255, 64, 129, 0.25) !important;
+            animation: cardShine 2s ease-in-out infinite alternate !important;
+        }
+        @keyframes cardShine {
+            0% { box-shadow: 0 0 10px rgba(255, 64, 129, 0.16); }
+            100% { box-shadow: 0 0 30px rgba(255, 64, 129, 0.42); }
+        }
+        .card.valentine .num {
+            color: #d81b60 !important;
+            background: rgba(216, 27, 96, 0.07) !important;
+        }
+        .card.valentine .num.days {
+            color: #c2185b !important;
+            background: rgba(194, 24, 91, 0.09) !important;
+        }
+        .card.valentine .exam-name { color: #ad1457 !important; }
+        .card.valentine .countdown-label { color: #ad1457 !important; }
+        .card.valentine .exam-date .roc { color: #8e24aa !important; }
 
         .card .exam-name {
             font-size: 0.75rem;
@@ -326,9 +421,24 @@
             font-weight: 700;
             animation-duration: 3s;
         }
+        /* ★ 情人節：玫瑰金 × 桃紅 高彩度卡拉OK */
+        .cheer-message.valentine {
+            font-weight: 900;
+            letter-spacing: 0.4px;
+            background: linear-gradient(to right,
+                #ff1744 0%, #ff1744 48%,
+                #ff8a00 48%, #ffd700 66%,
+                #7b4b8a 66%, #7b4b8a 100%);
+            background-size: 220% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: karaoke 2.6s ease-in-out infinite;
+            filter: drop-shadow(0 0 8px rgba(255, 23, 68, 0.22));
+        }
 
         /* ================================================================
-           ★★★ 主畫面維尼 — 手機版放大到 130px ★★★
+           ★★★ 主畫面維尼 ★★★
            ================================================================ */
         .pooh-container {
             text-align: center;
@@ -436,7 +546,7 @@
             font-weight: 600;
         }
 
-        /* --- 大熊 (手機版) --- */
+        /* --- 大熊 --- */
         #bigBear {
             position: fixed;
             bottom: 4%;
@@ -490,7 +600,7 @@
             justify-content: center;
             align-items: center;
             animation: fadeIn 0.35s ease;
-            overflow-y: auto; /* 確保彈窗內容過長時可滾動 */
+            overflow-y: auto;
             padding: 20px;
         }
         @keyframes fadeIn {
@@ -508,6 +618,41 @@
             border: 1px solid rgba(255, 255, 255, 0.5);
             margin: auto;
         }
+        /* ★ 情人節彈窗：彩虹流光框 + 立體光暈 */
+        .modal-box.valentine-box {
+            border: 2px solid transparent;
+            background:
+                linear-gradient(#ffffff, #ffffff) padding-box,
+                linear-gradient(120deg, #ff1744, #ff80ab, #ffd700, #ff4081, #d500f9, #ff1744) border-box;
+            background-size: 100% 100%, 400% 400%;
+            animation: rainbowBorder 3s linear infinite;
+            box-shadow: 0 22px 60px rgba(255, 23, 68, 0.32),
+                        0 0 80px rgba(213, 0, 249, 0.18);
+        }
+        .modal-box.valentine-box h2 {
+            color: #d81b60 !important;
+            text-shadow: 0 0 14px rgba(255, 23, 68, 0.25);
+        }
+        .modal-box.valentine-box .modal-icon {
+            animation: iconBeat 0.9s ease-in-out infinite alternate;
+            filter: drop-shadow(0 0 12px rgba(255, 23, 68, 0.45));
+        }
+        @keyframes iconBeat {
+            0% { transform: scale(1) rotate(-4deg); }
+            100% { transform: scale(1.18) rotate(4deg); }
+        }
+        .modal-box.valentine-box .countdown-reminder {
+            background: linear-gradient(90deg, rgba(255, 23, 68, 0.10), rgba(213, 0, 249, 0.10));
+            color: #ad1457;
+            box-shadow: 0 0 16px rgba(255, 23, 68, 0.16);
+        }
+        .modal-box.valentine-box .modal-close-btn {
+            background: linear-gradient(90deg, #ff1744, #ff4081, #d500f9);
+            background-size: 200% 100%;
+            animation: bannerFlow 2.4s linear infinite;
+            box-shadow: 0 6px 22px rgba(255, 23, 68, 0.4);
+        }
+
         .modal-box .modal-icon {
             font-size: 2.2rem;
             margin-bottom: 2px;
@@ -551,6 +696,19 @@
             50% { background-position: 0% 0%; }
             100% { background-position: 100% 0%; }
         }
+        /* ★ 情人節彈窗小語：金粉桃紅三段流光 */
+        .modal-box.valentine-box .cheer-text {
+            background: linear-gradient(to right,
+                #ff1744 0%, #ff1744 34%,
+                #ff8a00 34%, #ffd700 58%,
+                #d500f9 58%, #d500f9 100%);
+            background-size: 220% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: karaokeModal 2.2s ease-in-out infinite;
+            filter: drop-shadow(0 0 14px rgba(255, 23, 68, 0.35));
+        }
 
         .modal-box .countdown-reminder {
             font-size: 0.75rem;
@@ -588,10 +746,11 @@
                 padding: 32px 44px 36px;
                 border-radius: 40px;
                 box-shadow: 0 12px 48px rgba(156, 39, 176, 0.08);
-                margin: auto; /* 確保電腦版居中且不裁切 */
+                margin: auto;
             }
             .header h1 { font-size: 2.0rem; letter-spacing: 0.5px; }
             .header .sub { font-size: 1.0rem; letter-spacing: 1px; }
+            .valentine-banner { font-size: 1.0rem; padding: 8px 26px; letter-spacing: 2px; }
             .divider { gap: 12px; margin: 8px 0 14px; }
             .divider .line { width: 50px; height: 2px; }
             .divider .dot { font-size: 1.0rem; }
@@ -613,6 +772,7 @@
                 animation-duration: 5s;
             }
             .cheer-message.qixi { font-size: 1.1rem; }
+            .cheer-message.valentine { font-size: 1.12rem; animation-duration: 3s; }
 
             .pooh-container { margin-top: 12px; padding-top: 12px; border-top: 2px dashed rgba(233, 30, 99, 0.10); }
             .pooh-container img { max-width: 150px; margin: 0 auto 10px; border-radius: 14px; }
@@ -667,6 +827,7 @@
             .container { padding: 12px 12px 14px; border-radius: 20px; }
             .header h1 { font-size: 1.0rem; }
             .header .sub { font-size: 0.65rem; }
+            .valentine-banner { font-size: 0.6rem; padding: 4px 12px; letter-spacing: 0.5px; }
             .card .exam-name { font-size: 0.65rem; }
             .card .exam-date { font-size: 0.5rem; }
             .card .countdown-label { font-size: 0.5rem; }
@@ -675,6 +836,7 @@
             .countdown-display .label { font-size: 0.35rem; }
             .cheer-message { font-size: 0.65rem; animation-duration: 3s; }
             .cheer-message.qixi { font-size: 0.7rem; }
+            .cheer-message.valentine { font-size: 0.7rem; animation-duration: 2.4s; }
             .pooh-container img { max-width: 90px; }
             .pooh-text { font-size: 0.7rem; padding: 0; }
             .pooh-text .char { animation-duration: 1.6s; }
@@ -701,6 +863,7 @@
             .container { padding: 10px 14px 12px; border-radius: 20px; }
             .header h1 { font-size: 1.0rem; }
             .header .sub { font-size: 0.65rem; }
+            .valentine-banner { font-size: 0.58rem; padding: 3px 10px; margin: 3px auto 1px; }
             .divider { margin: 2px 0 6px; }
             .countdown-grid { gap: 4px; margin-bottom: 4px; }
             .card { padding: 6px 4px 8px; border-radius: 12px; }
@@ -713,6 +876,7 @@
             .cheer-section { margin-top: 2px; padding-top: 4px; }
             .cheer-message { font-size: 0.65rem; }
             .cheer-message.qixi { font-size: 0.7rem; }
+            .cheer-message.valentine { font-size: 0.7rem; animation-duration: 2.4s; }
             .pooh-container { margin-top: 6px; padding-top: 6px; }
             .pooh-container img { max-width: 90px; }
             .pooh-text { font-size: 0.7rem; padding: 0; }
@@ -726,7 +890,7 @@
             }
         }
 
-        /* ===== 新增：手機橫向專屬優化（讓橫向也能盡量完整顯示） ===== */
+        /* ===== 手機橫向專屬優化 ===== */
         @media (orientation: landscape) and (max-height: 500px) {
             .container {
                 padding: 8px 20px;
@@ -736,6 +900,7 @@
             }
             .header h1 { font-size: 1.1rem; }
             .header .sub { font-size: 0.7rem; }
+            .valentine-banner { font-size: 0.6rem; padding: 3px 12px; }
             .divider { margin: 2px 0 4px; }
             .divider .line { width: 30px; }
             .countdown-grid { gap: 6px; margin-bottom: 6px; }
@@ -746,18 +911,28 @@
             .countdown-display .num.days { font-size: 1.3rem; }
             .cheer-section { margin-top: 4px; padding-top: 6px; }
             .cheer-message { font-size: 0.7rem; }
+            .cheer-message.valentine { font-size: 0.72rem; }
             .pooh-container { margin-top: 6px; padding-top: 6px; }
             .pooh-container img { max-width: 80px; margin-bottom: 4px; }
             .pooh-text { font-size: 0.75rem; }
             .footer-note { font-size: 0.5rem; padding-top: 4px; margin-top: 4px; }
         }
+
+        /* ===== 尊重減少動態偏好 ===== */
+        @media (prefers-reduced-motion: reduce) {
+            .container.valentine-mode,
+            .modal-box.valentine-box,
+            .valentine-banner,
+            .card.valentine { animation-duration: 12s !important; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- 花瓣 / 愛心雨 Canvas -->
+    <!-- 花瓣 / 愛心雨 / 情人節 專屬 Canvas -->
     <canvas id="petalCanvas"></canvas>
     <canvas id="heartRainCanvas"></canvas>
+    <canvas id="valentineCanvas"></canvas>
 
     <!-- 背景浮動愛心 -->
     <div class="bg-hearts">
@@ -770,15 +945,18 @@
     <!-- 煙火 Canvas -->
     <canvas id="fireworksCanvas"></canvas>
 
-    <div class="container">
+    <div class="container" id="mainContainer">
         <div class="header">
             <h1><span class="heart">💕</span> Winny 加油！專屬倒數 <span class="heart">💕</span></h1>
             <div class="sub" id="subText">每天都為你打氣，開心迎接挑戰 ✨</div>
         </div>
 
+        <!-- ★ 情人節專屬浮誇橫幅（僅每月 14 號顯示） -->
+        <div class="valentine-banner" id="valentineBanner"></div>
+
         <div class="divider">
             <span class="line"></span>
-            <span class="dot">❤️</span>
+            <span class="dot" id="dividerDot">❤️</span>
             <span class="line"></span>
         </div>
 
@@ -824,7 +1002,7 @@
 
     <script>
         // ============================================================
-        // 1. 目標日期 & 七夕判斷
+        // 1. 目標日期 & 七夕 / 情人節判斷
         // ============================================================
         const TARGETS = [{
             id: 1,
@@ -868,90 +1046,131 @@
         }
 
         // ============================================================
+        // 1-2. ★ 每月 14 號情人節資料（12 個月份專屬名稱 + 小語）
+        // ============================================================
+        const VALENTINE_DATA = [
+            { name: '日記情人節', emoji: '📔', msg: '翻開我們的日記，每一頁都寫滿了你的名字 ❤️' },
+            { name: '西洋情人節', emoji: '💝', msg: '全世界都在提醒我有多愛你，這一天尤其大聲 💘' },
+            { name: '白色情人節', emoji: '🤍', msg: '回禮是我的整顆心，請 Winny 好好收下 🤍' },
+            { name: '黑色情人節', emoji: '🖤', msg: '不管什麼顏色，我的世界都因你而發亮 🖤' },
+            { name: '玫瑰情人節', emoji: '🌹', msg: '送你 999 朵玫瑰，還是不夠表達我的喜歡 🌹' },
+            { name: '親吻情人節', emoji: '💋', msg: '隔著螢幕也要偷親你一下，啾 💋' },
+            { name: '銀色情人節', emoji: '💍', msg: '願我們的未來，像銀河一樣閃閃發亮 💍' },
+            { name: '綠色情人節', emoji: '🌿', msg: '牽著你的手，走進每一片森林與草原 🌿' },
+            { name: '音樂情人節', emoji: '🎶', msg: '我的心跳，是只為你演奏的專屬旋律 🎶' },
+            { name: '葡萄酒情人節', emoji: '🍷', msg: '和你在一起，日子越久越香醇，越陳越甜 🍷' },
+            { name: '電影情人節', emoji: '🎬', msg: '我的人生電影裡，女主角永遠只有你 🎬' },
+            { name: '擁抱情人節', emoji: '🫂', msg: '想緊緊抱住你，把整個冬天都變暖 🫂' }
+        ];
+
+        function getValentineInfo() {
+            const now = new Date();
+            if (now.getDate() !== 14) return null;
+            return VALENTINE_DATA[now.getMonth()];
+        }
+
+        function isValentineDay() {
+            return getValentineInfo() !== null;
+        }
+
+        // ============================================================
         // 2. ★ 74 條獨一無二的每日小語（2026/07/09 ~ 2026/09/20）
         // ============================================================
         const DAILY_MESSAGES = [
-            "準備好迎接今天的挑戰了嗎？Winny，出發！", // 0: 7/09
-            "每天的你都在發光，今天也不例外 ✨", // 1: 7/10
-            "全力以赴，但也要記得休息喔～", // 2: 7/11
-            "相信自己，你比想像中更強大！", // 3: 7/12
-            "每天進步一點點，就是最大的成功。", // 4: 7/13
-            "保持開心，好事就會發生！", // 5: 7/14
-            "你是獨一無二的，無可取代！", // 6: 7/15
-            "加油！我永遠支持你 💪", // 7: 7/16
-            "放鬆心情，一切都會順利。", // 8: 7/17
-            "今天的你，依然閃閃發光 🌟", // 9: 7/18
-            "享受過程，結果自然美好。", // 10: 7/19
-            "無論如何，你都是最棒的！", // 11: 7/20
-            "積極的心態，是最好的魔法。", // 12: 7/21
-            "今天也要好好愛自己 ❤️", // 13: 7/22
-            "勇敢追夢，我會一直陪著你。", // 14: 7/23
-            "保持熱情，生活會回報你驚喜。", // 15: 7/24
-            "你是我的驕傲，加油！", // 16: 7/25
-            "笑一個，世界會更美好。", // 17: 7/26
-            "你擁有無限可能，盡情展現吧！", // 18: 7/27
-            "每天都是嶄新的開始，出發！", // 19: 7/28
-            "你的努力一定會開花結果 🌸", // 20: 7/29
-            "今天要對自己好一點，你值得。", // 21: 7/30
-            "不管多累，我都會在身邊。", // 22: 7/31
-            "保持節奏，穩穩地前進。", // 23: 8/01
-            "你已經做得很好了，繼續加油！", // 24: 8/02
-            "開心是最重要的，別忘了喔。", // 25: 8/03
-            "你是最閃亮的星星 ✨", // 26: 8/04
-            "今天也要元氣滿滿！", // 27: 8/05
-            "相信自己，你可以的！", // 28: 8/06
-            "無論風雨，我都陪你一起走。", // 29: 8/07
-            "專注當下，每一步都算數！", // 30: 8/08
-            "你的努力正在累積成力量 💪", // 31: 8/09
-            "保持信心，勝利就在前方！", // 32: 8/10
-            "衝刺最後一哩路，Winny 加油！", // 33: 8/11
-            "📣 倒數3天！穩住心情，你準備得很充分了！", // 34: 8/12
-            "📣 倒數2天！保持節奏，相信自己的判斷！", // 35: 8/13
-            "📣 倒數1天！好好休息，明天帶著笑容上場！", // 36: 8/14
-            "🎉 就是今天！展現最棒的自己，我永遠支持你！", // 37: 8/15
-            "筆試結束了，你表現得很好！繼續向前！", // 38: 8/16
-            "轉換心情，口試準備開始囉！", // 39: 8/17
-            "每個練習都是進步的階梯。", // 40: 8/18
-            "保持專注，你正在變得更好。", // 41: 8/19
-            "今天的努力，是明天的從容。", // 42: 8/20
-            "穩住節奏，每天累積一點。", // 43: 8/21
-            "你已經越來越有自信了！", // 44: 8/22
-            "遇到困難時，記得深呼吸。", // 45: 8/23
-            "你的成長，我都看在眼裡 ❤️", // 46: 8/24
-            "今天也要保持微笑喔 😊", // 47: 8/25
-            "一步一步來，一切都會更好。", // 48: 8/26
-            "相信自己，你值得所有美好。", // 49: 8/27
-            "保持耐心，成功正在靠近。", // 50: 8/28
-            "每天都是新的練習機會。", // 51: 8/29
-            "你的努力不會白費的！", // 52: 8/30
-            "全力以赴，不留遺憾！", // 53: 8/31
-            "九月來了，繼續加油！", // 54: 9/01
-            "距離夢想又近了一步。", // 55: 9/02
-            "保持熱情，保持專注。", // 56: 9/03
-            "你比昨天更強大了！", // 57: 9/04
-            "穩穩地走好每一步。", // 58: 9/05
-            "我相信你的實力！", // 59: 9/06
-            "今天的你，依然很棒！", // 60: 9/07
-            "保持節奏，別急。", // 61: 9/08
-            "你的堅持，是最美的風景。", // 62: 9/09
-            "開心地迎接每一天吧！", // 63: 9/10
-            "你值得所有的掌聲 🌟", // 64: 9/11
-            "保持信心，一切都在掌握中。", // 65: 9/12
-            "今天的努力，明天會感謝你。", // 66: 9/13
-            "放鬆心情，你已經準備得很好了！", // 67: 9/14
-            "最後衝刺，全力以赴！", // 68: 9/15
-            "你已經準備萬全，Winny 加油！", // 69: 9/16
-            "🎤 倒數3天！展現自信，你已經很棒了！", // 70: 9/17
-            "🎤 倒數2天！從容應對，展現最好的自己！", // 71: 9/18
-            "🎤 倒數1天！放鬆心情，明天就是你的舞台！", // 72: 9/19
-            "🎉 就是今天！全力以赴，我為你驕傲！" // 73: 9/20
+            "準備好迎接今天的挑戰了嗎？Winny，出發！",
+            "每天的你都在發光，今天也不例外 ✨",
+            "全力以赴，但也要記得休息喔～",
+            "相信自己，你比想像中更強大！",
+            "每天進步一點點，就是最大的成功。",
+            "保持開心，好事就會發生！",
+            "你是獨一無二的，無可取代！",
+            "加油！我永遠支持你 💪",
+            "放鬆心情，一切都會順利。",
+            "今天的你，依然閃閃發光 🌟",
+            "享受過程，結果自然美好。",
+            "無論如何，你都是最棒的！",
+            "積極的心態，是最好的魔法。",
+            "今天也要好好愛自己 ❤️",
+            "勇敢追夢，我會一直陪著你。",
+            "保持熱情，生活會回報你驚喜。",
+            "你是我的驕傲，加油！",
+            "笑一個，世界會更美好。",
+            "你擁有無限可能，盡情展現吧！",
+            "每天都是嶄新的開始，出發！",
+            "你的努力一定會開花結果 🌸",
+            "今天要對自己好一點，你值得。",
+            "不管多累，我都會在身邊。",
+            "保持節奏，穩穩地前進。",
+            "你已經做得很好了，繼續加油！",
+            "開心是最重要的，別忘了喔。",
+            "你是最閃亮的星星 ✨",
+            "今天也要元氣滿滿！",
+            "相信自己，你可以的！",
+            "無論風雨，我都陪你一起走。",
+            "專注當下，每一步都算數！",
+            "你的努力正在累積成力量 💪",
+            "保持信心，勝利就在前方！",
+            "衝刺最後一哩路，Winny 加油！",
+            "📣 倒數3天！穩住心情，你準備得很充分了！",
+            "📣 倒數2天！保持節奏，相信自己的判斷！",
+            "📣 倒數1天！好好休息，明天帶著笑容上場！",
+            "🎉 就是今天！展現最棒的自己，我永遠支持你！",
+            "筆試結束了，你表現得很好！繼續向前！",
+            "轉換心情，口試準備開始囉！",
+            "每個練習都是進步的階梯。",
+            "保持專注，你正在變得更好。",
+            "今天的努力，是明天的從容。",
+            "穩住節奏，每天累積一點。",
+            "你已經越來越有自信了！",
+            "遇到困難時，記得深呼吸。",
+            "你的成長，我都看在眼裡 ❤️",
+            "今天也要保持微笑喔 😊",
+            "一步一步來，一切都會更好。",
+            "相信自己，你值得所有美好。",
+            "保持耐心，成功正在靠近。",
+            "每天都是新的練習機會。",
+            "你的努力不會白費的！",
+            "全力以赴，不留遺憾！",
+            "九月來了，繼續加油！",
+            "距離夢想又近了一步。",
+            "保持熱情，保持專注。",
+            "你比昨天更強大了！",
+            "穩穩地走好每一步。",
+            "我相信你的實力！",
+            "今天的你，依然很棒！",
+            "保持節奏，別急。",
+            "你的堅持，是最美的風景。",
+            "開心地迎接每一天吧！",
+            "你值得所有的掌聲 🌟",
+            "保持信心，一切都在掌握中。",
+            "今天的努力，明天會感謝你。",
+            "放鬆心情，你已經準備得很好了！",
+            "最後衝刺，全力以赴！",
+            "你已經準備萬全，Winny 加油！",
+            "🎤 倒數3天！展現自信，你已經很棒了！",
+            "🎤 倒數2天！從容應對，展現最好的自己！",
+            "🎤 倒數1天！放鬆心情，明天就是你的舞台！",
+            "🎉 就是今天！全力以赴，我為你驕傲！"
         ];
 
         function getTodayCheer() {
+            // ① 七夕優先
             if (isQixi()) {
                 const days = getDaysTogether();
                 return `Winny，我愛你 ❤️ 從2025/01/04相識到今天，我們一起走了 ${days} 天，每一天都更愛你。七夕快樂，我的寶貝。`;
             }
+            // ② 每月 14 號情人節
+            const v = getValentineInfo();
+            if (v) {
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = String(now.getMonth() + 1).padStart(2, '0');
+                const day = String(now.getDate()).padStart(2, '0');
+                const rocYear = year - 1911;
+                const days = getDaysTogether();
+                return `${v.emoji} ${v.name}快樂！${v.msg} 我們已經一起走了 ${days} 天，每一天都更愛你。 （民國 ${rocYear}/${month}/${day}）`;
+            }
+            // ③ 一般每日小語
             const now = new Date();
             const baseDate = new Date(2026, 6, 9);
             const diffDays = Math.floor((now - baseDate) / (1000 * 60 * 60 * 24));
@@ -974,6 +1193,10 @@
             const now = new Date();
             if (isQixi()) {
                 return 'Winny，我愛你 ❤️ 七夕快樂！';
+            }
+            const v = getValentineInfo();
+            if (v) {
+                return `${v.emoji} ${v.name}快樂，我最愛你！ ${v.emoji}`;
             }
             const allDone = targets.every(t => t.date - now <= 0);
             if (allDone) {
@@ -1182,6 +1405,186 @@
         }
 
         // ============================================================
+        // 3-2. ★★★ 情人節浮誇特效（每月 14 號）★★★
+        //      上升愛心 + 玫瑰花瓣 + 閃耀星光 + 不定期愛心爆發
+        // ============================================================
+        const vCanvas = document.getElementById('valentineCanvas');
+        const vCtx = vCanvas.getContext('2d');
+        let vHearts = [];
+        let vSparkles = [];
+        let vAnimationId = null;
+        let vTick = 0;
+
+        const V_EMOJIS = ['❤️', '💖', '💕', '💘', '💝', '🌹', '💋', '💞', '💓', '💗', '🥰', '💐'];
+
+        function resizeValentineCanvas() {
+            vCanvas.width = window.innerWidth;
+            vCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeValentineCanvas);
+        resizeValentineCanvas();
+
+        class VHeart {
+            constructor(init, burst) {
+                this.reset(init, burst);
+            }
+            reset(init, burst) {
+                this.x = Math.random() * vCanvas.width;
+                this.y = init ? Math.random() * vCanvas.height : vCanvas.height + 30 + Math.random() * 80;
+                this.size = 16 + Math.random() * 36;
+                this.speedY = -(0.5 + Math.random() * 1.6);
+                this.drift = (Math.random() - 0.5) * 0.9;
+                this.phase = Math.random() * Math.PI * 2;
+                this.phaseSpeed = 0.008 + Math.random() * 0.022;
+                this.rot = (Math.random() - 0.5) * 0.7;
+                this.rotSpeed = (Math.random() - 0.5) * 0.018;
+                this.alpha = 0.55 + Math.random() * 0.45;
+                this.emoji = V_EMOJIS[Math.floor(Math.random() * V_EMOJIS.length)];
+                this.glow = Math.random() > 0.35;
+                this.scale = 0.85 + Math.random() * 0.5;
+                this.scaleSpeed = 0.008 + Math.random() * 0.018;
+                this.scalePhase = Math.random() * Math.PI * 2;
+
+                // 爆發模式：從畫面中央往外狂噴
+                if (burst) {
+                    const cx = vCanvas.width / 2;
+                    const cy = vCanvas.height * 0.45;
+                    const ang = Math.random() * Math.PI * 2;
+                    const spd = 2 + Math.random() * 7;
+                    this.x = cx;
+                    this.y = cy;
+                    this.speedY = Math.sin(ang) * spd;
+                    this.drift = Math.cos(ang) * spd;
+                    this.size = 20 + Math.random() * 30;
+                    this.alpha = 1;
+                    this.glow = true;
+                    this.isBurst = true;
+                    this.life = 0;
+                    this.maxLife = 90 + Math.random() * 60;
+                    this.gravity = 0.06;
+                } else {
+                    this.isBurst = false;
+                }
+            }
+            update() {
+                this.y += this.speedY;
+                this.phase += this.phaseSpeed;
+                this.scalePhase += this.scaleSpeed;
+                this.rot += this.rotSpeed;
+
+                if (this.isBurst) {
+                    this.speedY += this.gravity;
+                    this.drift *= 0.985;
+                    this.life++;
+                    this.alpha = Math.max(0, 1 - this.life / this.maxLife);
+                    if (this.life >= this.maxLife) this.reset(false, false);
+                } else {
+                    this.x += this.drift + Math.sin(this.phase) * 1.15;
+                    if (this.y < -70) this.reset(false, false);
+                    if (this.x < -70) this.x = vCanvas.width + 70;
+                    if (this.x > vCanvas.width + 70) this.x = -70;
+                }
+            }
+            draw() {
+                vCtx.save();
+                vCtx.globalAlpha = Math.max(0, Math.min(1, this.alpha));
+                vCtx.translate(this.x, this.y);
+                vCtx.rotate(this.rot);
+                const s = this.scale * (1 + 0.2 * Math.sin(this.scalePhase));
+                vCtx.scale(s, s);
+                if (this.glow) {
+                    vCtx.shadowColor = '#ff2d6f';
+                    vCtx.shadowBlur = 24;
+                }
+                vCtx.font = this.size + 'px "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif';
+                vCtx.textAlign = 'center';
+                vCtx.textBaseline = 'middle';
+                vCtx.fillText(this.emoji, 0, 0);
+                vCtx.restore();
+            }
+        }
+
+        class VSparkle {
+            constructor() { this.reset(true); }
+            reset() {
+                this.x = Math.random() * vCanvas.width;
+                this.y = Math.random() * vCanvas.height;
+                this.size = 1 + Math.random() * 3.2;
+                this.life = Math.floor(Math.random() * 90);
+                this.maxLife = 60 + Math.random() * 100;
+                this.alpha = 0;
+                this.hue = 315 + Math.random() * 65; // 桃紅 ~ 紫
+                this.cross = Math.random() > 0.6;
+            }
+            update() {
+                this.life++;
+                const t = this.life / this.maxLife;
+                this.alpha = Math.sin(Math.min(t, 1) * Math.PI) * 0.95;
+                if (this.life >= this.maxLife) this.reset();
+            }
+            draw() {
+                vCtx.save();
+                vCtx.globalAlpha = Math.max(0, this.alpha);
+                vCtx.fillStyle = `hsl(${this.hue}, 100%, 72%)`;
+                vCtx.shadowColor = `hsl(${this.hue}, 100%, 65%)`;
+                vCtx.shadowBlur = 14;
+                if (this.cross) {
+                    const s = this.size * 2.4;
+                    vCtx.fillRect(this.x - s, this.y - this.size * 0.35, s * 2, this.size * 0.7);
+                    vCtx.fillRect(this.x - this.size * 0.35, this.y - s, this.size * 0.7, s * 2);
+                } else {
+                    vCtx.beginPath();
+                    vCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    vCtx.fill();
+                }
+                vCtx.restore();
+            }
+        }
+
+        function triggerValentineBurst(count = 55) {
+            for (let i = 0; i < count; i++) {
+                vHearts.push(new VHeart(false, true));
+            }
+        }
+
+        function animateValentineFX() {
+            vCtx.clearRect(0, 0, vCanvas.width, vCanvas.height);
+            vTick++;
+
+            // 每 2.2 秒左右來一次浮誇愛心爆發
+            if (vTick % 130 === 0) triggerValentineBurst(60);
+
+            vSparkles.forEach(s => { s.update(); s.draw(); });
+            vHearts.forEach(h => { h.update(); h.draw(); });
+
+            // 清掉過量的粒子，避免效能炸裂
+            if (vHearts.length > 320) vHearts.splice(0, vHearts.length - 320);
+
+            vAnimationId = requestAnimationFrame(animateValentineFX);
+        }
+
+        function startValentineFX() {
+            if (vAnimationId) return;
+            vHearts = [];
+            vSparkles = [];
+            for (let i = 0; i < 42; i++) vHearts.push(new VHeart(true, false));
+            for (let i = 0; i < 55; i++) vSparkles.push(new VSparkle());
+            vCanvas.classList.add('active');
+            // 開場先來一發大的！
+            triggerValentineBurst(70);
+            animateValentineFX();
+        }
+
+        function stopValentineFX() {
+            if (vAnimationId) { cancelAnimationFrame(vAnimationId);
+                vAnimationId = null; }
+            vCtx.clearRect(0, 0, vCanvas.width, vCanvas.height);
+            vCanvas.classList.remove('active');
+            vHearts = [];
+            vSparkles = [];
+        }
+
+        // ============================================================
         // 4. 倒數 & 煙火
         // ============================================================
         function padZero(n) { return String(n).padStart(2, '0'); }
@@ -1271,13 +1674,6 @@
             particles = [];
         }
 
-        function isInFireworksWindow(targetDate) {
-            const now = new Date();
-            const diffMs = targetDate - now;
-            const days = Math.ceil(diffMs / 86400000);
-            return days >= 0 && days <= 3;
-        }
-
         function shouldFireworksBeActive() {
             const now = new Date();
             for (const t of targets) {
@@ -1294,6 +1690,8 @@
             else stopFireworks();
 
             const qixi = isQixi();
+            const valentine = isValentineDay();
+
             targets.forEach(t => {
                 const targetDate = t.date;
                 const diffMs = targetDate - now;
@@ -1306,8 +1704,9 @@
                 const labelEl = document.getElementById(t.labelId);
                 if (!dEl || !cardEl) return;
 
-                if (qixi) cardEl.classList.add('qixi');
-                else cardEl.classList.remove('qixi');
+                // 節慶卡片樣式（七夕優先，其次情人節）
+                cardEl.classList.toggle('qixi', qixi);
+                cardEl.classList.toggle('valentine', !qixi && valentine);
 
                 if (isDone) {
                     dEl.textContent = '0';
@@ -1336,44 +1735,68 @@
         }
 
         // ============================================================
-        // 5. 彈窗 — 加油小語已套用 .cheer-text 卡拉OK特效（CSS）
+        // 5. 彈窗（支援：一般 / 七夕 / 情人節 / 全部完成）
         // ============================================================
-        function showModal(examName, days, cheerText, isAllDone, emoji, qixi = false) {
-            let titleText, reminderHtml, iconEmoji;
-            if (qixi) {
+        const DEFAULT_GIF = 'https://raw.githubusercontent.com/dustinchen26/test/refs/heads/master/pooh-pooh-and-piglet.gif';
+
+        function showModal(opts) {
+            const {
+                examName,
+                days,
+                cheerText = '',
+                isAllDone = false,
+                emoji = '📚',
+                qixi = false,
+                valentine = null
+            } = opts || {};
+
+            let titleText, reminderHtml, iconEmoji, btnText, boxClass = '';
+
+            if (valentine) {
+                /* ★ 每月 14 號情人節專屬彈窗 */
+                boxClass = 'valentine-box';
+                iconEmoji = valentine.emoji;
+                titleText = `💘 ${valentine.name}快樂 💘`;
+                reminderHtml = `🌹 今天是 ${valentine.name}，只想對你說：我愛你 🌹`;
+                btnText = '💕 我也愛你 💕';
+            } else if (qixi) {
+                boxClass = 'valentine-box';
                 iconEmoji = '❤️';
                 titleText = 'Winny，我愛你 ❤️';
                 reminderHtml = '謝謝你來到我的生命裡。';
-                cheerText = '從2025/01/04相識到今天，每一天都因你而美好。七夕快樂，我的寶貝。';
+                btnText = '💕 我也愛你 💕';
             } else if (isAllDone) {
                 iconEmoji = '🏆';
                 titleText = '🎉 所有考試已完成！Winny 你太棒了！ 🎉';
                 reminderHtml = '🌟 你已經完成了所有挑戰，超級厲害！ 🌟';
+                btnText = '💪 我會全力以赴！';
             } else if (days === 0) {
                 iconEmoji = emoji || '🎯';
                 titleText = examName + ' 就是今天！';
                 reminderHtml = '🎉 就是今天！全力以赴，Winny 加油！ 🎉';
+                btnText = '💪 我會全力以赴！';
             } else if (days > 0) {
                 iconEmoji = emoji || '📚';
                 titleText = examName + ' 倒數 ' + days + ' 天';
                 reminderHtml = '⏰ 只剩 <strong>' + days + '</strong> 天，Winny 加油！ 💪';
+                btnText = '💪 我會全力以赴！';
             } else {
                 iconEmoji = '✅';
                 titleText = examName + ' 已結束！';
                 reminderHtml = '🎉 你已經完成了 ' + examName + '，表現超級棒！ 🎉';
+                btnText = '💪 我會全力以赴！';
             }
 
             const overlay = document.createElement('div');
             overlay.className = 'modal-overlay';
             overlay.innerHTML = `
-                <div class="modal-box">
+                <div class="modal-box ${boxClass}">
                     <div class="modal-icon">${iconEmoji}</div>
-                    <img class="modal-gif" src="https://raw.githubusercontent.com/dustinchen26/test/refs/heads/master/pooh-pooh-and-piglet.gif" alt="小熊維尼與小豬" />
+                    <img class="modal-gif" src="${DEFAULT_GIF}" alt="小熊維尼與小豬" />
                     <h2>${titleText}</h2>
-                    <!-- ★ cheer-text 已套用卡拉OK特效（CSS） -->
                     <div class="cheer-text">${cheerText}</div>
                     <div class="countdown-reminder">${reminderHtml}</div>
-                    <button class="modal-close-btn" id="modalCloseBtn">${qixi ? '💕 我也愛你 💕' : '💪 我會全力以赴！'}</button>
+                    <button class="modal-close-btn" id="modalCloseBtn">${btnText}</button>
                 </div>
             `;
             document.body.appendChild(overlay);
@@ -1383,57 +1806,95 @@
         }
 
         // ============================================================
-        // 6. 初始化
+        // 6. 依「今日狀態」套用所有特效與文案
         // ============================================================
-        function init() {
+        function applyDailyTheme() {
             const qixi = isQixi();
+            const valentine = getValentineInfo(); // null 或 {name, emoji, msg}
+            const isV = !!valentine;
 
+            const bodyEl = document.body;
+            const containerEl = document.getElementById('mainContainer');
+            const cheerEl = document.getElementById('cheerMessage');
+            const subEl = document.getElementById('subText');
+            const bannerEl = document.getElementById('valentineBanner');
+            const dividerDot = document.getElementById('dividerDot');
+
+            // ---- 背景 / 主容器 主題 ----
+            bodyEl.classList.toggle('valentine-mode', isV && !qixi);
+            containerEl.classList.toggle('valentine-mode', isV && !qixi);
+
+            // ---- 應援小語 ----
+            cheerEl.classList.toggle('qixi', qixi);
+            cheerEl.classList.toggle('valentine', isV && !qixi);
+            cheerEl.textContent = getTodayCheer();
+
+            // ---- 浮誇橫幅 ----
+            if (isV && !qixi) {
+                bannerEl.textContent = `${valentine.emoji} 今天是 ${valentine.name} ・ 專屬 Winny 的浪漫日 ${valentine.emoji}`;
+                bannerEl.classList.add('show');
+            } else {
+                bannerEl.classList.remove('show');
+                bannerEl.textContent = '';
+            }
+
+            // ---- 副標 ----
+            if (qixi) {
+                subEl.textContent = '💖 七夕快樂，我的寶貝';
+            } else if (isV) {
+                subEl.textContent = `${valentine.emoji} ${valentine.name}快樂，我最愛你`;
+            } else {
+                subEl.textContent = '每天都為你打氣，開心迎接挑戰 ✨';
+            }
+
+            // ---- 分隔線小圖示 ----
+            if (dividerDot) {
+                dividerDot.textContent = qixi ? '💞' : (isV ? '💘' : '❤️');
+            }
+
+            // ---- 背景特效切換 ----
             if (qixi) {
                 stopPetals();
+                stopValentineFX();
                 startHeartRain();
+            } else if (isV) {
+                stopHeartRain();
+                stopPetals();
+                startValentineFX();
             } else {
                 stopHeartRain();
+                stopValentineFX();
                 startPetals();
             }
 
-            const cheerEl = document.getElementById('cheerMessage');
-            cheerEl.textContent = getTodayCheer();
-            if (qixi) {
-                cheerEl.classList.add('qixi');
-                document.getElementById('subText').textContent = '💖 七夕快樂，我的寶貝';
-            } else {
-                cheerEl.classList.remove('qixi');
-                document.getElementById('subText').textContent = '每天都為你打氣，開心迎接挑戰 ✨';
-            }
-
+            // ---- 維尼文字 ----
             renderPoohText(getPoohText());
+
+            return { qixi, valentine };
+        }
+
+        // ============================================================
+        // 7. 初始化
+        // ============================================================
+        function init() {
+            const { qixi, valentine } = applyDailyTheme();
 
             updateCountdown();
             setInterval(updateCountdown, 1000);
 
+            // ---- 跨日自動更新 ----
             let lastDateStr = new Date().toDateString();
             setInterval(() => {
                 const now = new Date();
                 if (now.toDateString() !== lastDateStr) {
                     lastDateStr = now.toDateString();
-                    const newMsg = getTodayCheer();
-                    document.getElementById('cheerMessage').textContent = newMsg;
-                    const isQixiNow = isQixi();
-                    if (isQixiNow) {
-                        document.getElementById('cheerMessage').classList.add('qixi');
-                        document.getElementById('subText').textContent = '💖 七夕快樂，我的寶貝';
-                        stopPetals();
-                        startHeartRain();
-                    } else {
-                        document.getElementById('cheerMessage').classList.remove('qixi');
-                        document.getElementById('subText').textContent = '每天都為你打氣，開心迎接挑戰 ✨';
-                        stopHeartRain();
-                        startPetals();
-                    }
-                    renderPoohText(getPoohText());
+                    applyDailyTheme();
+                    // 跨日時若正好進入情人節，來一發慶祝！
+                    if (getValentineInfo()) setTimeout(() => triggerValentineBurst(80), 300);
                 }
             }, 60000);
 
+            // ---- 開場彈窗 ----
             const now = new Date();
             const upcomingExams = targets
                 .map(t => {
@@ -1447,12 +1908,19 @@
 
             setTimeout(() => {
                 if (qixi) {
-                    showModal('七夕', 0, pureMsg, false, '❤️', true);
+                    showModal({ qixi: true, cheerText: pureMsg });
+                } else if (valentine) {
+                    showModal({ valentine, cheerText: pureMsg });
                 } else if (upcomingExams.length === 0) {
-                    showModal('所有考試', 0, pureMsg, true, '🏆', false);
+                    showModal({ isAllDone: true, cheerText: pureMsg });
                 } else {
                     const nearest = upcomingExams.reduce((a, b) => a.days < b.days ? a : b);
-                    showModal(nearest.name, nearest.days, pureMsg, false, nearest.emoji, false);
+                    showModal({
+                        examName: nearest.name,
+                        days: nearest.days,
+                        cheerText: pureMsg,
+                        emoji: nearest.emoji
+                    });
                 }
             }, 500);
         }
