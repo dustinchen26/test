@@ -316,27 +316,6 @@
         .music-hint.show { display: block; }
         .music-hint.hide { display: none; }
 
-        /* 全螢幕點擊提示（自動播放失敗時顯示） */
-        .tap-hint {
-            position: fixed; bottom: 90px; left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(90deg, #ff1744, #ff4081, #d500f9);
-            background-size: 200% 100%;
-            animation: bannerFlow 2.5s linear infinite, tapHintPulse 1.6s ease-in-out infinite alternate;
-            color: #fff; padding: 10px 22px; border-radius: 999px;
-            font-weight: 700; font-size: 0.85rem; letter-spacing: 0.5px;
-            box-shadow: 0 8px 24px rgba(255, 23, 68, 0.45);
-            z-index: 100000; pointer-events: none;
-            opacity: 0; transition: opacity 0.3s ease;
-            white-space: nowrap; max-width: 90vw;
-            overflow: hidden; text-overflow: ellipsis;
-        }
-        .tap-hint.show { opacity: 1; }
-        @keyframes tapHintPulse {
-            0% { transform: translateX(-50%) scale(1); }
-            100% { transform: translateX(-50%) scale(1.05); }
-        }
-
         /* 應援訊息 */
         .cheer-section {
             margin-top: 4px; padding-top: 8px;
@@ -579,7 +558,6 @@
             .polaroid-wrap { max-width: 280px; padding: 12px 12px 46px; }
             .polaroid-wrap .polaroid-caption { font-size: 0.8rem; bottom: 10px; }
             .music-float-btn { width: 64px; height: 64px; font-size: 1.7rem; bottom: 32px; right: 28px; }
-            .tap-hint { bottom: 110px; font-size: 1.0rem; padding: 12px 28px; }
 
             .cheer-section { margin-top: 8px; padding-top: 12px; }
             .cheer-message { font-size: 1.05rem; padding: 4px 8px; line-height: 1.6; animation-duration: 6s; }
@@ -645,7 +623,6 @@
             .polaroid-wrap { max-width: 160px; padding: 8px 8px 32px; }
             .polaroid-wrap .polaroid-caption { font-size: 0.58rem; bottom: 6px; }
             .music-float-btn { width: 48px; height: 48px; font-size: 1.2rem; bottom: 16px; right: 12px; }
-            .tap-hint { font-size: 0.72rem; padding: 8px 16px; bottom: 76px; }
         }
 
         /* 高度不足 */
@@ -720,9 +697,6 @@
     <div id="bigBear" class="active">🐻</div>
 
     <canvas id="fireworksCanvas"></canvas>
-
-    <!-- 自動播放提示（僅 9/14 且自動播放失敗時顯示） -->
-    <div class="tap-hint" id="tapHint">🎹 點一下畫面，聽聽我為你彈的鋼琴曲</div>
 
     <!-- 音樂浮動按鈕（僅 9/14 顯示） -->
     <button class="music-float-btn" id="musicFloatBtn" title="播放女友的鋼琴曲">🎹</button>
@@ -1526,7 +1500,6 @@
         const audio = document.getElementById('girlfriendPiano');
         const musicBtn = document.getElementById('musicFloatBtn');
         const musicHint = document.getElementById('musicHint');
-        const tapHint = document.getElementById('tapHint');
 
         let audioUnlocked = false;
         let musicReady = false;
@@ -1538,16 +1511,9 @@
                 musicBtn.textContent = '🎵';
                 musicHint.classList.add('hide');
                 musicHint.classList.remove('show');
-                tapHint.classList.remove('show');
             } else {
                 musicBtn.classList.remove('playing');
                 musicBtn.textContent = '🎹';
-            }
-        }
-
-        function showTapHintIfNeeded() {
-            if (isMusicPhotoValentine() && !audioUnlocked) {
-                tapHint.classList.add('show');
             }
         }
 
@@ -1562,7 +1528,6 @@
                     detachUnlockListeners();
                 }).catch(() => {
                     if (isAuto) {
-                        showTapHintIfNeeded();
                         attachUnlockListeners();
                     }
                 });
@@ -1776,7 +1741,6 @@
             } else {
                 photoSection.classList.remove('show');
                 musicBtn.classList.remove('show');
-                tapHint.classList.remove('show');
                 if (!audio.paused) { audio.pause(); }
                 updateMusicUI(false);
             }
