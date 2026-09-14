@@ -8,12 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700&family=Noto+Sans+TC:wght@300;400;700;900&display=swap" rel="stylesheet" />
     <style>
-        /* ===== 全局重置 ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         html {
             min-height: 100%;
             overflow-x: hidden;
@@ -22,7 +18,7 @@
         }
         body {
             min-height: 100vh;
-            min-height: 100dvh; /* 兼容手機動態網址列 */
+            min-height: 100dvh;
             display: flex;
             justify-content: center;
             align-items: flex-start;
@@ -41,16 +37,14 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* ================================================================
-           ★★★ 情人節模式（每月 14 號）— 背景超浮誇流動 ★★★
-           ================================================================ */
+        /* 情人節背景 */
         body.valentine-mode {
             background: linear-gradient(145deg,
                 #ffe0ec 0%, #ffc9e0 15%, #f9c6ff 30%,
                 #ffd6e8 45%, #ffc1d9 60%, #e9c7ff 75%,
                 #ffd9ea 90%, #ffe0ec 100%);
             background-size: 500% 500%;
-            animation: valentineFlow 7s ease-in-out infinite alternate;
+            animation: valentineFlow 9s ease-in-out infinite alternate;
         }
         @keyframes valentineFlow {
             0% { background-position: 0% 50%; }
@@ -58,100 +52,60 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* ===== 花瓣 Canvas ===== */
+        /* Canvas */
         #petalCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            display: block;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0; display: block;
         }
         #heartRainCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            display: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0; display: none;
         }
         #heartRainCanvas.active { display: block; }
-
-        /* ===== 情人節專屬浮誇 Canvas ===== */
         #valentineCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            display: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1; display: none;
         }
         #valentineCanvas.active { display: block; }
 
-        /* ===== 背景浮動愛心 ===== */
+        /* 背景浮動愛心（減少為 5 個，降低負擔） */
         .bg-hearts {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-            z-index: 1;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; overflow: hidden; z-index: 1;
         }
         .bg-hearts span {
-            position: absolute;
-            font-size: 1.4rem;
-            opacity: 0.06;
-            animation: floatHeart 20s infinite alternate ease-in-out;
+            position: absolute; font-size: 1.4rem; opacity: 0.06;
+            animation: floatHeart 22s infinite alternate ease-in-out;
             color: #e91e63;
         }
-        .bg-hearts span:nth-child(1) { top: 8%; left: 5%; animation-duration: 18s; }
-        .bg-hearts span:nth-child(2) { top: 20%; right: 8%; animation-duration: 22s; animation-delay: 2s; }
-        .bg-hearts span:nth-child(3) { bottom: 25%; left: 3%; animation-duration: 24s; animation-delay: 4s; }
-        .bg-hearts span:nth-child(4) { bottom: 10%; right: 5%; animation-duration: 16s; animation-delay: 1s; }
-        .bg-hearts span:nth-child(5) { top: 40%; left: 45%; animation-duration: 20s; animation-delay: 3s; font-size: 2rem; }
-        .bg-hearts span:nth-child(6) { top: 55%; left: 15%; animation-duration: 26s; animation-delay: 5s; font-size: 1.2rem; }
-        .bg-hearts span:nth-child(7) { top: 12%; left: 50%; animation-duration: 19s; animation-delay: 6s; font-size: 1.6rem; }
+        .bg-hearts span:nth-child(1) { top: 8%; left: 5%; animation-duration: 20s; }
+        .bg-hearts span:nth-child(2) { top: 20%; right: 8%; animation-duration: 24s; animation-delay: 2s; }
+        .bg-hearts span:nth-child(3) { bottom: 25%; left: 3%; animation-duration: 26s; animation-delay: 4s; }
+        .bg-hearts span:nth-child(4) { bottom: 10%; right: 5%; animation-duration: 18s; animation-delay: 1s; }
+        .bg-hearts span:nth-child(5) { top: 45%; left: 45%; animation-duration: 22s; animation-delay: 3s; font-size: 2rem; }
         @keyframes floatHeart {
             0% { transform: translateY(0px) rotate(0deg) scale(1); }
             100% { transform: translateY(-18px) rotate(6deg) scale(1.05); }
         }
 
-        /* ===== 主容器 ===== */
+        /* 主容器 */
         .container {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            max-width: 480px;
-            background: rgba(255, 255, 255, 0.78);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-radius: 28px;
-            padding: 16px 18px 18px;
+            position: relative; z-index: 2; width: 100%; max-width: 480px;
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border-radius: 28px; padding: 16px 18px 18px;
             box-shadow: 0 8px 32px rgba(156, 39, 176, 0.06);
             border: 1px solid rgba(255, 255, 255, 0.5);
-            margin: auto;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.2s ease;
-            flex-shrink: 0;
+            margin: auto; display: flex; flex-direction: column;
+            transition: all 0.2s ease; flex-shrink: 0;
         }
-
-        /* ★ 情人節：彩虹流光邊框 + 呼吸光暈 */
         .container.valentine-mode {
             border: 2px solid transparent;
             background:
-                linear-gradient(rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.86)) padding-box,
+                linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.88)) padding-box,
                 linear-gradient(120deg, #ff1744, #ff80ab, #ffd700, #ff4081, #d500f9, #ff1744) border-box;
             background-size: 100% 100%, 400% 400%;
-            animation: rainbowBorder 4s linear infinite, valentinePulse 1.8s ease-in-out infinite alternate;
+            animation: rainbowBorder 5s linear infinite, valentinePulse 2.2s ease-in-out infinite alternate;
         }
         @keyframes rainbowBorder {
             0% { background-position: 0 0, 0% 50%; }
@@ -162,58 +116,34 @@
             100% { box-shadow: 0 0 46px rgba(255, 23, 68, 0.45), 0 0 110px rgba(213, 0, 249, 0.30); }
         }
 
-        /* --- 標題區 --- */
-        .header {
-            text-align: center;
-            margin-bottom: 6px;
-            flex-shrink: 0;
-        }
+        /* 標題 */
+        .header { text-align: center; margin-bottom: 6px; flex-shrink: 0; }
         .header h1 {
-            font-family: 'Quicksand', sans-serif;
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: #4a148c;
-            letter-spacing: 0.3px;
-            line-height: 1.3;
+            font-family: 'Quicksand', sans-serif; font-weight: 700;
+            font-size: 1.2rem; color: #4a148c; letter-spacing: 0.3px; line-height: 1.3;
         }
         .header h1 .heart {
-            color: #e91e63;
-            display: inline-block;
+            color: #e91e63; display: inline-block;
             animation: pulseHeart 1.6s infinite alternate;
         }
-        @keyframes pulseHeart {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.08); }
-        }
+        @keyframes pulseHeart { 0% { transform: scale(1); } 100% { transform: scale(1.08); } }
         .header .sub {
-            font-size: 0.8rem;
-            color: #7b4b8a;
-            font-weight: 500;
-            margin-top: 1px;
-            letter-spacing: 0.5px;
-            line-height: 1.2;
+            font-size: 0.8rem; color: #7b4b8a; font-weight: 500;
+            margin-top: 1px; letter-spacing: 0.5px; line-height: 1.2;
         }
 
-        /* ★ 情人節浮誇橫幅 */
+        /* 情人節橫幅 */
         .valentine-banner {
-            display: none;
-            margin: 6px auto 2px;
-            padding: 5px 16px;
-            border-radius: 999px;
-            font-size: 0.72rem;
-            font-weight: 900;
-            color: #fff;
-            letter-spacing: 1px;
+            display: none; margin: 6px auto 2px; padding: 5px 16px;
+            border-radius: 999px; font-size: 0.72rem; font-weight: 900;
+            color: #fff; letter-spacing: 1px;
             background: linear-gradient(90deg, #ff1744, #ff4081, #d500f9, #ff8a00, #ff1744);
             background-size: 300% 100%;
-            animation: bannerFlow 2.2s linear infinite;
+            animation: bannerFlow 3s linear infinite;
             box-shadow: 0 0 18px rgba(255, 23, 68, 0.5);
             text-shadow: 0 1px 4px rgba(0, 0, 0, 0.22);
-            width: fit-content;
-            max-width: 100%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            width: fit-content; max-width: 100%;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
         .valentine-banner.show { display: block; }
         @keyframes bannerFlow {
@@ -221,42 +151,29 @@
             100% { background-position: 300% 50%; }
         }
 
-        /* --- 分隔線 --- */
+        /* 分隔線 */
         .divider {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 6px;
-            margin: 4px 0 8px;
-            flex-shrink: 0;
+            display: flex; justify-content: center; align-items: center;
+            gap: 6px; margin: 4px 0 8px; flex-shrink: 0;
         }
         .divider .line {
-            width: 24px;
-            height: 1.5px;
+            width: 24px; height: 1.5px;
             background: linear-gradient(90deg, transparent, #e91e63);
             border-radius: 2px;
         }
         .divider .line:last-child {
             background: linear-gradient(90deg, #e91e63, transparent);
         }
-        .divider .dot {
-            color: #e91e63;
-            font-size: 0.7rem;
-        }
+        .divider .dot { color: #e91e63; font-size: 0.7rem; }
 
-        /* --- 倒數卡片 --- */
+        /* 倒數卡片 */
         .countdown-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 8px;
-            flex-shrink: 0;
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 8px; margin-bottom: 8px; flex-shrink: 0;
         }
         .card {
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 16px;
-            padding: 10px 6px 12px;
-            text-align: center;
+            background: rgba(255, 255, 255, 0.5); border-radius: 16px;
+            padding: 10px 6px 12px; text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.6);
             box-shadow: 0 2px 8px rgba(156, 39, 176, 0.03);
             transition: transform 0.15s ease;
@@ -281,19 +198,12 @@
             0% { box-shadow: 0 0 10px rgba(255, 107, 129, 0.15); }
             100% { box-shadow: 0 0 30px rgba(255, 107, 129, 0.35); }
         }
-        .card.qixi .num {
-            color: #d63031 !important;
-            background: rgba(214, 48, 49, 0.06) !important;
-        }
-        .card.qixi .num.days {
-            color: #e17055 !important;
-            background: rgba(225, 112, 85, 0.08) !important;
-        }
+        .card.qixi .num { color: #d63031 !important; background: rgba(214, 48, 49, 0.06) !important; }
+        .card.qixi .num.days { color: #e17055 !important; background: rgba(225, 112, 85, 0.08) !important; }
         .card.qixi .exam-name { color: #6c2a3e !important; }
         .card.qixi .countdown-label { color: #6c2a3e !important; }
         .card.qixi .exam-date .roc { color: #6c2a3e !important; }
 
-        /* ★ 情人節卡片：粉金漸層 + 流光 */
         .card.valentine {
             background: linear-gradient(135deg, #fff0f6, #ffe1f0, #ffeaf8, #fff5fb) !important;
             border: 1.5px solid #ff4081 !important;
@@ -304,182 +214,182 @@
             0% { box-shadow: 0 0 10px rgba(255, 64, 129, 0.16); }
             100% { box-shadow: 0 0 30px rgba(255, 64, 129, 0.42); }
         }
-        .card.valentine .num {
-            color: #d81b60 !important;
-            background: rgba(216, 27, 96, 0.07) !important;
-        }
-        .card.valentine .num.days {
-            color: #c2185b !important;
-            background: rgba(194, 24, 91, 0.09) !important;
-        }
+        .card.valentine .num { color: #d81b60 !important; background: rgba(216, 27, 96, 0.07) !important; }
+        .card.valentine .num.days { color: #c2185b !important; background: rgba(194, 24, 91, 0.09) !important; }
         .card.valentine .exam-name { color: #ad1457 !important; }
         .card.valentine .countdown-label { color: #ad1457 !important; }
         .card.valentine .exam-date .roc { color: #8e24aa !important; }
 
-        .card .exam-name {
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: #4a148c;
-            letter-spacing: 0.3px;
-            line-height: 1.2;
-        }
-        .card .exam-date {
-            font-size: 0.55rem;
-            color: #7b4b8a;
-            margin: 0 0 2px;
-            line-height: 1.1;
-        }
-        .card .exam-date .roc {
-            font-weight: 500;
-            color: #6a1b9a;
-        }
-        .card .countdown-label {
-            font-size: 0.6rem;
-            font-weight: 600;
-            color: #c2185b;
-            margin-bottom: 2px;
-            line-height: 1.1;
-        }
-        .countdown-display {
-            display: flex;
-            justify-content: center;
-            align-items: baseline;
-            gap: 2px;
-            flex-wrap: nowrap;
-        }
-        .countdown-display .time-block {
-            display: inline-flex;
-            align-items: baseline;
-            gap: 0px;
-        }
+        .card .exam-name { font-size: 0.75rem; font-weight: 700; color: #4a148c; letter-spacing: 0.3px; line-height: 1.2; }
+        .card .exam-date { font-size: 0.55rem; color: #7b4b8a; margin: 0 0 2px; line-height: 1.1; }
+        .card .exam-date .roc { font-weight: 500; color: #6a1b9a; }
+        .card .countdown-label { font-size: 0.6rem; font-weight: 600; color: #c2185b; margin-bottom: 2px; line-height: 1.1; }
+        .countdown-display { display: flex; justify-content: center; align-items: baseline; gap: 2px; flex-wrap: nowrap; }
+        .countdown-display .time-block { display: inline-flex; align-items: baseline; gap: 0px; }
         .countdown-display .num {
-            font-family: 'Quicksand', sans-serif;
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: #4a148c;
-            min-width: 16px;
-            text-align: center;
-            background: rgba(233, 30, 99, 0.03);
-            border-radius: 3px;
-            padding: 0 2px;
-            line-height: 1.2;
+            font-family: 'Quicksand', sans-serif; font-weight: 700;
+            font-size: 1.1rem; color: #4a148c; min-width: 16px; text-align: center;
+            background: rgba(233, 30, 99, 0.03); border-radius: 3px;
+            padding: 0 2px; line-height: 1.2;
         }
         .countdown-display .num.days {
-            font-size: 1.4rem;
-            color: #c2185b;
-            min-width: 24px;
+            font-size: 1.4rem; color: #c2185b; min-width: 24px;
             background: rgba(233, 30, 99, 0.05);
         }
-        .countdown-display .label {
-            font-size: 0.45rem;
-            font-weight: 400;
-            color: #7b4b8a;
-            margin-right: 0px;
+        .countdown-display .label { font-size: 0.45rem; font-weight: 400; color: #7b4b8a; margin-right: 0px; }
+        .card.done { opacity: 0.4; }
+        .card.done .num { color: #9e9e9e !important; background: rgba(0, 0, 0, 0.02) !important; }
+        .card.done .exam-name { color: #9e9e9e; }
+
+        /* 9/14 專屬：鋼琴音樂 + 合照 */
+        .photo-music-section {
+            display: none; margin-top: 10px; padding-top: 10px;
+            border-top: 1.5px dashed rgba(233, 30, 99, 0.10);
+            text-align: center; flex-shrink: 0;
         }
-        .card.done {
-            opacity: 0.4;
+        .photo-music-section.show { display: block; }
+
+        /* 音樂浮動按鈕 */
+        .music-float-btn {
+            position: fixed; bottom: 24px; right: 18px; z-index: 9999;
+            width: 56px; height: 56px; border-radius: 50%; border: none;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem; color: #fff;
+            background: linear-gradient(135deg, #ff1744, #ff4081, #d500f9);
+            background-size: 200% 200%;
+            animation: musicBtnFlow 3s ease infinite, musicBtnPulse 1.8s ease-in-out infinite alternate;
+            box-shadow: 0 6px 24px rgba(255, 23, 68, 0.45);
+            transition: transform 0.2s ease, opacity 0.3s ease;
+            opacity: 0; pointer-events: none;
         }
-        .card.done .num {
-            color: #9e9e9e !important;
-            background: rgba(0, 0, 0, 0.02) !important;
+        .music-float-btn.show { opacity: 1; pointer-events: auto; }
+        .music-float-btn:active { transform: scale(0.9); }
+        .music-float-btn.playing {
+            animation: musicBtnFlow 3s ease infinite, musicBtnSpin 4s linear infinite;
         }
-        .card.done .exam-name {
-            color: #9e9e9e;
+        @keyframes musicBtnFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes musicBtnPulse {
+            0% { box-shadow: 0 6px 24px rgba(255, 23, 68, 0.35); }
+            100% { box-shadow: 0 6px 36px rgba(255, 23, 68, 0.65); }
+        }
+        @keyframes musicBtnSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        /* ================================================================
-           ★★★ 應援訊息 — 卡拉OK效果（紅字由左往右變色） ★★★
-           ================================================================ */
+        /* 拍立得合照 */
+        .polaroid-wrap {
+            display: inline-block; background: #fff;
+            padding: 10px 10px 40px; border-radius: 4px;
+            box-shadow:
+                0 4px 16px rgba(233, 30, 99, 0.18),
+                0 1px 4px rgba(0, 0, 0, 0.08);
+            transform: rotate(-2deg);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 220px; margin: 4px auto 10px; position: relative;
+        }
+        .polaroid-wrap:hover {
+            transform: rotate(0deg) scale(1.04);
+            box-shadow:
+                0 8px 28px rgba(233, 30, 99, 0.28),
+                0 2px 8px rgba(0, 0, 0, 0.12);
+        }
+        .polaroid-wrap img {
+            display: block; width: 100%; height: auto;
+            border-radius: 2px; object-fit: cover;
+        }
+        .polaroid-wrap .polaroid-caption {
+            position: absolute; bottom: 8px; left: 0; right: 0;
+            text-align: center; font-size: 0.68rem; font-weight: 700;
+            color: #ad1457; letter-spacing: 0.5px;
+        }
+
+        /* 音樂提示文字 */
+        .music-hint {
+            font-size: 0.6rem; color: #b39ddb; margin-top: 6px;
+            letter-spacing: 0.3px;
+        }
+        .music-hint.show { display: block; }
+        .music-hint.hide { display: none; }
+
+        /* ★ 全螢幕點擊提示（自動播放失敗時顯示） */
+        .tap-hint {
+            position: fixed; bottom: 90px; left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, #ff1744, #ff4081, #d500f9);
+            background-size: 200% 100%;
+            animation: bannerFlow 2.5s linear infinite, tapHintPulse 1.6s ease-in-out infinite alternate;
+            color: #fff; padding: 10px 22px; border-radius: 999px;
+            font-weight: 700; font-size: 0.85rem; letter-spacing: 0.5px;
+            box-shadow: 0 8px 24px rgba(255, 23, 68, 0.45);
+            z-index: 100000; pointer-events: none;
+            opacity: 0; transition: opacity 0.3s ease;
+            white-space: nowrap; max-width: 90vw;
+            overflow: hidden; text-overflow: ellipsis;
+        }
+        .tap-hint.show { opacity: 1; }
+        @keyframes tapHintPulse {
+            0% { transform: translateX(-50%) scale(1); }
+            100% { transform: translateX(-50%) scale(1.05); }
+        }
+
+        /* 應援訊息 */
         .cheer-section {
-            margin-top: 4px;
-            padding-top: 8px;
+            margin-top: 4px; padding-top: 8px;
             border-top: 1.5px dashed rgba(233, 30, 99, 0.10);
-            text-align: center;
-            flex-shrink: 0;
+            text-align: center; flex-shrink: 0;
         }
         .cheer-message {
-            font-size: 0.78rem;
-            font-weight: 700;
-            color: #7b4b8a;
-            display: inline-block;
-            line-height: 1.5;
-            padding: 4px 4px;
+            font-size: 0.78rem; font-weight: 700; color: #7b4b8a;
+            display: inline-block; line-height: 1.5; padding: 4px 4px;
             background: linear-gradient(to right, #e91e63 0%, #e91e63 50%, #7b4b8a 50%, #7b4b8a 100%);
-            background-size: 200% 100%;
-            background-position: 0% 0%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: karaoke 4s ease-in-out infinite;
+            background-size: 200% 100%; background-position: 0% 0%;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; animation: karaoke 5s ease-in-out infinite;
         }
         @keyframes karaoke {
             0% { background-position: 100% 0%; }
             50% { background-position: 0% 0%; }
             100% { background-position: 100% 0%; }
         }
-        .cheer-message.qixi {
-            font-weight: 700;
-            animation-duration: 3s;
-        }
-        /* ★ 情人節：玫瑰金 × 桃紅 高彩度卡拉OK */
+        .cheer-message.qixi { font-weight: 700; animation-duration: 4s; }
         .cheer-message.valentine {
-            font-weight: 900;
-            letter-spacing: 0.4px;
+            font-weight: 900; letter-spacing: 0.4px;
             background: linear-gradient(to right,
                 #ff1744 0%, #ff1744 48%,
                 #ff8a00 48%, #ffd700 66%,
                 #7b4b8a 66%, #7b4b8a 100%);
             background-size: 220% 100%;
-            -webkit-background-clip: text;
-            background-clip: text;
+            -webkit-background-clip: text; background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: karaoke 2.6s ease-in-out infinite;
-            filter: drop-shadow(0 0 8px rgba(255, 23, 68, 0.22));
+            animation: karaoke 3.2s ease-in-out infinite;
         }
 
-        /* ================================================================
-           ★★★ 主畫面維尼 ★★★
-           ================================================================ */
+        /* 維尼 */
         .pooh-container {
-            text-align: center;
-            margin-top: 10px;
-            padding-top: 10px;
+            text-align: center; margin-top: 10px; padding-top: 10px;
             border-top: 1.5px dashed rgba(233, 30, 99, 0.10);
-            flex-shrink: 0;
-            display: block;
+            flex-shrink: 0; display: block;
         }
         .pooh-container img {
-            display: block;
-            margin: 0 auto 8px;
-            max-width: 130px;
-            width: 100%;
-            height: auto;
+            display: block; margin: 0 auto 8px;
+            max-width: 130px; width: 100%; height: auto;
             border-radius: 14px;
             box-shadow: 0 4px 16px rgba(233, 30, 99, 0.10);
             transition: transform 0.2s ease;
         }
-        .pooh-container img:active {
-            transform: scale(0.95);
-        }
-
+        .pooh-container img:active { transform: scale(0.95); }
         .pooh-text {
-            display: inline-block;
-            font-size: 0.85rem;
-            color: #4a148c;
-            font-weight: 700;
-            line-height: 1.4;
-            letter-spacing: 0.5px;
-            background: transparent;
-            padding: 0;
-            border: none;
-            border-radius: 0;
-            backdrop-filter: none;
-            box-shadow: none;
+            display: inline-block; font-size: 0.85rem; color: #4a148c;
+            font-weight: 700; line-height: 1.4; letter-spacing: 0.5px;
+            background: transparent; padding: 0; border: none;
+            border-radius: 0; backdrop-filter: none; box-shadow: none;
         }
-        .pooh-text .char {
-            display: inline-block;
-            animation: waveChar 1.8s ease-in-out infinite;
-        }
+        .pooh-text .char { display: inline-block; animation: waveChar 2s ease-in-out infinite; }
         .pooh-text .char:nth-child(1) { animation-delay: 0.00s; }
         .pooh-text .char:nth-child(2) { animation-delay: 0.08s; }
         .pooh-text .char:nth-child(3) { animation-delay: 0.16s; }
@@ -520,7 +430,6 @@
         .pooh-text .char:nth-child(38) { animation-delay: 2.96s; }
         .pooh-text .char:nth-child(39) { animation-delay: 3.04s; }
         .pooh-text .char:nth-child(40) { animation-delay: 3.12s; }
-
         @keyframes waveChar {
             0% { transform: translateY(0px) rotate(0deg); }
             40% { transform: translateY(-14px) rotate(2deg); }
@@ -528,41 +437,23 @@
             100% { transform: translateY(0px) rotate(0deg); }
         }
 
-        /* --- 頁尾 --- */
+        /* 頁尾 */
         .footer-note {
-            margin-top: 6px;
-            font-size: 0.6rem;
-            color: #b39ddb;
-            text-align: center;
-            border-top: 1px solid rgba(233, 30, 99, 0.06);
-            padding-top: 6px;
-            padding-bottom: 1px;
-            letter-spacing: 0.3px;
-            flex-shrink: 0;
-            line-height: 1.2;
+            margin-top: 6px; font-size: 0.6rem; color: #b39ddb;
+            text-align: center; border-top: 1px solid rgba(233, 30, 99, 0.06);
+            padding-top: 6px; padding-bottom: 1px;
+            letter-spacing: 0.3px; flex-shrink: 0; line-height: 1.2;
         }
-        .footer-note span {
-            color: #e91e63;
-            font-weight: 600;
-        }
+        .footer-note span { color: #e91e63; font-weight: 600; }
 
-        /* --- 大熊 --- */
+        /* 大熊 */
         #bigBear {
-            position: fixed;
-            bottom: 4%;
-            left: -15%;
-            font-size: 32px;
-            z-index: 9999;
-            pointer-events: none;
-            line-height: 1;
-            transform-origin: center bottom;
-            opacity: 0;
+            position: fixed; bottom: 4%; left: -15%; font-size: 32px;
+            z-index: 9999; pointer-events: none; line-height: 1;
+            transform-origin: center bottom; opacity: 0;
             transition: opacity 0.3s ease;
         }
-        #bigBear.active {
-            opacity: 0.7;
-            animation: bearWalk 7s ease-in-out infinite;
-        }
+        #bigBear.active { opacity: 0.7; animation: bearWalk 9s ease-in-out infinite; }
         @keyframes bearWalk {
             0% { transform: translateX(-10vw) scale(0.2); opacity: 0.5; }
             15% { opacity: 0.8; }
@@ -570,125 +461,66 @@
             100% { transform: translateX(100vw) scale(1.8); opacity: 0.3; }
         }
 
-        /* --- 煙火 --- */
+        /* 煙火 */
         #fireworksCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9998;
-            display: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 9998; display: none;
         }
         #fireworksCanvas.active { display: block; }
 
-        /* ================================================================
-           ★★★ 彈窗 ★★★
-           ================================================================ */
+        /* 彈窗 */
         .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.25);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            z-index: 99999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.35s ease;
-            overflow-y: auto;
-            padding: 20px;
+            backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            z-index: 99999; display: flex; justify-content: center;
+            align-items: center; animation: fadeIn 0.3s ease;
+            overflow-y: auto; padding: 20px;
         }
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: scale(0.92); }
-            100% { opacity: 1; transform: scale(1); }
-        }
+        @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
         .modal-box {
-            background: white;
-            border-radius: 24px;
-            padding: 20px 20px 18px;
-            max-width: 340px;
-            width: 100%;
-            text-align: center;
+            background: white; border-radius: 24px; padding: 20px 20px 18px;
+            max-width: 340px; width: 100%; text-align: center;
             box-shadow: 0 20px 40px rgba(233, 30, 99, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            margin: auto;
+            border: 1px solid rgba(255, 255, 255, 0.5); margin: auto;
         }
-        /* ★ 情人節彈窗：彩虹流光框 + 立體光暈 */
         .modal-box.valentine-box {
             border: 2px solid transparent;
             background:
                 linear-gradient(#ffffff, #ffffff) padding-box,
                 linear-gradient(120deg, #ff1744, #ff80ab, #ffd700, #ff4081, #d500f9, #ff1744) border-box;
             background-size: 100% 100%, 400% 400%;
-            animation: rainbowBorder 3s linear infinite;
-            box-shadow: 0 22px 60px rgba(255, 23, 68, 0.32),
-                        0 0 80px rgba(213, 0, 249, 0.18);
+            animation: rainbowBorder 4s linear infinite;
+            box-shadow: 0 22px 60px rgba(255, 23, 68, 0.32), 0 0 80px rgba(213, 0, 249, 0.18);
         }
-        .modal-box.valentine-box h2 {
-            color: #d81b60 !important;
-            text-shadow: 0 0 14px rgba(255, 23, 68, 0.25);
-        }
+        .modal-box.valentine-box h2 { color: #d81b60 !important; text-shadow: 0 0 14px rgba(255, 23, 68, 0.25); }
         .modal-box.valentine-box .modal-icon {
-            animation: iconBeat 0.9s ease-in-out infinite alternate;
+            animation: iconBeat 1.1s ease-in-out infinite alternate;
             filter: drop-shadow(0 0 12px rgba(255, 23, 68, 0.45));
         }
-        @keyframes iconBeat {
-            0% { transform: scale(1) rotate(-4deg); }
-            100% { transform: scale(1.18) rotate(4deg); }
-        }
+        @keyframes iconBeat { 0% { transform: scale(1) rotate(-4deg); } 100% { transform: scale(1.18) rotate(4deg); } }
         .modal-box.valentine-box .countdown-reminder {
             background: linear-gradient(90deg, rgba(255, 23, 68, 0.10), rgba(213, 0, 249, 0.10));
-            color: #ad1457;
-            box-shadow: 0 0 16px rgba(255, 23, 68, 0.16);
+            color: #ad1457; box-shadow: 0 0 16px rgba(255, 23, 68, 0.16);
         }
         .modal-box.valentine-box .modal-close-btn {
             background: linear-gradient(90deg, #ff1744, #ff4081, #d500f9);
-            background-size: 200% 100%;
-            animation: bannerFlow 2.4s linear infinite;
+            background-size: 200% 100%; animation: bannerFlow 3s linear infinite;
             box-shadow: 0 6px 22px rgba(255, 23, 68, 0.4);
         }
-
-        .modal-box .modal-icon {
-            font-size: 2.2rem;
-            margin-bottom: 2px;
-        }
+        .modal-box .modal-icon { font-size: 2.2rem; margin-bottom: 2px; }
         .modal-box .modal-gif {
-            display: block;
-            margin: 8px auto 14px;
-            max-width: 140px;
-            width: 100%;
-            height: auto;
-            border-radius: 12px;
+            display: block; margin: 8px auto 14px; max-width: 140px;
+            width: 100%; height: auto; border-radius: 12px;
             box-shadow: 0 2px 12px rgba(233, 30, 99, 0.06);
         }
-        .modal-box h2 {
-            font-size: 1.05rem;
-            color: #4a148c;
-            margin-bottom: 2px;
-            line-height: 1.2;
-        }
-
-        /* ================================================================
-           ★★★ 彈窗加油小語 — 卡拉OK特效（超醒目版） ★★★
-           ================================================================ */
+        .modal-box h2 { font-size: 1.05rem; color: #4a148c; margin-bottom: 2px; line-height: 1.2; }
         .modal-box .cheer-text {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            font-weight: 700;
+            font-size: 0.95rem; line-height: 1.6; font-weight: 700;
             background: linear-gradient(to right, #ff1493 0%, #ff1493 45%, #ff8c00 45%, #ff8c00 100%);
-            background-size: 200% 100%;
-            background-position: 0% 0%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: karaokeModal 2.8s ease-in-out infinite;
-            filter: drop-shadow(0 0 12px rgba(255, 20, 147, 0.25));
-            text-shadow: 0 0 20px rgba(255, 20, 147, 0.15);
+            background-size: 200% 100%; background-position: 0% 0%;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; animation: karaokeModal 3.2s ease-in-out infinite;
             letter-spacing: 0.3px;
         }
         @keyframes karaokeModal {
@@ -696,57 +528,36 @@
             50% { background-position: 0% 0%; }
             100% { background-position: 100% 0%; }
         }
-        /* ★ 情人節彈窗小語：金粉桃紅三段流光 */
         .modal-box.valentine-box .cheer-text {
             background: linear-gradient(to right,
                 #ff1744 0%, #ff1744 34%,
                 #ff8a00 34%, #ffd700 58%,
                 #d500f9 58%, #d500f9 100%);
             background-size: 220% 100%;
-            -webkit-background-clip: text;
-            background-clip: text;
+            -webkit-background-clip: text; background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: karaokeModal 2.2s ease-in-out infinite;
-            filter: drop-shadow(0 0 14px rgba(255, 23, 68, 0.35));
+            animation: karaokeModal 2.8s ease-in-out infinite;
         }
-
         .modal-box .countdown-reminder {
-            font-size: 0.75rem;
-            color: #c2185b;
-            font-weight: 700;
-            background: rgba(233, 30, 99, 0.05);
-            padding: 4px 14px;
-            border-radius: 20px;
-            display: inline-block;
-            margin: 4px 0 10px;
+            font-size: 0.75rem; color: #c2185b; font-weight: 700;
+            background: rgba(233, 30, 99, 0.05); padding: 4px 14px;
+            border-radius: 20px; display: inline-block; margin: 4px 0 10px;
         }
         .modal-close-btn {
-            background: #e91e63;
-            color: white;
-            border: none;
-            padding: 8px 28px;
-            border-radius: 40px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            cursor: pointer;
+            background: #e91e63; color: white; border: none;
+            padding: 8px 28px; border-radius: 40px; font-size: 0.85rem;
+            font-weight: 700; cursor: pointer;
             transition: transform 0.15s, box-shadow 0.15s;
             box-shadow: 0 4px 12px rgba(233, 30, 99, 0.2);
         }
-        .modal-close-btn:active {
-            transform: scale(0.95);
-        }
+        .modal-close-btn:active { transform: scale(0.95); }
 
-        /* ================================================================
-           ★★★ 電腦版自動放大 ★★★
-           ================================================================ */
+        /* 電腦版 */
         @media (min-width: 600px) {
             body { padding: 16px; }
             .container {
-                max-width: 780px;
-                padding: 32px 44px 36px;
-                border-radius: 40px;
-                box-shadow: 0 12px 48px rgba(156, 39, 176, 0.08);
-                margin: auto;
+                max-width: 780px; padding: 32px 44px 36px;
+                border-radius: 40px; box-shadow: 0 12px 48px rgba(156, 39, 176, 0.08); margin: auto;
             }
             .header h1 { font-size: 2.0rem; letter-spacing: 0.5px; }
             .header .sub { font-size: 1.0rem; letter-spacing: 1px; }
@@ -764,29 +575,21 @@
             .countdown-display .num.days { font-size: 2.6rem; min-width: 52px; }
             .countdown-display .label { font-size: 0.75rem; margin-right: 2px; }
 
-            .cheer-section { margin-top: 8px; padding-top: 12px; border-top: 2px dashed rgba(233, 30, 99, 0.10); }
-            .cheer-message {
-                font-size: 1.05rem;
-                padding: 4px 8px;
-                line-height: 1.6;
-                animation-duration: 5s;
-            }
-            .cheer-message.qixi { font-size: 1.1rem; }
-            .cheer-message.valentine { font-size: 1.12rem; animation-duration: 3s; }
+            .photo-music-section { margin-top: 14px; padding-top: 14px; }
+            .polaroid-wrap { max-width: 280px; padding: 12px 12px 46px; }
+            .polaroid-wrap .polaroid-caption { font-size: 0.8rem; bottom: 10px; }
+            .music-float-btn { width: 64px; height: 64px; font-size: 1.7rem; bottom: 32px; right: 28px; }
+            .tap-hint { bottom: 110px; font-size: 1.0rem; padding: 12px 28px; }
 
-            .pooh-container { margin-top: 12px; padding-top: 12px; border-top: 2px dashed rgba(233, 30, 99, 0.10); }
+            .cheer-section { margin-top: 8px; padding-top: 12px; }
+            .cheer-message { font-size: 1.05rem; padding: 4px 8px; line-height: 1.6; animation-duration: 6s; }
+            .cheer-message.qixi { font-size: 1.1rem; }
+            .cheer-message.valentine { font-size: 1.12rem; animation-duration: 3.6s; }
+
+            .pooh-container { margin-top: 12px; padding-top: 12px; }
             .pooh-container img { max-width: 150px; margin: 0 auto 10px; border-radius: 14px; }
-            .pooh-text {
-                font-size: 1.1rem;
-                padding: 0;
-                background: transparent;
-                border: none;
-                border-radius: 0;
-                box-shadow: none;
-            }
-            .pooh-text .char {
-                animation-duration: 2.2s;
-            }
+            .pooh-text { font-size: 1.1rem; padding: 0; }
+            .pooh-text .char { animation-duration: 2.4s; }
             @keyframes waveChar {
                 0% { transform: translateY(0px) rotate(0deg); }
                 40% { transform: translateY(-20px) rotate(2.5deg); }
@@ -794,7 +597,7 @@
                 100% { transform: translateY(0px) rotate(0deg); }
             }
 
-            .footer-note { margin-top: 10px; font-size: 0.8rem; padding-top: 10px; border-top: 1.5px solid rgba(233, 30, 99, 0.06); letter-spacing: 0.5px; }
+            .footer-note { margin-top: 10px; font-size: 0.8rem; padding-top: 10px; }
             #bigBear { bottom: 8%; font-size: 70px; }
             @keyframes bearWalk {
                 0% { transform: translateX(-10vw) scale(0.3); opacity: 0.5; }
@@ -802,27 +605,16 @@
                 85% { opacity: 0.9; }
                 100% { transform: translateX(110vw) scale(2.2); opacity: 0.3; }
             }
-            .modal-box {
-                max-width: 440px;
-                padding: 32px 38px 28px;
-                border-radius: 32px;
-            }
+            .modal-box { max-width: 440px; padding: 32px 38px 28px; border-radius: 32px; }
             .modal-box .modal-icon { font-size: 3.0rem; }
             .modal-box .modal-gif { max-width: 160px; margin: 10px auto 16px; }
             .modal-box h2 { font-size: 1.4rem; }
-
-            .modal-box .cheer-text {
-                font-size: 1.15rem;
-                line-height: 1.7;
-                filter: drop-shadow(0 0 18px rgba(255, 20, 147, 0.30));
-                animation-duration: 3.2s;
-                letter-spacing: 0.5px;
-            }
+            .modal-box .cheer-text { font-size: 1.15rem; line-height: 1.7; animation-duration: 3.6s; letter-spacing: 0.5px; }
             .modal-box .countdown-reminder { font-size: 0.9rem; padding: 6px 18px; }
             .modal-close-btn { font-size: 1.0rem; padding: 10px 36px; }
         }
 
-        /* ===== 極小螢幕微調（晃動幅度 -9px） ===== */
+        /* 極小螢幕 */
         @media (max-width: 380px) {
             .container { padding: 12px 12px 14px; border-radius: 20px; }
             .header h1 { font-size: 1.0rem; }
@@ -834,12 +626,12 @@
             .countdown-display .num { font-size: 0.95rem; min-width: 14px; }
             .countdown-display .num.days { font-size: 1.15rem; min-width: 20px; }
             .countdown-display .label { font-size: 0.35rem; }
-            .cheer-message { font-size: 0.65rem; animation-duration: 3s; }
+            .cheer-message { font-size: 0.65rem; animation-duration: 4s; }
             .cheer-message.qixi { font-size: 0.7rem; }
-            .cheer-message.valentine { font-size: 0.7rem; animation-duration: 2.4s; }
+            .cheer-message.valentine { font-size: 0.7rem; animation-duration: 3s; }
             .pooh-container img { max-width: 90px; }
             .pooh-text { font-size: 0.7rem; padding: 0; }
-            .pooh-text .char { animation-duration: 1.6s; }
+            .pooh-text .char { animation-duration: 1.8s; }
             @keyframes waveChar {
                 0% { transform: translateY(0px); }
                 40% { transform: translateY(-9px); }
@@ -850,15 +642,13 @@
             .footer-note { font-size: 0.5rem; padding-top: 4px; }
             .countdown-grid { gap: 4px; }
             .card { padding: 6px 4px 8px; border-radius: 12px; }
-
-            .modal-box .cheer-text {
-                font-size: 0.85rem;
-                filter: drop-shadow(0 0 8px rgba(255, 20, 147, 0.20));
-                animation-duration: 2.4s;
-            }
+            .polaroid-wrap { max-width: 160px; padding: 8px 8px 32px; }
+            .polaroid-wrap .polaroid-caption { font-size: 0.58rem; bottom: 6px; }
+            .music-float-btn { width: 48px; height: 48px; font-size: 1.2rem; bottom: 16px; right: 12px; }
+            .tap-hint { font-size: 0.72rem; padding: 8px 16px; bottom: 76px; }
         }
 
-        /* ===== 高度不足時（包含橫向顯示） ===== */
+        /* 高度不足 */
         @media (max-height: 700px) and (max-width: 599px) {
             .container { padding: 10px 14px 12px; border-radius: 20px; }
             .header h1 { font-size: 1.0rem; }
@@ -876,28 +666,19 @@
             .cheer-section { margin-top: 2px; padding-top: 4px; }
             .cheer-message { font-size: 0.65rem; }
             .cheer-message.qixi { font-size: 0.7rem; }
-            .cheer-message.valentine { font-size: 0.7rem; animation-duration: 2.4s; }
+            .cheer-message.valentine { font-size: 0.7rem; animation-duration: 3s; }
             .pooh-container { margin-top: 6px; padding-top: 6px; }
             .pooh-container img { max-width: 90px; }
             .pooh-text { font-size: 0.7rem; padding: 0; }
             .modal-box .modal-gif { max-width: 130px; }
             .footer-note { font-size: 0.5rem; padding-top: 3px; margin-top: 3px; }
-
-            .modal-box .cheer-text {
-                font-size: 0.85rem;
-                filter: drop-shadow(0 0 8px rgba(255, 20, 147, 0.20));
-                animation-duration: 2.4s;
-            }
+            .polaroid-wrap { max-width: 140px; padding: 6px 6px 28px; }
+            .polaroid-wrap .polaroid-caption { font-size: 0.55rem; bottom: 5px; }
         }
 
-        /* ===== 手機橫向專屬優化 ===== */
+        /* 手機橫向 */
         @media (orientation: landscape) and (max-height: 500px) {
-            .container {
-                padding: 8px 20px;
-                max-width: 95%;
-                margin: 5px auto;
-                border-radius: 16px;
-            }
+            .container { padding: 8px 20px; max-width: 95%; margin: 5px auto; border-radius: 16px; }
             .header h1 { font-size: 1.1rem; }
             .header .sub { font-size: 0.7rem; }
             .valentine-banner { font-size: 0.6rem; padding: 3px 12px; }
@@ -916,34 +697,35 @@
             .pooh-container img { max-width: 80px; margin-bottom: 4px; }
             .pooh-text { font-size: 0.75rem; }
             .footer-note { font-size: 0.5rem; padding-top: 4px; margin-top: 4px; }
+            .polaroid-wrap { max-width: 120px; padding: 5px 5px 24px; }
+            .polaroid-wrap .polaroid-caption { font-size: 0.5rem; bottom: 4px; }
         }
 
-        /* ===== 尊重減少動態偏好 ===== */
         @media (prefers-reduced-motion: reduce) {
-            .container.valentine-mode,
-            .modal-box.valentine-box,
-            .valentine-banner,
-            .card.valentine { animation-duration: 12s !important; }
+            .container.valentine-mode, .modal-box.valentine-box,
+            .valentine-banner, .card.valentine { animation-duration: 15s !important; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 花瓣 / 愛心雨 / 情人節 專屬 Canvas -->
     <canvas id="petalCanvas"></canvas>
     <canvas id="heartRainCanvas"></canvas>
     <canvas id="valentineCanvas"></canvas>
 
-    <!-- 背景浮動愛心 -->
     <div class="bg-hearts">
-        <span>💕</span><span>🌸</span><span>✨</span><span>💖</span><span>💗</span><span>🌷</span><span>🦋</span>
+        <span>💕</span><span>🌸</span><span>✨</span><span>💖</span><span>💗</span>
     </div>
 
-    <!-- 大熊 -->
     <div id="bigBear" class="active">🐻</div>
 
-    <!-- 煙火 Canvas -->
     <canvas id="fireworksCanvas"></canvas>
+
+    <!-- ★ 自動播放提示（僅 9/14 且自動播放失敗時顯示） -->
+    <div class="tap-hint" id="tapHint">🎹 點一下畫面，聽聽我為你彈的鋼琴曲</div>
+
+    <!-- ★ 音樂浮動按鈕 -->
+    <button class="music-float-btn" id="musicFloatBtn" title="播放女友的鋼琴曲">🎹</button>
 
     <div class="container" id="mainContainer">
         <div class="header">
@@ -951,7 +733,6 @@
             <div class="sub" id="subText">每天都為你打氣，開心迎接挑戰 ✨</div>
         </div>
 
-        <!-- ★ 情人節專屬浮誇橫幅（僅每月 14 號顯示） -->
         <div class="valentine-banner" id="valentineBanner"></div>
 
         <div class="divider">
@@ -985,13 +766,29 @@
             </div>
         </div>
 
+        <!-- ★ 9/14 專屬：合照 -->
+        <div class="photo-music-section" id="photoMusicSection">
+            <div class="polaroid-wrap">
+                <img
+                    id="couplePhoto"
+                    src="https://raw.githubusercontent.com/dustinchen26/test/refs/heads/master/IMG_0248.3.jpg"
+                    alt="我們的合照"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.querySelector('.polaroid-caption').textContent='照片載入失敗 😢';"
+                />
+                <div class="polaroid-caption">🎶 音樂情人節快樂 🎶</div>
+            </div>
+            <div class="music-hint show" id="musicHint">
+                💡 點擊右下角 🎹 按鈕，聽聽我為你彈的鋼琴曲
+            </div>
+        </div>
+
         <div class="cheer-section">
             <div class="cheer-message" id="cheerMessage">💖 載入中...</div>
         </div>
 
-        <!-- ★ 主畫面維尼 ★ -->
         <div class="pooh-container" id="poohContainer">
-            <img src="https://raw.githubusercontent.com/dustinchen26/test/refs/heads/master/hurray.gif" alt="歡呼慶祝" />
+            <img src="https://raw.githubusercontent.com/dustinchen26/test/refs/heads/master/hurray.gif" alt="歡呼慶祝" loading="lazy" />
             <div class="pooh-text" id="poohText">載入中...</div>
         </div>
 
@@ -1000,36 +797,24 @@
         </div>
     </div>
 
+    <!-- ★ 女友鋼琴曲：不用 type，讓瀏覽器自己判斷，避免 MIME 問題 -->
+    <audio id="girlfriendPiano" loop preload="auto" playsinline webkit-playsinline>
+        <source src="https://raw.githubusercontent.com/dustinchen26/test/refs/heads/master/output.mp3" />
+        您的瀏覽器不支援音訊播放。
+    </audio>
+
     <script>
         // ============================================================
-        // 1. 目標日期 & 七夕 / 情人節判斷
+        // 1. 目標日期 & 節慶判斷
         // ============================================================
         const TARGETS = [{
-            id: 1,
-            name: '內科筆試',
-            year: 2026,
-            month: 7,
-            day: 15,
-            dId: 'd1',
-            hId: 'h1',
-            mId: 'm1',
-            sId: 's1',
-            cardId: 'card1',
-            labelId: 'label1',
-            emoji: '📖'
+            id: 1, name: '內科筆試', year: 2026, month: 7, day: 15,
+            dId: 'd1', hId: 'h1', mId: 'm1', sId: 's1',
+            cardId: 'card1', labelId: 'label1', emoji: '📖'
         }, {
-            id: 2,
-            name: '內科口試',
-            year: 2026,
-            month: 8,
-            day: 20,
-            dId: 'd2',
-            hId: 'h2',
-            mId: 'm2',
-            sId: 's2',
-            cardId: 'card2',
-            labelId: 'label2',
-            emoji: '🎤'
+            id: 2, name: '內科口試', year: 2026, month: 8, day: 20,
+            dId: 'd2', hId: 'h2', mId: 'm2', sId: 's2',
+            cardId: 'card2', labelId: 'label2', emoji: '🎤'
         }];
 
         const targets = TARGETS.map(t => ({ ...t, date: new Date(t.year, t.month, t.day) }));
@@ -1045,9 +830,7 @@
             return Math.floor((now - start) / (1000 * 60 * 60 * 24));
         }
 
-        // ============================================================
-        // 1-2. ★ 每月 14 號情人節資料（12 個月份專屬名稱 + 小語）
-        // ============================================================
+        // 每月 14 號情人節資料
         const VALENTINE_DATA = [
             { name: '日記情人節', emoji: '📔', msg: '翻開我們的日記，每一頁都寫滿了你的名字 ❤️' },
             { name: '西洋情人節', emoji: '💝', msg: '全世界都在提醒我有多愛你，這一天尤其大聲 💘' },
@@ -1057,7 +840,7 @@
             { name: '親吻情人節', emoji: '💋', msg: '隔著螢幕也要偷親你一下，啾 💋' },
             { name: '銀色情人節', emoji: '💍', msg: '願我們的未來，像銀河一樣閃閃發亮 💍' },
             { name: '綠色情人節', emoji: '🌿', msg: '牽著你的手，走進每一片森林與草原 🌿' },
-            { name: '音樂情人節', emoji: '🎶', msg: '我的心跳，是只為你演奏的專屬旋律 🎶' },
+            { name: '音樂情人節 · 相片情人節', emoji: '🎶', msg: '這首鋼琴曲，是我想你的聲音；這張照片，是我們最美的瞬間。' },
             { name: '葡萄酒情人節', emoji: '🍷', msg: '和你在一起，日子越久越香醇，越陳越甜 🍷' },
             { name: '電影情人節', emoji: '🎬', msg: '我的人生電影裡，女主角永遠只有你 🎬' },
             { name: '擁抱情人節', emoji: '🫂', msg: '想緊緊抱住你，把整個冬天都變暖 🫂' }
@@ -1073,93 +856,97 @@
             return getValentineInfo() !== null;
         }
 
+        // ★ 9/14 專屬：音樂／相片情人節
+        function isMusicPhotoValentine() {
+            const now = new Date();
+            return now.getMonth() === 8 && now.getDate() === 14;
+        }
+
         // ============================================================
-        // 2. ★ 74 條獨一無二的每日小語（2026/07/09 ~ 2026/09/20）
+        // 2. 每日小語（保留原本日期註解）
         // ============================================================
         const DAILY_MESSAGES = [
-            "準備好迎接今天的挑戰了嗎？Winny，出發！",
-            "每天的你都在發光，今天也不例外 ✨",
-            "全力以赴，但也要記得休息喔～",
-            "相信自己，你比想像中更強大！",
-            "每天進步一點點，就是最大的成功。",
-            "保持開心，好事就會發生！",
-            "你是獨一無二的，無可取代！",
-            "加油！我永遠支持你 💪",
-            "放鬆心情，一切都會順利。",
-            "今天的你，依然閃閃發光 🌟",
-            "享受過程，結果自然美好。",
-            "無論如何，你都是最棒的！",
-            "積極的心態，是最好的魔法。",
-            "今天也要好好愛自己 ❤️",
-            "勇敢追夢，我會一直陪著你。",
-            "保持熱情，生活會回報你驚喜。",
-            "你是我的驕傲，加油！",
-            "笑一個，世界會更美好。",
-            "你擁有無限可能，盡情展現吧！",
-            "每天都是嶄新的開始，出發！",
-            "你的努力一定會開花結果 🌸",
-            "今天要對自己好一點，你值得。",
-            "不管多累，我都會在身邊。",
-            "保持節奏，穩穩地前進。",
-            "你已經做得很好了，繼續加油！",
-            "開心是最重要的，別忘了喔。",
-            "你是最閃亮的星星 ✨",
-            "今天也要元氣滿滿！",
-            "相信自己，你可以的！",
-            "無論風雨，我都陪你一起走。",
-            "專注當下，每一步都算數！",
-            "你的努力正在累積成力量 💪",
-            "保持信心，勝利就在前方！",
-            "衝刺最後一哩路，Winny 加油！",
-            "📣 倒數3天！穩住心情，你準備得很充分了！",
-            "📣 倒數2天！保持節奏，相信自己的判斷！",
-            "📣 倒數1天！好好休息，明天帶著笑容上場！",
-            "🎉 就是今天！展現最棒的自己，我永遠支持你！",
-            "筆試結束了，你表現得很好！繼續向前！",
-            "轉換心情，口試準備開始囉！",
-            "每個練習都是進步的階梯。",
-            "保持專注，你正在變得更好。",
-            "今天的努力，是明天的從容。",
-            "穩住節奏，每天累積一點。",
-            "你已經越來越有自信了！",
-            "遇到困難時，記得深呼吸。",
-            "你的成長，我都看在眼裡 ❤️",
-            "今天也要保持微笑喔 😊",
-            "一步一步來，一切都會更好。",
-            "相信自己，你值得所有美好。",
-            "保持耐心，成功正在靠近。",
-            "每天都是新的練習機會。",
-            "你的努力不會白費的！",
-            "全力以赴，不留遺憾！",
-            "九月來了，繼續加油！",
-            "距離夢想又近了一步。",
-            "保持熱情，保持專注。",
-            "你比昨天更強大了！",
-            "穩穩地走好每一步。",
-            "我相信你的實力！",
-            "今天的你，依然很棒！",
-            "保持節奏，別急。",
-            "你的堅持，是最美的風景。",
-            "開心地迎接每一天吧！",
-            "你值得所有的掌聲 🌟",
-            "保持信心，一切都在掌握中。",
-            "今天的努力，明天會感謝你。",
-            "放鬆心情，你已經準備得很好了！",
-            "最後衝刺，全力以赴！",
-            "你已經準備萬全，Winny 加油！",
-            "🎤 倒數3天！展現自信，你已經很棒了！",
-            "🎤 倒數2天！從容應對，展現最好的自己！",
-            "🎤 倒數1天！放鬆心情，明天就是你的舞台！",
-            "🎉 就是今天！全力以赴，我為你驕傲！"
+            "準備好迎接今天的挑戰了嗎？Winny，出發！", // 0: 7/09
+            "每天的你都在發光，今天也不例外 ✨", // 1: 7/10
+            "全力以赴，但也要記得休息喔～", // 2: 7/11
+            "相信自己，你比想像中更強大！", // 3: 7/12
+            "每天進步一點點，就是最大的成功。", // 4: 7/13
+            "保持開心，好事就會發生！", // 5: 7/14
+            "你是獨一無二的，無可取代！", // 6: 7/15
+            "加油！我永遠支持你 💪", // 7: 7/16
+            "放鬆心情，一切都會順利。", // 8: 7/17
+            "今天的你，依然閃閃發光 🌟", // 9: 7/18
+            "享受過程，結果自然美好。", // 10: 7/19
+            "無論如何，你都是最棒的！", // 11: 7/20
+            "積極的心態，是最好的魔法。", // 12: 7/21
+            "今天也要好好愛自己 ❤️", // 13: 7/22
+            "勇敢追夢，我會一直陪著你。", // 14: 7/23
+            "保持熱情，生活會回報你驚喜。", // 15: 7/24
+            "你是我的驕傲，加油！", // 16: 7/25
+            "笑一個，世界會更美好。", // 17: 7/26
+            "你擁有無限可能，盡情展現吧！", // 18: 7/27
+            "每天都是嶄新的開始，出發！", // 19: 7/28
+            "你的努力一定會開花結果 🌸", // 20: 7/29
+            "今天要對自己好一點，你值得。", // 21: 7/30
+            "不管多累，我都會在身邊。", // 22: 7/31
+            "保持節奏，穩穩地前進。", // 23: 8/01
+            "你已經做得很好了，繼續加油！", // 24: 8/02
+            "開心是最重要的，別忘了喔。", // 25: 8/03
+            "你是最閃亮的星星 ✨", // 26: 8/04
+            "今天也要元氣滿滿！", // 27: 8/05
+            "相信自己，你可以的！", // 28: 8/06
+            "無論風雨，我都陪你一起走。", // 29: 8/07
+            "專注當下，每一步都算數！", // 30: 8/08
+            "你的努力正在累積成力量 💪", // 31: 8/09
+            "保持信心，勝利就在前方！", // 32: 8/10
+            "衝刺最後一哩路，Winny 加油！", // 33: 8/11
+            "📣 倒數3天！穩住心情，你準備得很充分了！", // 34: 8/12
+            "📣 倒數2天！保持節奏，相信自己的判斷！", // 35: 8/13
+            "📣 倒數1天！好好休息，明天帶著笑容上場！", // 36: 8/14
+            "🎉 就是今天！展現最棒的自己，我永遠支持你！", // 37: 8/15
+            "筆試結束了，你表現得很好！繼續向前！", // 38: 8/16
+            "轉換心情，口試準備開始囉！", // 39: 8/17
+            "每個練習都是進步的階梯。", // 40: 8/18
+            "保持專注，你正在變得更好。", // 41: 8/19
+            "今天的努力，是明天的從容。", // 42: 8/20
+            "穩住節奏，每天累積一點。", // 43: 8/21
+            "你已經越來越有自信了！", // 44: 8/22
+            "遇到困難時，記得深呼吸。", // 45: 8/23
+            "你的成長，我都看在眼裡 ❤️", // 46: 8/24
+            "今天也要保持微笑喔 😊", // 47: 8/25
+            "一步一步來，一切都會更好。", // 48: 8/26
+            "相信自己，你值得所有美好。", // 49: 8/27
+            "保持耐心，成功正在靠近。", // 50: 8/28
+            "每天都是新的練習機會。", // 51: 8/29
+            "你的努力不會白費的！", // 52: 8/30
+            "全力以赴，不留遺憾！", // 53: 8/31
+            "九月來了，繼續加油！", // 54: 9/01
+            "距離夢想又近了一步。", // 55: 9/02
+            "保持熱情，保持專注。", // 56: 9/03
+            "你比昨天更強大了！", // 57: 9/04
+            "穩穩地走好每一步。", // 58: 9/05
+            "我相信你的實力！", // 59: 9/06
+            "今天的你，依然很棒！", // 60: 9/07
+            "保持節奏，別急。", // 61: 9/08
+            "你的堅持，是最美的風景。", // 62: 9/09
+            "開心地迎接每一天吧！", // 63: 9/10
+            "你值得所有的掌聲 🌟", // 64: 9/11
+            "保持信心，一切都在掌握中。", // 65: 9/12
+            "今天的努力，明天會感謝你。", // 66: 9/13
+            "🎶 音樂情人節 / 相片情人節快樂！這首鋼琴曲，是我想你的聲音。", // 67: 9/14 ★ 音樂/相片情人節
+            "最後衝刺，全力以赴！", // 68: 9/15
+            "你已經準備萬全，Winny 加油！", // 69: 9/16
+            "🎤 倒數3天！展現自信，你已經很棒了！", // 70: 9/17
+            "🎤 倒數2天！從容應對，展現最好的自己！", // 71: 9/18
+            "🎤 倒數1天！放鬆心情，明天就是你的舞台！", // 72: 9/19
+            "🎉 就是今天！全力以赴，我為你驕傲！" // 73: 9/20
         ];
 
         function getTodayCheer() {
-            // ① 七夕優先
             if (isQixi()) {
                 const days = getDaysTogether();
                 return `Winny，我愛你 ❤️ 從2025/01/04相識到今天，我們一起走了 ${days} 天，每一天都更愛你。七夕快樂，我的寶貝。`;
             }
-            // ② 每月 14 號情人節
             const v = getValentineInfo();
             if (v) {
                 const now = new Date();
@@ -1168,9 +955,11 @@
                 const day = String(now.getDate()).padStart(2, '0');
                 const rocYear = year - 1911;
                 const days = getDaysTogether();
+                if (isMusicPhotoValentine()) {
+                    return `🎶 音樂情人節 / 相片情人節快樂！${v.msg} 📸 我們一起走了 ${days} 天，每一天都更愛你。 （民國 ${rocYear}/${month}/${day}）`;
+                }
                 return `${v.emoji} ${v.name}快樂！${v.msg} 我們已經一起走了 ${days} 天，每一天都更愛你。 （民國 ${rocYear}/${month}/${day}）`;
             }
-            // ③ 一般每日小語
             const now = new Date();
             const baseDate = new Date(2026, 6, 9);
             const diffDays = Math.floor((now - baseDate) / (1000 * 60 * 60 * 24));
@@ -1191,17 +980,16 @@
 
         function getPoohText() {
             const now = new Date();
-            if (isQixi()) {
-                return 'Winny，我愛你 ❤️ 七夕快樂！';
-            }
+            if (isQixi()) return 'Winny，我愛你 ❤️ 七夕快樂！';
             const v = getValentineInfo();
             if (v) {
+                if (isMusicPhotoValentine()) {
+                    return '🎶 這首鋼琴曲，是我彈給你的 🎶';
+                }
                 return `${v.emoji} ${v.name}快樂，我最愛你！ ${v.emoji}`;
             }
             const allDone = targets.every(t => t.date - now <= 0);
-            if (allDone) {
-                return '🎉 超級厲害！我永遠為你驕傲！ 🏆';
-            }
+            if (allDone) return '🎉 超級厲害！我永遠為你驕傲！ 🏆';
             let minDays = Infinity;
             for (const t of targets) {
                 const diff = t.date - now;
@@ -1210,9 +998,7 @@
                     if (days < minDays) minDays = days;
                 }
             }
-            if (minDays <= 5 && minDays > 0) {
-                return `Winny，剩下 ${minDays} 天，我陪你 💪`;
-            }
+            if (minDays <= 5 && minDays > 0) return `Winny，剩下 ${minDays} 天，我陪你 💪`;
             return 'Winny，我會一直陪著你 💕';
         }
 
@@ -1224,12 +1010,16 @@
         }
 
         // ============================================================
-        // 3. 花瓣 & 愛心雨
+        // 3. Canvas 動畫（效能優化版）
         // ============================================================
+        const isHidden = () => document.hidden;
+
+        // ----- 花瓣 -----
         const petalCanvas = document.getElementById('petalCanvas');
         const pCtx = petalCanvas.getContext('2d');
         let petals = [];
         let pAnimationId = null;
+        let pActive = false;
 
         function resizePetalCanvas() {
             petalCanvas.width = window.innerWidth;
@@ -1252,9 +1042,7 @@
                 this.wobbleSpeed = 0.005 + Math.random() * 0.01;
                 this.phase = Math.random() * Math.PI * 2;
                 this.alpha = 0.5 + Math.random() * 0.4;
-                const colors = ['rgba(244, 143, 177, ', 'rgba(233, 30, 99, ', 'rgba(255, 182, 193, ', 'rgba(240, 98, 146, ',
-                    'rgba(255, 105, 180, '
-                ];
+                const colors = ['rgba(244, 143, 177, ', 'rgba(233, 30, 99, ', 'rgba(255, 182, 193, ', 'rgba(240, 98, 146, ', 'rgba(255, 105, 180, '];
                 this.colorBase = colors[Math.floor(Math.random() * colors.length)];
             }
             update() {
@@ -1267,8 +1055,8 @@
                 if (this.y > petalCanvas.height + 30) this.reset(false);
             }
             draw() {
-                pCtx.save();
                 pCtx.globalAlpha = this.alpha;
+                pCtx.save();
                 pCtx.translate(this.x, this.y);
                 pCtx.rotate(this.rotation);
                 const s = this.size;
@@ -1277,39 +1065,45 @@
                 pCtx.fillStyle = this.colorBase + this.alpha + ')';
                 pCtx.fill();
                 pCtx.restore();
+                pCtx.globalAlpha = 1;
             }
         }
 
-        function initPetals(count = 45) {
+        function initPetals(count = 22) {
             petals = [];
             for (let i = 0; i < count; i++) petals.push(new Petal());
         }
-
         function animatePetals() {
-            pCtx.clearRect(0, 0, petalCanvas.width, petalCanvas.height);
-            petals.forEach(p => { p.update(); p.draw(); });
+            if (!pActive) return;
+            if (!isHidden()) {
+                pCtx.clearRect(0, 0, petalCanvas.width, petalCanvas.height);
+                for (let i = 0; i < petals.length; i++) {
+                    petals[i].update();
+                    petals[i].draw();
+                }
+            }
             pAnimationId = requestAnimationFrame(animatePetals);
         }
-
         function startPetals() {
-            if (pAnimationId) return;
-            initPetals(45);
-            animatePetals();
+            if (pActive) return;
+            pActive = true;
             petalCanvas.style.display = 'block';
+            initPetals(22);
+            animatePetals();
         }
-
         function stopPetals() {
-            if (pAnimationId) { cancelAnimationFrame(pAnimationId);
-                pAnimationId = null; }
+            pActive = false;
+            if (pAnimationId) { cancelAnimationFrame(pAnimationId); pAnimationId = null; }
             pCtx.clearRect(0, 0, petalCanvas.width, petalCanvas.height);
             petalCanvas.style.display = 'none';
         }
 
-        // ----- 愛心雨 (七夕) -----
+        // ----- 愛心雨（七夕） -----
         const heartCanvas = document.getElementById('heartRainCanvas');
         const hCtx = heartCanvas.getContext('2d');
         let hearts = [];
         let hAnimationId = null;
+        let hActive = false;
 
         function resizeHeartCanvas() {
             heartCanvas.width = window.innerWidth;
@@ -1318,31 +1112,28 @@
         window.addEventListener('resize', resizeHeartCanvas);
         resizeHeartCanvas();
 
-        const HEART_SPEED_MULTIPLIER = 1.2;
-
         class Heart {
             constructor() { this.reset(true); }
             reset(init) {
                 this.x = Math.random() * heartCanvas.width;
                 this.y = init ? Math.random() * heartCanvas.height : -20 - Math.random() * 60;
                 this.size = 18 + Math.random() * 30;
-                this.speedY = (0.8 + Math.random() * 1.2) * HEART_SPEED_MULTIPLIER;
-                this.speedX = (Math.random() - 0.5) * 1.0 * HEART_SPEED_MULTIPLIER;
-                this.rotSpeed = (Math.random() - 0.5) * 0.08 * HEART_SPEED_MULTIPLIER;
+                this.speedY = (0.8 + Math.random() * 1.2) * 1.2;
+                this.speedX = (Math.random() - 0.5) * 1.0 * 1.2;
+                this.rotSpeed = (Math.random() - 0.5) * 0.08;
                 this.scale = 0.8 + Math.random() * 0.6;
-                this.scaleSpeed = (0.015 + Math.random() * 0.025) * HEART_SPEED_MULTIPLIER;
+                this.scaleSpeed = (0.015 + Math.random() * 0.025);
                 this.scalePhase = Math.random() * Math.PI * 2;
                 this.wobble = 0.02 + Math.random() * 0.04;
                 this.wobbleSpeed = 0.008 + Math.random() * 0.018;
                 this.phase = Math.random() * Math.PI * 2;
                 this.alphaBase = 0.6 + Math.random() * 0.4;
-                this.alphaSpeed = (0.004 + Math.random() * 0.01) * HEART_SPEED_MULTIPLIER;
+                this.alphaSpeed = (0.004 + Math.random() * 0.01);
                 this.alphaPhase = Math.random() * Math.PI * 2;
-                const colors = ['#e91e63', '#ff4081', '#f06292', '#ec407a', '#d81b60', '#c2185b', '#ad1457', '#880e4f',
-                    '#ff6b6b', '#ff4757', '#ff2d55', '#ff3b30'
-                ];
+                const colors = ['#e91e63', '#ff4081', '#f06292', '#ec407a', '#d81b60', '#c2185b', '#ad1457', '#880e4f', '#ff6b6b', '#ff4757', '#ff2d55', '#ff3b30'];
                 this.color = colors[Math.floor(Math.random() * colors.length)];
-                this.glow = Math.random() > 0.6;
+                // 大幅降低發光機率，效能更好
+                this.glow = Math.random() > 0.85;
                 this.rotation = 0;
                 this.currentScale = 1;
                 this.currentAlpha = 1;
@@ -1366,10 +1157,7 @@
                 hCtx.translate(this.x, this.y);
                 hCtx.rotate(this.rotation);
                 hCtx.scale(this.currentScale, this.currentScale);
-                if (this.glow) {
-                    hCtx.shadowColor = this.color;
-                    hCtx.shadowBlur = 20;
-                }
+                if (this.glow) { hCtx.shadowColor = this.color; hCtx.shadowBlur = 12; }
                 hCtx.font = this.size + 'px "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif';
                 hCtx.textAlign = 'center';
                 hCtx.textBaseline = 'middle';
@@ -1379,41 +1167,43 @@
             }
         }
 
-        function initHearts(count = 45) {
+        function initHearts(count = 22) {
             hearts = [];
             for (let i = 0; i < count; i++) hearts.push(new Heart());
         }
-
         function animateHearts() {
-            hCtx.clearRect(0, 0, heartCanvas.width, heartCanvas.height);
-            hearts.forEach(h => { h.update(); h.draw(); });
+            if (!hActive) return;
+            if (!isHidden()) {
+                hCtx.clearRect(0, 0, heartCanvas.width, heartCanvas.height);
+                for (let i = 0; i < hearts.length; i++) {
+                    hearts[i].update();
+                    hearts[i].draw();
+                }
+            }
             hAnimationId = requestAnimationFrame(animateHearts);
         }
-
         function startHeartRain() {
-            if (hAnimationId) return;
-            initHearts(45);
-            animateHearts();
+            if (hActive) return;
+            hActive = true;
             heartCanvas.classList.add('active');
+            initHearts(22);
+            animateHearts();
         }
-
         function stopHeartRain() {
-            if (hAnimationId) { cancelAnimationFrame(hAnimationId);
-                hAnimationId = null; }
+            hActive = false;
+            if (hAnimationId) { cancelAnimationFrame(hAnimationId); hAnimationId = null; }
             hCtx.clearRect(0, 0, heartCanvas.width, heartCanvas.height);
             heartCanvas.classList.remove('active');
         }
 
-        // ============================================================
-        // 3-2. ★★★ 情人節浮誇特效（每月 14 號）★★★
-        //      上升愛心 + 玫瑰花瓣 + 閃耀星光 + 不定期愛心爆發
-        // ============================================================
+        // ----- 情人節浮誇特效 -----
         const vCanvas = document.getElementById('valentineCanvas');
         const vCtx = vCanvas.getContext('2d');
         let vHearts = [];
         let vSparkles = [];
         let vAnimationId = null;
         let vTick = 0;
+        let vActive = false;
 
         const V_EMOJIS = ['❤️', '💖', '💕', '💘', '💝', '🌹', '💋', '💞', '💓', '💗', '🥰', '💐'];
 
@@ -1425,9 +1215,7 @@
         resizeValentineCanvas();
 
         class VHeart {
-            constructor(init, burst) {
-                this.reset(init, burst);
-            }
+            constructor(init, burst) { this.reset(init, burst); }
             reset(init, burst) {
                 this.x = Math.random() * vCanvas.width;
                 this.y = init ? Math.random() * vCanvas.height : vCanvas.height + 30 + Math.random() * 80;
@@ -1440,19 +1228,17 @@
                 this.rotSpeed = (Math.random() - 0.5) * 0.018;
                 this.alpha = 0.55 + Math.random() * 0.45;
                 this.emoji = V_EMOJIS[Math.floor(Math.random() * V_EMOJIS.length)];
-                this.glow = Math.random() > 0.35;
+                // 降低發光機率
+                this.glow = Math.random() > 0.8;
                 this.scale = 0.85 + Math.random() * 0.5;
                 this.scaleSpeed = 0.008 + Math.random() * 0.018;
                 this.scalePhase = Math.random() * Math.PI * 2;
-
-                // 爆發模式：從畫面中央往外狂噴
                 if (burst) {
                     const cx = vCanvas.width / 2;
                     const cy = vCanvas.height * 0.45;
                     const ang = Math.random() * Math.PI * 2;
                     const spd = 2 + Math.random() * 7;
-                    this.x = cx;
-                    this.y = cy;
+                    this.x = cx; this.y = cy;
                     this.speedY = Math.sin(ang) * spd;
                     this.drift = Math.cos(ang) * spd;
                     this.size = 20 + Math.random() * 30;
@@ -1460,18 +1246,15 @@
                     this.glow = true;
                     this.isBurst = true;
                     this.life = 0;
-                    this.maxLife = 90 + Math.random() * 60;
+                    this.maxLife = 80 + Math.random() * 50;
                     this.gravity = 0.06;
-                } else {
-                    this.isBurst = false;
-                }
+                } else { this.isBurst = false; }
             }
             update() {
                 this.y += this.speedY;
                 this.phase += this.phaseSpeed;
                 this.scalePhase += this.scaleSpeed;
                 this.rot += this.rotSpeed;
-
                 if (this.isBurst) {
                     this.speedY += this.gravity;
                     this.drift *= 0.985;
@@ -1492,10 +1275,7 @@
                 vCtx.rotate(this.rot);
                 const s = this.scale * (1 + 0.2 * Math.sin(this.scalePhase));
                 vCtx.scale(s, s);
-                if (this.glow) {
-                    vCtx.shadowColor = '#ff2d6f';
-                    vCtx.shadowBlur = 24;
-                }
+                if (this.glow) { vCtx.shadowColor = '#ff2d6f'; vCtx.shadowBlur = 14; }
                 vCtx.font = this.size + 'px "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif';
                 vCtx.textAlign = 'center';
                 vCtx.textBaseline = 'middle';
@@ -1505,7 +1285,7 @@
         }
 
         class VSparkle {
-            constructor() { this.reset(true); }
+            constructor() { this.reset(); }
             reset() {
                 this.x = Math.random() * vCanvas.width;
                 this.y = Math.random() * vCanvas.height;
@@ -1513,7 +1293,7 @@
                 this.life = Math.floor(Math.random() * 90);
                 this.maxLife = 60 + Math.random() * 100;
                 this.alpha = 0;
-                this.hue = 315 + Math.random() * 65; // 桃紅 ~ 紫
+                this.hue = 315 + Math.random() * 65;
                 this.cross = Math.random() > 0.6;
             }
             update() {
@@ -1526,8 +1306,6 @@
                 vCtx.save();
                 vCtx.globalAlpha = Math.max(0, this.alpha);
                 vCtx.fillStyle = `hsl(${this.hue}, 100%, 72%)`;
-                vCtx.shadowColor = `hsl(${this.hue}, 100%, 65%)`;
-                vCtx.shadowBlur = 14;
                 if (this.cross) {
                     const s = this.size * 2.4;
                     vCtx.fillRect(this.x - s, this.y - this.size * 0.35, s * 2, this.size * 0.7);
@@ -1541,43 +1319,38 @@
             }
         }
 
-        function triggerValentineBurst(count = 55) {
-            for (let i = 0; i < count; i++) {
-                vHearts.push(new VHeart(false, true));
-            }
+        function triggerValentineBurst(count = 30) {
+            for (let i = 0; i < count; i++) vHearts.push(new VHeart(false, true));
         }
 
         function animateValentineFX() {
-            vCtx.clearRect(0, 0, vCanvas.width, vCanvas.height);
-            vTick++;
-
-            // 每 2.2 秒左右來一次浮誇愛心爆發
-            if (vTick % 130 === 0) triggerValentineBurst(60);
-
-            vSparkles.forEach(s => { s.update(); s.draw(); });
-            vHearts.forEach(h => { h.update(); h.draw(); });
-
-            // 清掉過量的粒子，避免效能炸裂
-            if (vHearts.length > 320) vHearts.splice(0, vHearts.length - 320);
-
+            if (!vActive) return;
+            if (!isHidden()) {
+                vCtx.clearRect(0, 0, vCanvas.width, vCanvas.height);
+                vTick++;
+                if (vTick % 150 === 0) triggerValentineBurst(30);
+                for (let i = 0; i < vSparkles.length; i++) { vSparkles[i].update(); vSparkles[i].draw(); }
+                for (let i = 0; i < vHearts.length; i++) { vHearts[i].update(); vHearts[i].draw(); }
+                if (vHearts.length > 220) vHearts.splice(0, vHearts.length - 220);
+            }
             vAnimationId = requestAnimationFrame(animateValentineFX);
         }
 
         function startValentineFX() {
-            if (vAnimationId) return;
+            if (vActive) return;
+            vActive = true;
             vHearts = [];
             vSparkles = [];
-            for (let i = 0; i < 42; i++) vHearts.push(new VHeart(true, false));
-            for (let i = 0; i < 55; i++) vSparkles.push(new VSparkle());
+            for (let i = 0; i < 20; i++) vHearts.push(new VHeart(true, false));
+            for (let i = 0; i < 25; i++) vSparkles.push(new VSparkle());
             vCanvas.classList.add('active');
-            // 開場先來一發大的！
-            triggerValentineBurst(70);
+            triggerValentineBurst(40);
             animateValentineFX();
         }
 
         function stopValentineFX() {
-            if (vAnimationId) { cancelAnimationFrame(vAnimationId);
-                vAnimationId = null; }
+            vActive = false;
+            if (vAnimationId) { cancelAnimationFrame(vAnimationId); vAnimationId = null; }
             vCtx.clearRect(0, 0, vCanvas.width, vCanvas.height);
             vCanvas.classList.remove('active');
             vHearts = [];
@@ -1604,12 +1377,10 @@
 
         class FireworkParticle {
             constructor(x, y, color) {
-                this.x = x;
-                this.y = y;
-                this.color = color;
+                this.x = x; this.y = y; this.color = color;
                 this.velocity = { x: (Math.random() - 0.5) * 8, y: (Math.random() - 0.5) * 8 - 2 };
                 this.alpha = 1;
-                this.decay = 0.008 + Math.random() * 0.018;
+                this.decay = 0.01 + Math.random() * 0.022;
                 this.size = 2 + Math.random() * 4;
                 this.gravity = 0.05;
             }
@@ -1633,25 +1404,25 @@
         function createExplosion(x, y) {
             const colors = ['#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#ff6bb5', '#f9ca24', '#ff9ff3', '#ff4757', '#2ed573'];
             const color = colors[Math.floor(Math.random() * colors.length)];
-            const count = 45 + Math.floor(Math.random() * 35);
-            for (let i = 0; i < count; i++) {
-                particles.push(new FireworkParticle(x, y, color));
-            }
+            const count = 30 + Math.floor(Math.random() * 20);
+            for (let i = 0; i < count; i++) particles.push(new FireworkParticle(x, y, color));
         }
 
         function animateFireworks() {
             if (!fireworksActive) { ctx.clearRect(0, 0, canvas.width, canvas.height); return; }
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            if (Math.random() < 0.12) {
-                const x = Math.random() * canvas.width;
-                const y = Math.random() * canvas.height * 0.6 + 20;
-                createExplosion(x, y);
-            }
-            for (let i = particles.length - 1; i >= 0; i--) {
-                const p = particles[i];
-                p.update();
-                p.draw();
-                if (p.alpha <= 0) particles.splice(i, 1);
+            if (!isHidden()) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                if (Math.random() < 0.1) {
+                    const x = Math.random() * canvas.width;
+                    const y = Math.random() * canvas.height * 0.6 + 20;
+                    createExplosion(x, y);
+                }
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    const p = particles[i];
+                    p.update();
+                    p.draw();
+                    if (p.alpha <= 0) particles.splice(i, 1);
+                }
             }
             fAnimationId = requestAnimationFrame(animateFireworks);
         }
@@ -1668,8 +1439,7 @@
         function stopFireworks() {
             fireworksActive = false;
             canvas.classList.remove('active');
-            if (fAnimationId) { cancelAnimationFrame(fAnimationId);
-                fAnimationId = null; }
+            if (fAnimationId) { cancelAnimationFrame(fAnimationId); fAnimationId = null; }
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles = [];
         }
@@ -1686,15 +1456,13 @@
 
         function updateCountdown() {
             const now = new Date();
-            if (shouldFireworksBeActive()) startFireworks();
-            else stopFireworks();
+            if (shouldFireworksBeActive()) startFireworks(); else stopFireworks();
 
             const qixi = isQixi();
             const valentine = isValentineDay();
 
             targets.forEach(t => {
-                const targetDate = t.date;
-                const diffMs = targetDate - now;
+                const diffMs = t.date - now;
                 const isDone = diffMs <= 0;
                 const dEl = document.getElementById(t.dId);
                 const hEl = document.getElementById(t.hId);
@@ -1704,15 +1472,12 @@
                 const labelEl = document.getElementById(t.labelId);
                 if (!dEl || !cardEl) return;
 
-                // 節慶卡片樣式（七夕優先，其次情人節）
                 cardEl.classList.toggle('qixi', qixi);
                 cardEl.classList.toggle('valentine', !qixi && valentine);
 
                 if (isDone) {
                     dEl.textContent = '0';
-                    hEl.textContent = '00';
-                    mEl.textContent = '00';
-                    sEl.textContent = '00';
+                    hEl.textContent = '00'; mEl.textContent = '00'; sEl.textContent = '00';
                     cardEl.classList.add('done');
                     cardEl.classList.remove('urgent');
                     labelEl.textContent = t.name + ' ✅ 已完成';
@@ -1735,25 +1500,144 @@
         }
 
         // ============================================================
-        // 5. 彈窗（支援：一般 / 七夕 / 情人節 / 全部完成）
+        // 5. ★★★ 音樂自動播放系統 ★★★
+        // ============================================================
+        const audio = document.getElementById('girlfriendPiano');
+        const musicBtn = document.getElementById('musicFloatBtn');
+        const musicHint = document.getElementById('musicHint');
+        const tapHint = document.getElementById('tapHint');
+
+        let audioUnlocked = false;   // 是否已成功播放過
+        let musicReady = false;      // 音檔是否可播放
+        let listenersAttached = false;
+
+        function updateMusicUI(playing) {
+            if (playing) {
+                musicBtn.classList.add('playing');
+                musicBtn.textContent = '🎵';
+                musicHint.classList.add('hide');
+                musicHint.classList.remove('show');
+                tapHint.classList.remove('show');
+            } else {
+                musicBtn.classList.remove('playing');
+                musicBtn.textContent = '🎹';
+            }
+        }
+
+        function showTapHintIfNeeded() {
+            // 只有在 9/14 且尚未播放時才顯示
+            if (isMusicPhotoValentine() && !audioUnlocked) {
+                tapHint.classList.add('show');
+            }
+        }
+
+        // 嘗試播放
+        function attemptPlay(isAuto) {
+            if (audioUnlocked) return;
+            if (audio.paused === false) { audioUnlocked = true; updateMusicUI(true); return; }
+            const p = audio.play();
+            if (p && typeof p.then === 'function') {
+                p.then(() => {
+                    audioUnlocked = true;
+                    updateMusicUI(true);
+                    // 成功後移除所有監聽
+                    detachUnlockListeners();
+                }).catch(() => {
+                    // 自動播放被阻擋
+                    if (isAuto) {
+                        showTapHintIfNeeded();
+                        attachUnlockListeners();
+                    }
+                });
+            }
+        }
+
+        // 使用者互動解鎖
+        const unlockEvents = ['click', 'touchstart', 'touchend', 'pointerdown', 'keydown', 'scroll'];
+        const unlockHandler = () => {
+            if (audioUnlocked) { detachUnlockListeners(); return; }
+            attemptPlay(false);
+        };
+
+        function attachUnlockListeners() {
+            if (listenersAttached) return;
+            listenersAttached = true;
+            unlockEvents.forEach(e => {
+                document.addEventListener(e, unlockHandler, { passive: true, once: false });
+            });
+        }
+
+        function detachUnlockListeners() {
+            if (!listenersAttached) return;
+            listenersAttached = false;
+            unlockEvents.forEach(e => {
+                document.removeEventListener(e, unlockHandler);
+            });
+        }
+
+        // 音檔就緒後嘗試自動播放
+        audio.addEventListener('canplaythrough', () => {
+            musicReady = true;
+            // 只有 9/14 才自動播放
+            if (isMusicPhotoValentine()) {
+                attemptPlay(true);
+            }
+        }, { once: true });
+
+        audio.addEventListener('error', () => {
+            musicReady = false;
+            if (isMusicPhotoValentine()) {
+                musicHint.textContent = '😢 音樂載入失敗，請確認網路連線或稍後再試';
+                musicHint.classList.add('show');
+                musicHint.classList.remove('hide');
+            }
+        });
+
+        // 手動按鈕
+        musicBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play().then(() => {
+                    audioUnlocked = true;
+                    updateMusicUI(true);
+                    detachUnlockListeners();
+                }).catch(() => {
+                    musicHint.textContent = '😢 無法播放，請確認瀏覽器允許播放音訊';
+                    musicHint.classList.add('show');
+                    musicHint.classList.remove('hide');
+                });
+            } else {
+                audio.pause();
+                updateMusicUI(false);
+            }
+        });
+
+        // 頁面載入後立即嘗試（若瀏覽器已允許自動播放）
+        window.addEventListener('load', () => {
+            if (isMusicPhotoValentine() && musicReady) {
+                attemptPlay(true);
+            }
+        });
+
+        // ============================================================
+        // 6. 彈窗
         // ============================================================
         const DEFAULT_GIF = 'https://raw.githubusercontent.com/dustinchen26/test/refs/heads/master/pooh-pooh-and-piglet.gif';
 
         function showModal(opts) {
             const {
-                examName,
-                days,
-                cheerText = '',
-                isAllDone = false,
-                emoji = '📚',
-                qixi = false,
-                valentine = null
+                examName, days, cheerText = '', isAllDone = false,
+                emoji = '📚', qixi = false, valentine = null, musicPhoto = false
             } = opts || {};
 
             let titleText, reminderHtml, iconEmoji, btnText, boxClass = '';
 
-            if (valentine) {
-                /* ★ 每月 14 號情人節專屬彈窗 */
+            if (musicPhoto) {
+                boxClass = 'valentine-box';
+                iconEmoji = '🎶';
+                titleText = '🎶 音樂情人節 · 相片情人節 🎶';
+                reminderHtml = '這首鋼琴曲，是我想你的聲音。這張照片，是我們最美的瞬間。';
+                btnText = '🎹 聽聽我的鋼琴曲 🎹';
+            } else if (valentine) {
                 boxClass = 'valentine-box';
                 iconEmoji = valentine.emoji;
                 titleText = `💘 ${valentine.name}快樂 💘`;
@@ -1792,7 +1676,7 @@
             overlay.innerHTML = `
                 <div class="modal-box ${boxClass}">
                     <div class="modal-icon">${iconEmoji}</div>
-                    <img class="modal-gif" src="${DEFAULT_GIF}" alt="小熊維尼與小豬" />
+                    <img class="modal-gif" src="${DEFAULT_GIF}" alt="小熊維尼與小豬" loading="lazy" />
                     <h2>${titleText}</h2>
                     <div class="cheer-text">${cheerText}</div>
                     <div class="countdown-reminder">${reminderHtml}</div>
@@ -1801,17 +1685,32 @@
             `;
             document.body.appendChild(overlay);
             const closeModal = () => { overlay.remove(); };
-            overlay.querySelector('#modalCloseBtn').addEventListener('click', closeModal);
+            overlay.querySelector('#modalCloseBtn').addEventListener('click', () => {
+                closeModal();
+                if (musicPhoto) {
+                    // 點按鈕後，嘗試播放音樂
+                    setTimeout(() => {
+                        if (audio.paused) {
+                            audio.play().then(() => {
+                                audioUnlocked = true;
+                                updateMusicUI(true);
+                                detachUnlockListeners();
+                            }).catch(() => {});
+                        }
+                    }, 200);
+                }
+            });
             overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
         }
 
         // ============================================================
-        // 6. 依「今日狀態」套用所有特效與文案
+        // 7. 主題套用
         // ============================================================
         function applyDailyTheme() {
             const qixi = isQixi();
-            const valentine = getValentineInfo(); // null 或 {name, emoji, msg}
+            const valentine = getValentineInfo();
             const isV = !!valentine;
+            const isMusicPhoto = isMusicPhotoValentine();
 
             const bodyEl = document.body;
             const containerEl = document.getElementById('mainContainer');
@@ -1819,18 +1718,19 @@
             const subEl = document.getElementById('subText');
             const bannerEl = document.getElementById('valentineBanner');
             const dividerDot = document.getElementById('dividerDot');
+            const photoSection = document.getElementById('photoMusicSection');
 
-            // ---- 背景 / 主容器 主題 ----
-            bodyEl.classList.toggle('valentine-mode', isV && !qixi);
-            containerEl.classList.toggle('valentine-mode', isV && !qixi);
+            bodyEl.classList.toggle('valentine-mode', (isV || isMusicPhoto) && !qixi);
+            containerEl.classList.toggle('valentine-mode', (isV || isMusicPhoto) && !qixi);
 
-            // ---- 應援小語 ----
             cheerEl.classList.toggle('qixi', qixi);
-            cheerEl.classList.toggle('valentine', isV && !qixi);
+            cheerEl.classList.toggle('valentine', (isV || isMusicPhoto) && !qixi);
             cheerEl.textContent = getTodayCheer();
 
-            // ---- 浮誇橫幅 ----
-            if (isV && !qixi) {
+            if (isMusicPhoto) {
+                bannerEl.textContent = '🎶 音樂情人節 · 相片情人節 ・ 專屬 Winny 的浪漫日 🎶';
+                bannerEl.classList.add('show');
+            } else if (isV && !qixi) {
                 bannerEl.textContent = `${valentine.emoji} 今天是 ${valentine.name} ・ 專屬 Winny 的浪漫日 ${valentine.emoji}`;
                 bannerEl.classList.add('show');
             } else {
@@ -1838,63 +1738,72 @@
                 bannerEl.textContent = '';
             }
 
-            // ---- 副標 ----
             if (qixi) {
                 subEl.textContent = '💖 七夕快樂，我的寶貝';
+            } else if (isMusicPhoto) {
+                subEl.textContent = '🎶 音樂情人節 · 相片情人節，聽聽我彈的琴';
             } else if (isV) {
                 subEl.textContent = `${valentine.emoji} ${valentine.name}快樂，我最愛你`;
             } else {
                 subEl.textContent = '每天都為你打氣，開心迎接挑戰 ✨';
             }
 
-            // ---- 分隔線小圖示 ----
             if (dividerDot) {
-                dividerDot.textContent = qixi ? '💞' : (isV ? '💘' : '❤️');
+                dividerDot.textContent = qixi ? '💞' : ((isV || isMusicPhoto) ? '💘' : '❤️');
             }
 
-            // ---- 背景特效切換 ----
-            if (qixi) {
-                stopPetals();
-                stopValentineFX();
-                startHeartRain();
-            } else if (isV) {
-                stopHeartRain();
-                stopPetals();
-                startValentineFX();
+            // 9/14：顯示照片與音樂
+            if (isMusicPhoto && !qixi) {
+                photoSection.classList.add('show');
+                musicBtn.classList.add('show');
+                musicHint.classList.add('show');
+                musicHint.classList.remove('hide');
+                // 顯示後嘗試播放
+                setTimeout(() => attemptPlay(true), 300);
             } else {
-                stopHeartRain();
-                stopValentineFX();
-                startPetals();
+                photoSection.classList.remove('show');
+                musicBtn.classList.remove('show');
+                tapHint.classList.remove('show');
+                if (!audio.paused) { audio.pause(); }
+                updateMusicUI(false);
             }
 
-            // ---- 維尼文字 ----
+            // 背景特效
+            if (qixi) {
+                stopPetals(); stopValentineFX(); startHeartRain();
+            } else if (isV || isMusicPhoto) {
+                stopHeartRain(); stopPetals(); startValentineFX();
+            } else {
+                stopHeartRain(); stopValentineFX(); startPetals();
+            }
+
             renderPoohText(getPoohText());
 
-            return { qixi, valentine };
+            return { qixi, valentine, isMusicPhoto };
         }
 
         // ============================================================
-        // 7. 初始化
+        // 8. 初始化
         // ============================================================
         function init() {
-            const { qixi, valentine } = applyDailyTheme();
+            // 先套用主題與特效
+            const { qixi, valentine, isMusicPhoto } = applyDailyTheme();
 
+            // 倒數啟動
             updateCountdown();
             setInterval(updateCountdown, 1000);
 
-            // ---- 跨日自動更新 ----
+            // 跨日自動更新
             let lastDateStr = new Date().toDateString();
             setInterval(() => {
                 const now = new Date();
                 if (now.toDateString() !== lastDateStr) {
                     lastDateStr = now.toDateString();
                     applyDailyTheme();
-                    // 跨日時若正好進入情人節，來一發慶祝！
-                    if (getValentineInfo()) setTimeout(() => triggerValentineBurst(80), 300);
                 }
             }, 60000);
 
-            // ---- 開場彈窗 ----
+            // 開場彈窗（延遲 800ms，避免與首屏動畫搶資源）
             const now = new Date();
             const upcomingExams = targets
                 .map(t => {
@@ -1909,6 +1818,11 @@
             setTimeout(() => {
                 if (qixi) {
                     showModal({ qixi: true, cheerText: pureMsg });
+                } else if (isMusicPhoto) {
+                    showModal({
+                        musicPhoto: true,
+                        cheerText: '🎶 這首鋼琴曲，是我想你的聲音。\n📸 這張照片，是我們最美的瞬間。\n\n音樂情人節 · 相片情人節快樂，我的 Winny。'
+                    });
                 } else if (valentine) {
                     showModal({ valentine, cheerText: pureMsg });
                 } else if (upcomingExams.length === 0) {
@@ -1922,10 +1836,14 @@
                         emoji: nearest.emoji
                     });
                 }
-            }, 500);
+            }, 800);
         }
 
-        document.addEventListener('DOMContentLoaded', init);
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
     </script>
 </body>
 </html>
