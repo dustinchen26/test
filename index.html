@@ -37,7 +37,7 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* 情人節快樂!!!背景（只有每月 14 號會套用） */
+        /* 情人節背景（只有每月 14 號會套用） */
         body.valentine-mode {
             background: linear-gradient(145deg,
                 #ffe0ec 0%, #ffc9e0 15%, #f9c6ff 30%,
@@ -316,7 +316,7 @@
         .music-hint.show { display: block; }
         .music-hint.hide { display: none; }
 
-        /* 全螢幕點擊提示 */
+        /* 全螢幕點擊提示（自動播放失敗時顯示） */
         .tap-hint {
             position: fixed; bottom: 90px; left: 50%;
             transform: translateX(-50%);
@@ -812,7 +812,7 @@
         // ★ 完全不需要網路，離線也能正確判斷日期
         // ★ 平常日：只顯示花瓣
         // ★ 每月 14 號：情人節特效 + 節日小語
-        // ★ 9/14：再加合照 + 鋼琴音樂
+        // ★ 9/14：再加合照 + 鋼琴音樂 + 開場彈窗按鈕直接播放音樂
         // ★ 七夕（2026/8/19）：愛心雨 + 七夕小語
         // ============================================================
 
@@ -828,7 +828,7 @@
 
         const targets = TARGETS.map(t => ({ ...t, date: new Date(t.year, t.month, t.day) }));
 
-        // 七夕：2026/8/19（農曆，判斷用國曆日期）
+        // 七夕：2026/8/19
         function isQixi() {
             const now = new Date();
             return (now.getFullYear() === 2026 && now.getMonth() === 7 && now.getDate() === 19);
@@ -860,8 +860,8 @@
         // ★ 只有每月 14 號才會回傳資料，其他日期一律回傳 null
         function getValentineInfo() {
             const now = new Date();
-            if (now.getDate() !== 14) return null;  // 非 14 號 → null
-            return VALENTINE_DATA[now.getMonth()];  // 14 號 → 對應月份的情人節資料
+            if (now.getDate() !== 14) return null;
+            return VALENTINE_DATA[now.getMonth()];
         }
 
         function isValentineDay() {
@@ -871,7 +871,7 @@
         // ★ 9/14 專屬：音樂 & 相片情人節（有鋼琴音樂 + 合照）
         function isMusicPhotoValentine() {
             const now = new Date();
-            return now.getMonth() === 8 && now.getDate() === 14;  // 9 月 14 日
+            return now.getMonth() === 8 && now.getDate() === 14;
         }
 
         // ============================================================
@@ -945,7 +945,7 @@
             "你值得所有的掌聲 🌟", // 64: 9/11
             "保持信心，一切都在掌握中。", // 65: 9/12
             "今天的努力，明天會感謝你。", // 66: 9/13
-            "🎶9/14 音樂 & 相片情人節快樂!!!", // 67: 9/14 ★ 音樂/相片情人節快樂!!!
+            "🎶9/14 音樂 & 相片情人節快樂!!!", // 67: 9/14
             "最後衝刺，全力以赴！", // 68: 9/15
             "你已經準備萬全，Winny 加油！", // 69: 9/16
             "🎤 倒數3天！展現自信，你已經很棒了！", // 70: 9/17
@@ -1521,7 +1521,7 @@
         }
 
         // ============================================================
-        // 5. 音樂自動播放系統（僅 9/14 啟用）
+        // 5. 音樂播放系統（僅 9/14 啟用）
         // ============================================================
         const audio = document.getElementById('girlfriendPiano');
         const musicBtn = document.getElementById('musicFloatBtn');
@@ -1698,20 +1698,23 @@
             `;
             document.body.appendChild(overlay);
             const closeModal = () => { overlay.remove(); };
+
+            // ★ 9/14 彈窗按鈕：在使用者手勢中「同步」播放音樂（最可靠），再關閉彈窗
             overlay.querySelector('#modalCloseBtn').addEventListener('click', () => {
-                closeModal();
                 if (musicPhoto) {
-                    setTimeout(() => {
-                        if (audio.paused) {
-                            audio.play().then(() => {
-                                audioUnlocked = true;
-                                updateMusicUI(true);
-                                detachUnlockListeners();
-                            }).catch(() => {});
-                        }
-                    }, 200);
+                    audio.play().then(() => {
+                        audioUnlocked = true;
+                        updateMusicUI(true);
+                        detachUnlockListeners();
+                    }).catch(() => {
+                        // 播放失敗（極少數情況），顯示右下角按鈕提示
+                        musicHint.classList.add('show');
+                        musicHint.classList.remove('hide');
+                    });
                 }
+                closeModal();
             });
+
             overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
         }
 
@@ -1719,11 +1722,10 @@
         // 7. 主題套用（依今日日期自動切換）
         // ============================================================
         function applyDailyTheme() {
-            // 讀取本地時間（不需網路）
-            const qixi = isQixi();                      // 是否七夕
-            const valentine = getValentineInfo();        // 每月 14 號 → 資料，其他 → null
-            const isV = !!valentine;                     // 是否為每月 14 號
-            const isMusicPhoto = isMusicPhotoValentine(); // 是否為 9/14
+            const qixi = isQixi();
+            const valentine = getValentineInfo();
+            const isV = !!valentine;
+            const isMusicPhoto = isMusicPhotoValentine();
 
             const bodyEl = document.body;
             const containerEl = document.getElementById('mainContainer');
@@ -1733,16 +1735,13 @@
             const dividerDot = document.getElementById('dividerDot');
             const photoSection = document.getElementById('photoMusicSection');
 
-            // ★ 情人節背景（只有每月 14 號或七夕才套用）
             bodyEl.classList.toggle('valentine-mode', (isV || isMusicPhoto) && !qixi);
             containerEl.classList.toggle('valentine-mode', (isV || isMusicPhoto) && !qixi);
 
-            // ★ 應援小語
             cheerEl.classList.toggle('qixi', qixi);
             cheerEl.classList.toggle('valentine', (isV || isMusicPhoto) && !qixi);
             cheerEl.textContent = getTodayCheer();
 
-            // ★ 情人節橫幅
             if (isMusicPhoto) {
                 bannerEl.textContent = '🎶 音樂&相片情人節快樂!~專屬 Winny 的浪漫日 🎶';
                 bannerEl.classList.add('show');
@@ -1754,29 +1753,26 @@
                 bannerEl.textContent = '';
             }
 
-            // ★ 副標題
             if (qixi) {
                 subEl.textContent = '💖 七夕快樂，我的寶貝';
             } else if (isMusicPhoto) {
-                subEl.textContent = '🎶 9/14音樂&相片情人節快樂! 聽聽我彈的琴';
+                subEl.textContent = '🎶 9/14音樂&相片情人節快樂!';
             } else if (isV) {
                 subEl.textContent = `${valentine.emoji} ${valentine.name}快樂，我最愛你`;
             } else {
                 subEl.textContent = '每天都為你打氣，開心迎接挑戰 ✨';
             }
 
-            // ★ 分隔線圖示
             if (dividerDot) {
                 dividerDot.textContent = qixi ? '💞' : ((isV || isMusicPhoto) ? '💘' : '❤️');
             }
 
-            // ★ 9/14：顯示合照與音樂（其他日期隱藏）
+            // 9/14：顯示合照與音樂
             if (isMusicPhoto && !qixi) {
                 photoSection.classList.add('show');
                 musicBtn.classList.add('show');
                 musicHint.classList.add('show');
                 musicHint.classList.remove('hide');
-                setTimeout(() => attemptPlay(true), 300);
             } else {
                 photoSection.classList.remove('show');
                 musicBtn.classList.remove('show');
@@ -1785,10 +1781,7 @@
                 updateMusicUI(false);
             }
 
-            // ★ 背景特效切換
-            // 七夕 → 愛心雨
-            // 每月 14 號 → 情人節浮誇特效
-            // 其他日期 → 花瓣
+            // 背景特效
             if (qixi) {
                 stopPetals(); stopValentineFX(); startHeartRain();
             } else if (isV || isMusicPhoto) {
@@ -1806,14 +1799,12 @@
         // 8. 初始化
         // ============================================================
         function init() {
-            // 套用主題與特效（依今日日期自動判斷）
             const { qixi, valentine, isMusicPhoto } = applyDailyTheme();
 
-            // 倒數啟動
             updateCountdown();
             setInterval(updateCountdown, 1000);
 
-            // 跨日自動更新（每分鐘檢查一次，若日期變了重新套用主題）
+            // 跨日自動更新
             let lastDateStr = new Date().toDateString();
             setInterval(() => {
                 const now = new Date();
@@ -1839,6 +1830,8 @@
                 if (qixi) {
                     showModal({ qixi: true, cheerText: pureMsg });
                 } else if (isMusicPhoto) {
+                    // ★ 9/14：直接顯示開場彈窗，
+                    //   點「🎹 聽聽這首小幸運 🎹」就會播放音樂 + 關閉彈窗
                     showModal({
                         musicPhoto: true,
                         cheerText: '🎶 還記得這首鋼琴曲嗎?~My Dear~'
