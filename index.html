@@ -316,6 +316,20 @@
         .music-hint.show { display: block; }
         .music-hint.hide { display: none; }
 
+        /* 推薦書籍區塊 */
+        .reference-section {
+            margin-top: 10px; padding-top: 10px;
+            border-top: 1.5px dashed rgba(233, 30, 99, 0.10);
+            text-align: left; flex-shrink: 0;
+        }
+        .ref-title { 
+            font-size: 0.72rem; font-weight: 700; color: #4a148c; 
+            margin-bottom: 6px; text-align: center; letter-spacing: 0.5px;
+        }
+        .ref-list { font-size: 0.6rem; color: #7b4b8a; line-height: 1.6; }
+        .ref-item { margin-bottom: 3px; }
+        .ref-item strong { color: #c2185b; font-weight: 700; }
+
         /* 應援訊息 */
         .cheer-section {
             margin-top: 4px; padding-top: 8px;
@@ -559,6 +573,11 @@
             .polaroid-wrap .polaroid-caption { font-size: 0.8rem; bottom: 10px; }
             .music-float-btn { width: 64px; height: 64px; font-size: 1.7rem; bottom: 32px; right: 28px; }
 
+            .reference-section { margin-top: 14px; padding-top: 14px; }
+            .ref-title { font-size: 1.05rem; margin-bottom: 8px; }
+            .ref-list { font-size: 0.85rem; }
+            .ref-item { margin-bottom: 4px; }
+
             .cheer-section { margin-top: 8px; padding-top: 12px; }
             .cheer-message { font-size: 1.05rem; padding: 4px 8px; line-height: 1.6; animation-duration: 6s; }
             .cheer-message.qixi { font-size: 1.1rem; }
@@ -623,6 +642,7 @@
             .polaroid-wrap { max-width: 160px; padding: 8px 8px 32px; }
             .polaroid-wrap .polaroid-caption { font-size: 0.58rem; bottom: 6px; }
             .music-float-btn { width: 48px; height: 48px; font-size: 1.2rem; bottom: 16px; right: 12px; }
+            .ref-list { font-size: 0.55rem; }
         }
 
         /* 高度不足 */
@@ -651,6 +671,8 @@
             .footer-note { font-size: 0.5rem; padding-top: 3px; margin-top: 3px; }
             .polaroid-wrap { max-width: 140px; padding: 6px 6px 28px; }
             .polaroid-wrap .polaroid-caption { font-size: 0.55rem; bottom: 5px; }
+            .reference-section { margin-top: 6px; padding-top: 6px; }
+            .ref-list { font-size: 0.55rem; }
         }
 
         /* 手機橫向 */
@@ -676,6 +698,7 @@
             .footer-note { font-size: 0.5rem; padding-top: 4px; margin-top: 4px; }
             .polaroid-wrap { max-width: 120px; padding: 5px 5px 24px; }
             .polaroid-wrap .polaroid-caption { font-size: 0.5rem; bottom: 4px; }
+            .ref-list { font-size: 0.5rem; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -757,6 +780,17 @@
             </div>
         </div>
 
+        <!-- 推薦書籍區塊 -->
+        <div class="reference-section" id="referenceSection">
+            <div class="ref-title">📚 116年腎專甄試推薦書籍</div>
+            <div class="ref-list">
+                <div class="ref-item">1. <strong>The Kidney</strong>: Brenner and Rector's, 11th Edition (2020)</div>
+                <div class="ref-item">2. <strong>Handbook of Dialysis Therapy</strong>: Allen R. Nissenson, Richard N. Fine, 6th eds. (2023)</div>
+                <div class="ref-item">3. 期刊 Review：Kidney International、AJKD、JASN、CJASN、Pediatric Nephrology 及台腎雜誌 (2026/7/1~2027/6/30)</div>
+                <div class="ref-item">4. 小兒科參考教科書：Francesco Emma et al., 8th eds. (2022)</div>
+            </div>
+        </div>
+
         <div class="cheer-section">
             <div class="cheer-message" id="cheerMessage">💖 載入中...</div>
         </div>
@@ -787,10 +821,12 @@
         // ★ 平常日：只顯示花瓣
         // ★ 每月 14 號：情人節特效 + 節日小語
         // ★ 9/14：再加合照 + 鋼琴音樂 + 開場彈窗按鈕直接播放音樂
-        // ★ 七夕（2026/8/19）：愛心雨 + 七夕小語
+        // ★ 七夕（2027/8/19）：愛心雨 + 七夕小語
         // ============================================================
 
-        // ★ 修改：目標日期更新為 2027/08/01 (民國116年8月1日)
+        // ★ 修改：考試目標更新為 2027 年（民國116年）
+        // ★ 筆試：2027/08/01
+        // ★ 口試：2027/08/22（依照今年筆試8/2、口試8/23推估）
         const TARGETS = [{
             id: 1, name: '腎臟專科醫師筆試', year: 2027, month: 7, day: 1,
             dId: 'd1', hId: 'h1', mId: 'm1', sId: 's1',
@@ -803,7 +839,7 @@
 
         const targets = TARGETS.map(t => ({ ...t, date: new Date(t.year, t.month, t.day) }));
 
-        // 七夕：2027/8/19 (明年)
+        // 七夕：2027/8/19
         function isQixi() {
             const now = new Date();
             return (now.getFullYear() === 2027 && now.getMonth() === 7 && now.getDate() === 19);
@@ -850,15 +886,19 @@
         }
 
         // ============================================================
-        // 2. 每日小語（適用於 2027 年考試準備）
+        // 2. 每日小語（融入腎臟科推薦書籍與考試方向）
         // ============================================================
-        // ★ 修改：因為距離考試還有 315 天，改用循環陣列，確保每天都有不同的腎臟科打氣小語
         const DAILY_MESSAGES = [
             "準備好翻開 Brenner 了嗎？Winny，今天也要穩紮穩打！",
+            "The Kidney 11版是經典，每天讀一點，功力大增！",
+            "別忘了複習小兒腎臟科（Francesco Emma 8th ed.）的重點章節喔！",
+            "透析治療的題目很常考，多看幾遍 Handbook of Dialysis Therapy 6th ed.。",
+            "Kidney International 和 JASN 的 Review 文章，是出題重點！",
+            "AJKD 與 CJASN 的綜論，記得多掃幾眼。",
+            "台腎雜誌的 Review 文章，也要複習一下喔！",
             "每天複習一點 CKD 分期與流行病學，基礎功最扎實 ✨",
             "記得複習腎絲球疾病的重點章節，你越來越熟練了！",
             "電解質與酸鹼平衡雖然複雜，但你一定能掌握！",
-            "透析治療的題目很常考，多看幾遍 Handbook of Dialysis Therapy。",
             "保持開心，好事就會發生！",
             "你是獨一無二的，無可取代！",
             "加油！我永遠支持你 💪",
@@ -914,7 +954,7 @@
 
             // ③ 平常日：每日小語（使用循環陣列）
             const now = new Date();
-            // 設定一個基準日，用來計算天數差，這裡設為 2026/09/20 (今天)
+            // 設定基準日為 2026/09/20，讓小語從第一條開始跑
             const baseDate = new Date(2026, 8, 20); 
             const diffDays = Math.floor((now - baseDate) / (1000 * 60 * 60 * 24));
             
