@@ -37,7 +37,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* 情人節背景（只有每月 14 號會套用） */
         body.valentine-mode {
             background: linear-gradient(145deg,
                 #ffe0ec 0%, #ffc9e0 15%, #f9c6ff 30%,
@@ -52,7 +51,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Canvas */
         #petalCanvas {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 0; display: block;
@@ -68,7 +66,6 @@
         }
         #valentineCanvas.active { display: block; }
 
-        /* 背景浮動愛心 */
         .bg-hearts {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; overflow: hidden; z-index: 1;
@@ -88,7 +85,6 @@
             100% { transform: translateY(-18px) rotate(6deg) scale(1.05); }
         }
 
-        /* 主容器 */
         .container {
             position: relative; z-index: 2; width: 100%; max-width: 480px;
             background: rgba(255, 255, 255, 0.82);
@@ -116,7 +112,6 @@
             100% { box-shadow: 0 0 46px rgba(255, 23, 68, 0.45), 0 0 110px rgba(213, 0, 249, 0.30); }
         }
 
-        /* 標題 */
         .header { text-align: center; margin-bottom: 6px; flex-shrink: 0; }
         .header h1 {
             font-family: 'Quicksand', sans-serif; font-weight: 700;
@@ -132,7 +127,6 @@
             margin-top: 1px; letter-spacing: 0.5px; line-height: 1.2;
         }
 
-        /* 情人節橫幅 */
         .valentine-banner {
             display: none; margin: 6px auto 2px; padding: 5px 16px;
             border-radius: 999px; font-size: 0.72rem; font-weight: 900;
@@ -151,7 +145,6 @@
             100% { background-position: 300% 50%; }
         }
 
-        /* 分隔線 */
         .divider {
             display: flex; justify-content: center; align-items: center;
             gap: 6px; margin: 4px 0 8px; flex-shrink: 0;
@@ -166,7 +159,6 @@
         }
         .divider .dot { color: #e91e63; font-size: 0.7rem; }
 
-        /* 倒數卡片 */
         .countdown-grid {
             display: grid; grid-template-columns: 1fr 1fr;
             gap: 8px; margin-bottom: 8px; flex-shrink: 0;
@@ -241,7 +233,6 @@
         .card.done .num { color: #9e9e9e !important; background: rgba(0, 0, 0, 0.02) !important; }
         .card.done .exam-name { color: #9e9e9e; }
 
-        /* 9/14 專屬：鋼琴音樂 + 合照 */
         .photo-music-section {
             display: none; margin-top: 10px; padding-top: 10px;
             border-top: 1.5px dashed rgba(233, 30, 99, 0.10);
@@ -249,7 +240,6 @@
         }
         .photo-music-section.show { display: block; }
 
-        /* 音樂浮動按鈕 */
         .music-float-btn {
             position: fixed; bottom: 24px; right: 18px; z-index: 9999;
             width: 56px; height: 56px; border-radius: 50%; border: none;
@@ -281,7 +271,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* 拍立得合照 */
         .polaroid-wrap {
             display: inline-block; background: #fff;
             padding: 10px 10px 40px; border-radius: 4px;
@@ -308,7 +297,6 @@
             color: #ad1457; letter-spacing: 0.5px;
         }
 
-        /* 音樂提示文字 */
         .music-hint {
             font-size: 0.6rem; color: #b39ddb; margin-top: 6px;
             letter-spacing: 0.3px;
@@ -316,7 +304,6 @@
         .music-hint.show { display: block; }
         .music-hint.hide { display: none; }
 
-        /* 推薦書籍區塊 */
         .reference-section {
             margin-top: 10px; padding-top: 10px;
             border-top: 1.5px dashed rgba(233, 30, 99, 0.10);
@@ -330,7 +317,239 @@
         .ref-item { margin-bottom: 3px; }
         .ref-item strong { color: #c2185b; font-weight: 700; }
 
-        /* 應援訊息 */
+        /* ============ 知識挑戰區塊 ============ */
+        .quiz-section {
+            margin-top: 10px; padding-top: 10px;
+            border-top: 1.5px dashed rgba(233, 30, 99, 0.10);
+            text-align: center; flex-shrink: 0;
+        }
+        .quiz-title {
+            font-size: 0.78rem; font-weight: 900; color: #4a148c;
+            letter-spacing: 0.6px; margin-bottom: 3px;
+        }
+        .quiz-desc {
+            font-size: 0.6rem; color: #7b4b8a; margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        .quiz-start-btn {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            width: 100%; padding: 12px 16px; border: none; cursor: pointer;
+            border-radius: 18px; color: #fff; font-size: 0.95rem; font-weight: 900;
+            font-family: inherit; letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #e91e63, #9c27b0, #d500f9);
+            background-size: 200% 200%;
+            animation: musicBtnFlow 4s ease infinite, musicBtnPulse 2s ease-in-out infinite alternate;
+            transition: transform 0.15s ease;
+        }
+        .quiz-start-btn:active { transform: scale(0.97); }
+        .quiz-start-btn .quiz-count {
+            font-size: 0.65rem; font-weight: 700; padding: 2px 9px;
+            background: rgba(255, 255, 255, 0.24); border-radius: 999px;
+        }
+
+        .cheatsheet {
+            margin-top: 8px; text-align: left;
+        }
+        .cheatsheet-toggle {
+            width: 100%; padding: 9px 14px; border: 1.5px solid rgba(233, 30, 99, 0.25);
+            border-radius: 14px; background: rgba(255, 255, 255, 0.6);
+            color: #ad1457; font-size: 0.72rem; font-weight: 700;
+            font-family: inherit; cursor: pointer; letter-spacing: 0.4px;
+            transition: background 0.2s ease;
+        }
+        .cheatsheet-toggle:active { background: rgba(255, 240, 246, 0.9); }
+        .cheatsheet-body {
+            display: none; margin-top: 6px; padding: 10px 12px;
+            background: rgba(255, 255, 255, 0.7); border-radius: 14px;
+            border: 1px solid rgba(233, 30, 99, 0.12);
+            font-size: 0.62rem; color: #4a148c; line-height: 1.7;
+            max-height: 300px; overflow-y: auto;
+        }
+        .cheatsheet-body.show { display: block; }
+        .cheat-row {
+            display: flex; gap: 6px; padding: 4px 0;
+            border-bottom: 1px dashed rgba(233, 30, 99, 0.10);
+        }
+        .cheat-row:last-child { border-bottom: none; }
+        .cheat-key {
+            flex: 0 0 76px; font-weight: 900; color: #c2185b;
+        }
+        .cheat-val { flex: 1; color: #6a1b9a; }
+        .cheat-val .mn {
+            display: inline-block; background: rgba(233, 30, 99, 0.10);
+            color: #d81b60; padding: 0 5px; border-radius: 5px;
+            font-weight: 700; margin-left: 3px;
+        }
+
+        /* ============ 測驗彈窗 ============ */
+        .quiz-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(40, 5, 40, 0.55);
+            backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+            z-index: 100000; display: none; justify-content: center;
+            align-items: flex-start; overflow-y: auto;
+            -webkit-overflow-scrolling: touch; padding: 10px;
+        }
+        .quiz-overlay.show { display: flex; }
+
+        .quiz-box {
+            background: #fff; border-radius: 22px; width: 100%;
+            max-width: 500px; padding: 14px 15px 15px;
+            box-shadow: 0 20px 60px rgba(233, 30, 99, 0.28);
+            margin: auto; position: relative;
+            animation: quizPop 0.28s cubic-bezier(0.34, 1.4, 0.64, 1);
+        }
+        @keyframes quizPop {
+            0% { transform: scale(0.9) translateY(14px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        .quiz-topbar {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 8px; margin-bottom: 6px;
+        }
+        .quiz-progress-text {
+            font-size: 0.7rem; font-weight: 900; color: #ad1457;
+            letter-spacing: 0.4px;
+        }
+        .quiz-score-text {
+            font-size: 0.7rem; font-weight: 900; color: #4caf50;
+            letter-spacing: 0.4px;
+        }
+        .quiz-close {
+            width: 30px; height: 30px; border-radius: 50%; border: none;
+            background: rgba(233, 30, 99, 0.10); color: #c2185b;
+            font-size: 0.85rem; font-weight: 900; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-family: inherit; flex-shrink: 0;
+        }
+        .quiz-close:active { transform: scale(0.92); }
+
+        .quiz-progressbar {
+            width: 100%; height: 6px; border-radius: 999px;
+            background: rgba(233, 30, 99, 0.10); overflow: hidden;
+            margin-bottom: 10px;
+        }
+        .quiz-progressbar-fill {
+            height: 100%; width: 0%; border-radius: 999px;
+            background: linear-gradient(90deg, #ff4081, #d500f9);
+            transition: width 0.35s ease;
+        }
+
+        .quiz-chapter {
+            display: inline-block; font-size: 0.58rem; font-weight: 900;
+            color: #fff; background: linear-gradient(90deg, #ec407a, #ab47bc);
+            padding: 2px 10px; border-radius: 999px; margin-bottom: 8px;
+            letter-spacing: 0.4px;
+        }
+
+        .quiz-question {
+            font-size: 0.9rem; font-weight: 900; color: #4a148c;
+            line-height: 1.55; margin-bottom: 12px; letter-spacing: 0.2px;
+            text-align: left;
+        }
+
+        .quiz-options { display: flex; flex-direction: column; gap: 7px; }
+
+        .quiz-option {
+            display: flex; align-items: flex-start; gap: 8px;
+            width: 100%; text-align: left; padding: 10px 12px;
+            border-radius: 14px; border: 2px solid #f3e5f5;
+            background: #fdf7fb; color: #4a148c;
+            font-size: 0.78rem; font-family: inherit; font-weight: 600;
+            line-height: 1.5; cursor: pointer; letter-spacing: 0.1px;
+            transition: border-color 0.15s ease, background 0.15s ease, transform 0.1s ease;
+        }
+        .quiz-option:active { transform: scale(0.985); }
+        .quiz-option .opt-letter {
+            flex: 0 0 20px; height: 20px; border-radius: 50%;
+            background: rgba(233, 30, 99, 0.10); color: #c2185b;
+            font-size: 0.66rem; font-weight: 900;
+            display: flex; align-items: center; justify-content: center;
+            margin-top: 1px;
+        }
+        .quiz-option .opt-text { flex: 1; }
+
+        .quiz-option.correct {
+            border-color: #4caf50; background: #e8f5e9; color: #1b5e20;
+        }
+        .quiz-option.correct .opt-letter { background: #4caf50; color: #fff; }
+        .quiz-option.wrong {
+            border-color: #ef5350; background: #ffebee; color: #b71c1c;
+        }
+        .quiz-option.wrong .opt-letter { background: #ef5350; color: #fff; }
+        .quiz-option.locked { pointer-events: none; }
+        .quiz-option.dim { opacity: 0.55; }
+
+        .quiz-feedback {
+            display: none; margin-top: 11px; padding: 10px 12px;
+            border-radius: 14px; font-size: 0.72rem; line-height: 1.6;
+            text-align: left; animation: quizPop 0.25s ease;
+        }
+        .quiz-feedback.show { display: block; }
+        .quiz-feedback.ok {
+            background: #e8f5e9; border: 1.5px solid #a5d6a7; color: #1b5e20;
+        }
+        .quiz-feedback.no {
+            background: #ffebee; border: 1.5px solid #ef9a9a; color: #b71c1c;
+        }
+        .quiz-feedback .fb-title {
+            font-weight: 900; font-size: 0.8rem; margin-bottom: 4px;
+            display: block;
+        }
+        .quiz-feedback .fb-body { font-weight: 600; }
+        .quiz-feedback .fb-src {
+            display: block; margin-top: 5px; font-size: 0.6rem;
+            font-weight: 700; opacity: 0.72; letter-spacing: 0.3px;
+        }
+
+        .quiz-next-btn {
+            display: none; width: 100%; margin-top: 11px;
+            padding: 11px 16px; border: none; border-radius: 14px;
+            color: #fff; font-size: 0.85rem; font-weight: 900;
+            font-family: inherit; letter-spacing: 0.4px; cursor: pointer;
+            background: linear-gradient(135deg, #e91e63, #9c27b0);
+            background-size: 200% 200%;
+            animation: musicBtnFlow 4s ease infinite;
+            transition: transform 0.15s ease;
+        }
+        .quiz-next-btn.show { display: block; }
+        .quiz-next-btn:active { transform: scale(0.97); }
+
+        /* 結算畫面 */
+        .quiz-result { text-align: center; padding: 6px 4px 2px; }
+        .quiz-result .res-emoji {
+            font-size: 3rem; line-height: 1; margin-bottom: 6px;
+            display: block; animation: pulseHeart 1.4s infinite alternate;
+        }
+        .quiz-result .res-title {
+            font-size: 1.1rem; font-weight: 900; color: #ad1457;
+            margin-bottom: 6px; letter-spacing: 0.5px;
+        }
+        .quiz-result .res-score {
+            font-size: 2.1rem; font-weight: 900; color: #d81b60;
+            font-family: 'Quicksand', sans-serif; letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+        .quiz-result .res-sub {
+            font-size: 0.72rem; color: #7b4b8a; font-weight: 600;
+            line-height: 1.6; margin-bottom: 12px;
+        }
+        .quiz-result .res-note {
+            font-size: 0.75rem; font-weight: 900; color: #4a148c;
+            background: linear-gradient(90deg, rgba(255,23,68,0.08), rgba(213,0,249,0.08));
+            border-radius: 14px; padding: 10px 12px; line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        .quiz-again-btn {
+            width: 100%; padding: 11px 16px; border: none; border-radius: 14px;
+            color: #fff; font-size: 0.85rem; font-weight: 900;
+            font-family: inherit; cursor: pointer;
+            background: linear-gradient(135deg, #e91e63, #9c27b0);
+            transition: transform 0.15s ease;
+        }
+        .quiz-again-btn:active { transform: scale(0.97); }
+
         .cheer-section {
             margin-top: 4px; padding-top: 8px;
             border-top: 1.5px dashed rgba(233, 30, 99, 0.10);
@@ -362,7 +581,6 @@
             animation: karaoke 3.2s ease-in-out infinite;
         }
 
-        /* 維尼 */
         .pooh-container {
             text-align: center; margin-top: 10px; padding-top: 10px;
             border-top: 1.5px dashed rgba(233, 30, 99, 0.10);
@@ -379,8 +597,6 @@
         .pooh-text {
             display: inline-block; font-size: 0.85rem; color: #4a148c;
             font-weight: 700; line-height: 1.4; letter-spacing: 0.5px;
-            background: transparent; padding: 0; border: none;
-            border-radius: 0; backdrop-filter: none; box-shadow: none;
         }
         .pooh-text .char { display: inline-block; animation: waveChar 2s ease-in-out infinite; }
         .pooh-text .char:nth-child(1) { animation-delay: 0.00s; }
@@ -413,16 +629,6 @@
         .pooh-text .char:nth-child(28) { animation-delay: 2.16s; }
         .pooh-text .char:nth-child(29) { animation-delay: 2.24s; }
         .pooh-text .char:nth-child(30) { animation-delay: 2.32s; }
-        .pooh-text .char:nth-child(31) { animation-delay: 2.40s; }
-        .pooh-text .char:nth-child(32) { animation-delay: 2.48s; }
-        .pooh-text .char:nth-child(33) { animation-delay: 2.56s; }
-        .pooh-text .char:nth-child(34) { animation-delay: 2.64s; }
-        .pooh-text .char:nth-child(35) { animation-delay: 2.72s; }
-        .pooh-text .char:nth-child(36) { animation-delay: 2.80s; }
-        .pooh-text .char:nth-child(37) { animation-delay: 2.88s; }
-        .pooh-text .char:nth-child(38) { animation-delay: 2.96s; }
-        .pooh-text .char:nth-child(39) { animation-delay: 3.04s; }
-        .pooh-text .char:nth-child(40) { animation-delay: 3.12s; }
         @keyframes waveChar {
             0% { transform: translateY(0px) rotate(0deg); }
             40% { transform: translateY(-14px) rotate(2deg); }
@@ -430,7 +636,6 @@
             100% { transform: translateY(0px) rotate(0deg); }
         }
 
-        /* 頁尾 */
         .footer-note {
             margin-top: 6px; font-size: 0.6rem; color: #b39ddb;
             text-align: center; border-top: 1px solid rgba(233, 30, 99, 0.06);
@@ -439,7 +644,6 @@
         }
         .footer-note span { color: #e91e63; font-weight: 600; }
 
-        /* 大熊 */
         #bigBear {
             position: fixed; bottom: 4%; left: -15%; font-size: 32px;
             z-index: 9999; pointer-events: none; line-height: 1;
@@ -454,14 +658,12 @@
             100% { transform: translateX(100vw) scale(1.8); opacity: 0.3; }
         }
 
-        /* 煙火 */
         #fireworksCanvas {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 9998; display: none;
         }
         #fireworksCanvas.active { display: block; }
 
-        /* 彈窗 */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.25);
@@ -545,7 +747,6 @@
         }
         .modal-close-btn:active { transform: scale(0.95); }
 
-        /* 電腦版 */
         @media (min-width: 600px) {
             body { padding: 16px; }
             .container {
@@ -577,6 +778,23 @@
             .ref-title { font-size: 1.05rem; margin-bottom: 8px; }
             .ref-list { font-size: 0.85rem; }
             .ref-item { margin-bottom: 4px; }
+
+            .quiz-section { margin-top: 14px; padding-top: 14px; }
+            .quiz-title { font-size: 1.05rem; }
+            .quiz-desc { font-size: 0.8rem; }
+            .quiz-start-btn { font-size: 1.1rem; padding: 15px 20px; border-radius: 22px; }
+            .quiz-start-btn .quiz-count { font-size: 0.8rem; }
+            .cheatsheet-toggle { font-size: 0.9rem; padding: 11px 18px; }
+            .cheatsheet-body { font-size: 0.8rem; max-height: 420px; }
+            .cheat-key { flex: 0 0 108px; }
+            .quiz-box { max-width: 620px; padding: 22px 26px 22px; border-radius: 28px; }
+            .quiz-question { font-size: 1.12rem; margin-bottom: 16px; }
+            .quiz-option { font-size: 0.95rem; padding: 13px 16px; border-radius: 16px; }
+            .quiz-option .opt-letter { flex: 0 0 24px; height: 24px; font-size: 0.78rem; }
+            .quiz-feedback { font-size: 0.86rem; padding: 13px 16px; }
+            .quiz-next-btn { font-size: 1rem; padding: 13px 20px; border-radius: 16px; }
+            .quiz-chapter { font-size: 0.72rem; padding: 3px 13px; }
+            .quiz-progress-text, .quiz-score-text { font-size: 0.85rem; }
 
             .cheer-section { margin-top: 8px; padding-top: 12px; }
             .cheer-message { font-size: 1.05rem; padding: 4px 8px; line-height: 1.6; animation-duration: 6s; }
@@ -611,7 +829,6 @@
             .modal-close-btn { font-size: 1.0rem; padding: 10px 36px; }
         }
 
-        /* 極小螢幕 */
         @media (max-width: 380px) {
             .container { padding: 12px 12px 14px; border-radius: 20px; }
             .header h1 { font-size: 1.0rem; }
@@ -629,12 +846,6 @@
             .pooh-container img { max-width: 90px; }
             .pooh-text { font-size: 0.7rem; padding: 0; }
             .pooh-text .char { animation-duration: 1.8s; }
-            @keyframes waveChar {
-                0% { transform: translateY(0px); }
-                40% { transform: translateY(-9px); }
-                70% { transform: translateY(-3px); }
-                100% { transform: translateY(0px); }
-            }
             .modal-box .modal-gif { max-width: 130px; }
             .footer-note { font-size: 0.5rem; padding-top: 4px; }
             .countdown-grid { gap: 4px; }
@@ -643,9 +854,12 @@
             .polaroid-wrap .polaroid-caption { font-size: 0.58rem; bottom: 6px; }
             .music-float-btn { width: 48px; height: 48px; font-size: 1.2rem; bottom: 16px; right: 12px; }
             .ref-list { font-size: 0.55rem; }
+            .quiz-question { font-size: 0.82rem; }
+            .quiz-option { font-size: 0.72rem; padding: 9px 10px; }
+            .quiz-feedback { font-size: 0.66rem; }
+            .cheat-key { flex: 0 0 66px; }
         }
 
-        /* 高度不足 */
         @media (max-height: 700px) and (max-width: 599px) {
             .container { padding: 10px 14px 12px; border-radius: 20px; }
             .header h1 { font-size: 1.0rem; }
@@ -675,7 +889,6 @@
             .ref-list { font-size: 0.55rem; }
         }
 
-        /* 手機橫向 */
         @media (orientation: landscape) and (max-height: 500px) {
             .container { padding: 8px 20px; max-width: 95%; margin: 5px auto; border-radius: 16px; }
             .header h1 { font-size: 1.1rem; }
@@ -721,7 +934,6 @@
 
     <canvas id="fireworksCanvas"></canvas>
 
-    <!-- 音樂浮動按鈕（僅 9/14 顯示） -->
     <button class="music-float-btn" id="musicFloatBtn" title="播放女友的鋼琴曲">🎹</button>
 
     <div class="container" id="mainContainer">
@@ -763,7 +975,6 @@
             </div>
         </div>
 
-        <!-- 9/14 專屬：合照 + 音樂提示（其他日期隱藏） -->
         <div class="photo-music-section" id="photoMusicSection">
             <div class="polaroid-wrap">
                 <img
@@ -780,7 +991,6 @@
             </div>
         </div>
 
-        <!-- 推薦書籍區塊 -->
         <div class="reference-section" id="referenceSection">
             <div class="ref-title">📚 116年腎專甄試推薦書籍</div>
             <div class="ref-list">
@@ -788,6 +998,21 @@
                 <div class="ref-item">2. <strong>Handbook of Dialysis Therapy</strong>: Allen R. Nissenson, Richard N. Fine, 6th eds. (2023)</div>
                 <div class="ref-item">3. 期刊 Review：Kidney International、AJKD、JASN、CJASN、Pediatric Nephrology 及台腎雜誌 (2026/7/1~2027/6/30)</div>
                 <div class="ref-item">4. 小兒科參考教科書：Francesco Emma et al., 8th eds. (2022)</div>
+            </div>
+        </div>
+
+        <!-- ★ 知識挑戰區塊（新增） -->
+        <div class="quiz-section">
+            <div class="quiz-title">📝 116年腎專知識挑戰</div>
+            <div class="quiz-desc">依《Brenner 11版》《HD 6版》《PED 8版》章節整理<br />共 70 題，點選答案立即對答案＋聽音效 🎵</div>
+            <button class="quiz-start-btn" id="quizStartBtn">
+                <span>🎯 開始挑戰</span>
+                <span class="quiz-count" id="quizCountBadge">70 題</span>
+            </button>
+
+            <div class="cheatsheet">
+                <button class="cheatsheet-toggle" id="cheatsheetToggle">📖 考前速記口訣 ▾</button>
+                <div class="cheatsheet-body" id="cheatsheetBody"></div>
             </div>
         </div>
 
@@ -805,7 +1030,13 @@
         </div>
     </div>
 
-    <!-- 女友鋼琴曲（僅 9/14 播放） -->
+    <!-- ★ 測驗彈窗（新增） -->
+    <div class="quiz-overlay" id="quizOverlay">
+        <div class="quiz-box" id="quizBox">
+            <div id="quizContent"></div>
+        </div>
+    </div>
+
     <audio id="girlfriendPiano" loop preload="metadata" playsinline webkit-playsinline>
         <source src="https://raw.githubusercontent.com/dustinchen26/test/refs/heads/master/output.mp3" />
         您的瀏覽器不支援音訊播放。
@@ -815,18 +1046,6 @@
         // ============================================================
         // 1. 目標日期 & 節慶判斷
         // ============================================================
-        // ★★★ 所有判斷都使用瀏覽器的 new Date() ★★★
-        // ★ new Date() 讀取的是「手機或電腦的本地系統時間」
-        // ★ 完全不需要網路，離線也能正確判斷日期
-        // ★ 平常日：只顯示花瓣
-        // ★ 每月 14 號：情人節特效 + 節日小語
-        // ★ 9/14：再加合照 + 鋼琴音樂 + 開場彈窗按鈕直接播放音樂
-        // ★ 七夕（2027/8/19）：愛心雨 + 七夕小語
-        // ============================================================
-
-        // ★ 修改：考試目標更新為 2027 年（民國116年）
-        // ★ 筆試：2027/08/01
-        // ★ 口試：2027/08/22（依照今年筆試8/2、口試8/23推估）
         const TARGETS = [{
             id: 1, name: '腎臟專科醫師筆試', year: 2027, month: 7, day: 1,
             dId: 'd1', hId: 'h1', mId: 'm1', sId: 's1',
@@ -839,20 +1058,17 @@
 
         const targets = TARGETS.map(t => ({ ...t, date: new Date(t.year, t.month, t.day) }));
 
-        // 七夕：2027/8/19
         function isQixi() {
             const now = new Date();
             return (now.getFullYear() === 2027 && now.getMonth() === 7 && now.getDate() === 19);
         }
 
-        // 從 2025/01/04 相識到今天的總天數
         function getDaysTogether() {
             const start = new Date(2025, 0, 4);
             const now = new Date();
             return Math.floor((now - start) / (1000 * 60 * 60 * 24));
         }
 
-        // 每月 14 號情人節資料（12 個月）
         const VALENTINE_DATA = [
             { name: '日記情人節快樂!!!', emoji: '📔', msg: '翻開我們的日記，每一頁都寫滿了你的名字 ❤️' },
             { name: '西洋情人節快樂!!!', emoji: '💝', msg: '全世界都在提醒我有多愛你，這一天尤其大聲 💘' },
@@ -868,25 +1084,19 @@
             { name: '擁抱情人節快樂!!!', emoji: '🫂', msg: '想緊緊抱住你，把整個冬天都變暖 🫂' }
         ];
 
-        // ★ 只有每月 14 號才會回傳資料，其他日期一律回傳 null
         function getValentineInfo() {
             const now = new Date();
             if (now.getDate() !== 14) return null;
             return VALENTINE_DATA[now.getMonth()];
         }
-
-        function isValentineDay() {
-            return getValentineInfo() !== null;
-        }
-
-        // ★ 9/14 專屬：音樂 & 相片情人節（有鋼琴音樂 + 合照）
+        function isValentineDay() { return getValentineInfo() !== null; }
         function isMusicPhotoValentine() {
             const now = new Date();
             return now.getMonth() === 8 && now.getDate() === 14;
         }
 
         // ============================================================
-        // 2. 每日小語（融入腎臟科推薦書籍與考試方向）
+        // 2. 每日小語
         // ============================================================
         const DAILY_MESSAGES = [
             "準備好翻開 Brenner 了嗎？Winny，今天也要穩紮穩打！",
@@ -926,15 +1136,11 @@
             "把每個章節的 Key Points 再掃一遍。"
         ];
 
-        // 取得今天的應援小語
         function getTodayCheer() {
-            // ① 七夕優先
             if (isQixi()) {
                 const days = getDaysTogether();
                 return `Winny，我愛你 ❤️ 從2025/01/04相識到今天，我們一起走了 ${days} 天，每一天都更愛你。情人節快樂，我的寶貝。`;
             }
-
-            // ② 每月 14 號（含 9/14）
             const v = getValentineInfo();
             if (v) {
                 const now = new Date();
@@ -943,31 +1149,20 @@
                 const day = String(now.getDate()).padStart(2, '0');
                 const rocYear = year - 1911;
                 const days = getDaysTogether();
-
-                // 9/14 音樂 & 相片情人節專屬文案
                 if (isMusicPhotoValentine()) {
                     return `🎶 9/14 音樂 & 相片情人節快樂！${v.msg} 從2025/01/04相識到今天，我們一起走了 ${days} 天，每一天都更愛你。 （民國 ${rocYear}/${month}/${day}）`;
                 }
-
                 return `${v.emoji} ${v.name}快樂！${v.msg} 我們已經一起走了 ${days} 天，每一天都更愛你。 （民國 ${rocYear}/${month}/${day}）`;
             }
-
-            // ③ 平常日：每日小語（使用循環陣列）
             const now = new Date();
-            // 設定基準日為 2026/09/20，讓小語從第一條開始跑
-            const baseDate = new Date(2026, 8, 20); 
+            const baseDate = new Date(2026, 8, 20);
             const diffDays = Math.floor((now - baseDate) / (1000 * 60 * 60 * 24));
-            
-            // 使用 modulo 運算，讓小語可以循環使用
             const msgIndex = Math.abs(diffDays) % DAILY_MESSAGES.length;
             let message = DAILY_MESSAGES[msgIndex];
-
-            // 如果考試已經結束
             const allDone = targets.every(t => t.date - now <= 0);
             if (allDone) {
                 message = "🎉 太棒了！所有挑戰都完成了，你超級厲害！🏆";
             }
-
             const year = now.getFullYear();
             const month = String(now.getMonth() + 1).padStart(2, '0');
             const day = String(now.getDate()).padStart(2, '0');
@@ -975,7 +1170,6 @@
             return message + ' （民國 ' + rocYear + '/' + month + '/' + day + '）';
         }
 
-        // 維尼文字
         function getPoohText() {
             const now = new Date();
             if (isQixi()) return 'Winny，我愛你 ❤️ 七夕快樂！';
@@ -1008,11 +1202,10 @@
         }
 
         // ============================================================
-        // 3. Canvas 動畫（效能優化版）
+        // 3. Canvas 動畫
         // ============================================================
         const isHidden = () => document.hidden;
 
-        // ----- 花瓣（平常日顯示）-----
         const petalCanvas = document.getElementById('petalCanvas');
         const pCtx = petalCanvas.getContext('2d');
         let petals = [];
@@ -1096,7 +1289,6 @@
             petalCanvas.style.display = 'none';
         }
 
-        // ----- 愛心雨（七夕顯示）-----
         const heartCanvas = document.getElementById('heartRainCanvas');
         const hCtx = heartCanvas.getContext('2d');
         let hearts = [];
@@ -1193,7 +1385,6 @@
             heartCanvas.classList.remove('active');
         }
 
-        // ----- 情人節浮誇特效（每月 14 號顯示）-----
         const vCanvas = document.getElementById('valentineCanvas');
         const vCtx = vCanvas.getContext('2d');
         let vHearts = [];
@@ -1496,7 +1687,7 @@
         }
 
         // ============================================================
-        // 5. 音樂播放系統（僅 9/14 啟用）
+        // 5. 音樂播放系統
         // ============================================================
         const audio = document.getElementById('girlfriendPiano');
         const musicBtn = document.getElementById('musicFloatBtn');
@@ -1535,7 +1726,6 @@
             }
         }
 
-        // 使用者互動解鎖（不含 scroll，避免只是滑動就觸發）
         const unlockEvents = ['click', 'touchstart', 'touchend', 'pointerdown', 'keydown'];
         const unlockHandler = () => {
             if (audioUnlocked) { detachUnlockListeners(); return; }
@@ -1665,7 +1855,6 @@
             document.body.appendChild(overlay);
             const closeModal = () => { overlay.remove(); };
 
-            // ★ 9/14 彈窗按鈕：在使用者手勢中「同步」播放音樂（最可靠），再關閉彈窗
             overlay.querySelector('#modalCloseBtn').addEventListener('click', () => {
                 if (musicPhoto) {
                     audio.play().then(() => {
@@ -1673,7 +1862,6 @@
                         updateMusicUI(true);
                         detachUnlockListeners();
                     }).catch(() => {
-                        // 播放失敗（極少數情況），顯示右下角按鈕提示
                         musicHint.classList.add('show');
                         musicHint.classList.remove('hide');
                     });
@@ -1685,7 +1873,7 @@
         }
 
         // ============================================================
-        // 7. 主題套用（依今日日期自動切換）
+        // 7. 主題套用
         // ============================================================
         function applyDailyTheme() {
             const qixi = isQixi();
@@ -1733,7 +1921,6 @@
                 dividerDot.textContent = qixi ? '💞' : ((isV || isMusicPhoto) ? '💘' : '❤️');
             }
 
-            // 9/14：顯示合照與音樂
             if (isMusicPhoto && !qixi) {
                 photoSection.classList.add('show');
                 musicBtn.classList.add('show');
@@ -1746,7 +1933,6 @@
                 updateMusicUI(false);
             }
 
-            // 背景特效
             if (qixi) {
                 stopPetals(); stopValentineFX(); startHeartRain();
             } else if (isV || isMusicPhoto) {
@@ -1769,7 +1955,6 @@
             updateCountdown();
             setInterval(updateCountdown, 1000);
 
-            // 跨日自動更新
             let lastDateStr = new Date().toDateString();
             setInterval(() => {
                 const now = new Date();
@@ -1779,7 +1964,6 @@
                 }
             }, 60000);
 
-            // 開場彈窗（延遲 800ms，避免與首屏動畫搶資源）
             const now = new Date();
             const upcomingExams = targets
                 .map(t => {
@@ -1795,8 +1979,6 @@
                 if (qixi) {
                     showModal({ qixi: true, cheerText: pureMsg });
                 } else if (isMusicPhoto) {
-                    // ★ 9/14：直接顯示開場彈窗，
-                    //   點「🎹 聽聽這首小幸運 🎹」就會播放音樂 + 關閉彈窗
                     showModal({
                         musicPhoto: true,
                         cheerText: '🎶 還記得這首鋼琴曲嗎?~My Dear~'
@@ -1817,10 +1999,1592 @@
             }, 800);
         }
 
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
-        } else {
+        // ============================================================
+        // 9. 知識挑戰題庫（依《116年腎臟專科醫師甄試教學講義&考古詳解》整理）
+        // ============================================================
+        const QUIZ_DATA = [
+            // ---------- 第1章 腎臟血流與腎絲球過濾 ----------
+            {
+                ch: '第1章 腎臟血流與腎絲球過濾',
+                q: '5/6 nephrectomy 後，入球與出球小動脈各會如何變化？',
+                opts: [
+                    'Afferent arteriole constricts, efferent arteriole dilates',
+                    'Afferent arteriole dilates significantly, efferent arteriole constricts',
+                    'Both afferent and efferent arterioles dilate',
+                    'Both afferent and efferent arterioles constrict'
+                ],
+                ans: 1,
+                exp: '5/6 腎切除後，剩餘腎元代償：入球小動脈顯著擴張、出球小動脈收縮，使腎絲球毛細血管靜水壓（P_GC）上升，single nephron GFR 增加。口訣：入擴出縮 SNGFR 升。',
+                src: 'BR Ch3、Ch51'
+            },
+            {
+                ch: '第1章 腎臟血流與腎絲球過濾',
+                q: '正常生理範圍內動脈壓下降時，腎臟如何維持腎灌流與 GFR？',
+                opts: [
+                    '僅依賴全身性血管收縮',
+                    '透過 myogenic 機制與 tubuloglomerular feedback 自體調節',
+                    '僅依賴 aldosterone',
+                    '僅依賴 angiotensin II'
+                ],
+                ans: 1,
+                exp: '腎臟自體調節由兩大機制負責：① myogenic（血管平滑肌對管壁張力變化的內在反應）；② TGF（macula densa 感測遠端小管 NaCl，經 adenosine、ATP、NO 調控入球小動脈）。MAP 在 80–180 mmHg 範圍內可維持恆定。',
+                src: 'BR Ch3'
+            },
+            {
+                ch: '第1章 腎臟血流與腎絲球過濾',
+                q: '下列關於腎臟自體調節與 TGF 的敘述，何者正確？',
+                opts: [
+                    'Myogenic 機制依賴 macula densa 經 adenosine、ATP、NO 傳遞至入球小動脈',
+                    'TGF 完全由全身性交感神經輸入所調控',
+                    'Myogenic 機制指動脈平滑肌因管壁張力變化而收縮與放鬆',
+                    '腎臟自體調節需要 aldosterone 與全身性 angiotensin II 作為主要調控者'
+                ],
+                ans: 2,
+                exp: 'Myogenic 是血管平滑肌的內在特性，對管壁張力變化直接反應，與 macula densa 無關。選項 A 描述的是 TGF；TGF 是局部旁分泌，非全身性交感；renal autoregulation 不依賴 aldosterone 或全身性 AngII。',
+                src: 'BR Ch3'
+            },
+            {
+                ch: '第1章 腎臟血流與腎絲球過濾',
+                q: '% ablation SNGFR 之變化，下列敘述何者正確？',
+                opts: [
+                    'Afferent arteriole 放鬆 > Efferent arteriole 放鬆，造成 single nephron GFR 上升',
+                    'Efferent arteriole 放鬆 > Afferent arteriole 放鬆，造成 single nephron GFR 上升',
+                    '兩者收縮程度相同',
+                    '兩者均不收縮也不放鬆'
+                ],
+                ans: 0,
+                exp: '剩餘腎元的入球放鬆程度大於出球放鬆程度，使 P_GC 上升、SNGFR 增加。若出球放鬆更多，P_GC 反而下降，SNGFR 不會上升。',
+                src: 'BR Ch3、Ch51'
+            },
+
+            // ---------- 第2章 腎小管運輸生理 ----------
+            {
+                ch: '第2章 腎小管運輸生理',
+                q: '關於 SGLT2 與 SGLT1 的比較，下列何者正確？',
+                opts: [
+                    'SGLT2 位於近曲小管 S3，負責 3–10% 葡萄糖再吸收',
+                    'SGLT1 的 Na⁺:glucose 運輸比例為 1:1',
+                    'Familial renal glucosuria 是 SGLT1 mutation 所致',
+                    'SGLT2 位於近曲小管 S1–S2，負責 90–97% 葡萄糖再吸收，Na⁺:glucose = 1:1'
+                ],
+                ans: 3,
+                exp: 'SGLT2 位於 S1–S2，capacity 高、affinity 低，Na⁺:glucose = 1:1，負責 90–97% 葡萄糖再吸收；SGLT1 位於 S3，Na⁺:glucose = 2:1，負責 3–10%。Familial renal glucosuria 是 SGLT2 mutation。口訣：SGLT2 拉大隊，SGLT1 撿剩的。',
+                src: 'BR Ch8'
+            },
+            {
+                ch: '第2章 腎小管運輸生理',
+                q: '關於 DCT 的鈣離子運輸，下列何者正確？',
+                opts: [
+                    '鈣離子經由 NCX1 進入細胞，由 TRPV5 排出',
+                    'TRPV5 位於 basolateral 側，PMCA1b 位於 apical 側',
+                    '鈣離子經 apical 側 TRPV5 進入細胞，與 calbindin-D28k 結合後，由 basolateral 側 NCX1 與 PMCA1b 排出',
+                    'Klotho 蛋白抑制 TRPV5 活性'
+                ],
+                ans: 2,
+                exp: 'DCT 鈣運輸路徑：apical TRPV5 → calbindin-D28k → basolateral NCX1/PMCA1b，由 Klotho 調控（非抑制）。',
+                src: 'BR Ch7；PED Ch43'
+            },
+            {
+                ch: '第2章 腎小管運輸生理',
+                q: 'Angiotensin II 在腎小管各段進行 NaCl 再吸收的機轉，下列何者正確？',
+                opts: [
+                    'AngII 僅作用於近曲小管，DCT 完全不受影響',
+                    'AngII 可直接增加 DCT 的 NCC 活性與 apical 膜表現量',
+                    'AngII 在 DCT 的作用完全依賴 aldosterone',
+                    'AngII 僅透過全身性血管收縮來影響鈉再吸收'
+                ],
+                ans: 1,
+                exp: 'AngII 可直接增加 DCT 的 NCC 活性與 apical 表現量，獨立於 aldosterone。AngII 也作用於近曲小管與集尿管，並非只靠血管收縮。',
+                src: 'BR Ch6、Ch11'
+            },
+            {
+                ch: '第2章 腎小管運輸生理',
+                q: 'Succinylcholine 造成高血鉀的機轉為何？',
+                opts: [
+                    '直接破壞肌肉細胞膜',
+                    '乙醯膽鹼受體（AChR）上調，使 K⁺ 由肌肉細胞外流',
+                    '抑制腎臟 K⁺ 排泄',
+                    '增加 aldosterone 分泌'
+                ],
+                ans: 1,
+                exp: '燒傷、去神經等狀態會使 AChR 上調，Succinylcholine 作用後造成 K⁺ 大量外流，導致高血鉀。',
+                src: 'BR Ch17'
+            },
+            {
+                ch: '第2章 腎小管運輸生理',
+                q: '低鈉高鉀飲食對腎小管 transporters 的影響（aldosterone paradox），下列何者正確？',
+                opts: [
+                    '高鈉飲食時 WNK 被活化 → NCC 活化',
+                    '高鈉飲食時 WNK 被抑制 → NCC 不活化',
+                    '低鈉高鉀飲食時 WNK 被抑制 → NCC 活化',
+                    '飲食中鉀濃度不影響 WNK 活性'
+                ],
+                ans: 1,
+                exp: '高鈉飲食 → WNK 抑制 → SPAK/OSR1 不活化 → NCC 不活化 → 鈉排出增加。低鈉高鉀飲食則相反：WNK 活化 → NCC 活化。',
+                src: 'BR Ch6、Ch12'
+            },
+
+            // ---------- 第3章 電解質與酸鹼平衡障礙 ----------
+            {
+                ch: '第3章 電解質與酸鹼平衡障礙',
+                q: '關於 Thiazide-induced hyponatremia（TIH），下列敘述何者錯誤？',
+                opts: [
+                    '多數 TIH 患者在低血鈉出現時體重增加',
+                    'TIH 通常在 thiazide 開始後 2 週內發生，有 TIH 病史一般視為繼續使用該藥的禁忌',
+                    '在 SLCO2A1 loss-of-function 變異患者中，thiazide 會增加 AVP 濃度',
+                    '在 SLCO2A1 loss-of-function 變異患者中，thiazide 會增加尿中 PGE2 濃度'
+                ],
+                ans: 2,
+                exp: 'SLCO2A1 loss-of-function → 集尿管 PGE2 再吸收減少、尿 PGE2 增加。但 TIH 患者 AVP 偏低，屬 AVP-independent，thiazide 不會增加 AVP 濃度。',
+                src: 'BR Ch50；Ch15'
+            },
+            {
+                ch: '第3章 電解質與酸鹼平衡障礙',
+                q: '關於低血鈉 SIADH 患者限水治療失敗的預測因子，下列何者除外？',
+                opts: [
+                    '尿液滲透壓 > 500 mOsm/kg',
+                    '尿 Na⁺ + 尿 K⁺ > 血 Na⁺',
+                    '24 小時尿量 < 1500 mL',
+                    '血鈉 < 105 mEq/L'
+                ],
+                ans: 3,
+                exp: '限水失敗預測因子：Uosm > 500、尿 Na⁺+K⁺ > 血 Na⁺、24h 尿量 < 1500 mL。血鈉 < 105 是 ODS（滲透性去髓鞘症候群）風險，不是限水失敗預測因子。',
+                src: 'BR Ch15；HD Ch33'
+            },
+            {
+                ch: '第3章 電解質與酸鹼平衡障礙',
+                q: '關於遺傳性腎小管酸中毒（RTA），下列何者正確？',
+                opts: [
+                    'Primary distal RTA 是兒童 hereditary RTA 中最常見的類型',
+                    'SLC4A4 mutation 造成 distal RTA',
+                    'ATP6V1B1 mutation 造成 proximal RTA',
+                    'CA II deficiency 造成 isolated proximal RTA'
+                ],
+                ans: 0,
+                exp: 'Primary distal RTA（type 1）是兒童遺傳性 RTA 中最常見。SLC4A4 → proximal RTA 合併眼睛異常；ATP6V1B1 → distal RTA 合併耳聾；CA II deficiency → mixed RTA 合併 osteopetrosis。',
+                src: 'PED Ch38；BR Ch44'
+            },
+            {
+                ch: '第3章 電解質與酸鹼平衡障礙',
+                q: '關於 Liddle syndrome 與 GRA 的實驗室表現，下列何者正確？',
+                opts: [
+                    'Liddle syndrome：低 renin + 高 aldosterone',
+                    'GRA：低 renin + 低 aldosterone',
+                    'Liddle syndrome：低 renin + 低 aldosterone',
+                    'GRA：高 renin + 高 aldosterone'
+                ],
+                ans: 2,
+                exp: 'Liddle syndrome 為 ENaC gain-of-function，renin 與 aldosterone 均低；GRA 為低 renin + 高 aldosterone。口訣：Liddle 兩個低。',
+                src: 'BR Ch46 Table 24.4'
+            },
+            {
+                ch: '第3章 電解質與酸鹼平衡障礙',
+                q: '關於 Gitelman/Bartter syndrome 與利尿劑使用之區辨，下列何者正確？',
+                opts: [
+                    '兩者均表現低尿鈉',
+                    '兩者均表現 persistent high urine Na⁺ and Cl⁻',
+                    'Gitelman syndrome 不會低血鈣原因是 PCT 再吸收多',
+                    'Bartter syndrome 為 AD 遺傳'
+                ],
+                ans: 1,
+                exp: 'Gitelman/Bartter 與利尿劑使用均可見 persistent high urine Na⁺ and Cl⁻。Gitelman 低血鈣與 DCT 再吸收有關；Bartter 多為 AR（type 5 為 AD）。',
+                src: 'BR Ch17、Ch50；PED Ch41'
+            },
+            {
+                ch: '第3章 電解質與酸鹼平衡障礙',
+                q: '一位患者 Mg 15 mg/dL，DTR 減弱，意識改變。最適當處置為何？',
+                opts: [
+                    'HD + 補 Ca',
+                    'Hydration + 補 Ca',
+                    '口服 Mg binders',
+                    '觀察'
+                ],
+                ans: 0,
+                exp: '嚴重高血鎂（Mg > 12 mg/dL）合併神經症狀，需緊急血液透析 ＋ 補鈣。鈣可暫時逆轉鎂引起的神經肌肉與心臟毒性。口訣：鎂高洗鈣。',
+                src: 'BR Ch18'
+            },
+            {
+                ch: '第3章 電解質與酸鹼平衡障礙',
+                q: 'HypoMg 但未給 FeMg，長期處置為何？',
+                opts: [
+                    '補 Mg',
+                    'Hold PPI',
+                    '給 loop diuretic',
+                    '限水'
+                ],
+                ans: 1,
+                exp: 'PPI 相關低血鎂，長期處置為停用 PPI。PPI 造成腸道鎂吸收減少，停藥後通常可改善。Loop diuretic 會加重低鎂。',
+                src: 'BR Ch18；HD Ch59'
+            },
+            {
+                ch: '第3章 電解質與酸鹼平衡障礙',
+                q: '關於 Salicylate 中毒的治療，下列何者正確？',
+                opts: [
+                    'Forced diuresis 為首選治療',
+                    'Urinary alkalinization 可增加 salicylate 排除，機轉為 ion trapping',
+                    '血液透析無治療角色',
+                    '酸化尿液可增加排除'
+                ],
+                ans: 1,
+                exp: '鹼化尿液可將 salicylate 解離為離子形式，減少通過血腦屏障與腎小管再吸收，機轉為 ion trapping。嚴重時需 HD；酸化尿液反而會增加再吸收。',
+                src: 'BR Ch67；HD Ch69'
+            },
+
+            // ---------- 第4章 鈣磷鎂代謝與 CKD-MBD ----------
+            {
+                ch: '第4章 鈣磷鎂代謝與 CKD-MBD',
+                q: '一位患者表現便祕、高血鈣、高 1,25(OH)₂D。最可能的診斷為何？',
+                opts: [
+                    'Primary hyperparathyroidism',
+                    'HHRH',
+                    'CYP24A1 deficiency',
+                    'Tumor-induced osteomalacia'
+                ],
+                ans: 1,
+                exp: 'HHRH 為 SLC34A3（NaP-IIc）突變造成腎臟磷流失，低血磷刺激 CYP27B1 上調，使 1,25(OH)₂D 上升，增加腸道鈣吸收。口訣：磷漏 D 升鈣高。',
+                src: 'BR Ch18；PED Ch40'
+            },
+            {
+                ch: '第4章 鈣磷鎂代謝與 CKD-MBD',
+                q: '在 CKD 合併高磷血症與次發性副甲狀腺功能亢進的患者中，持續暴露 PTH 如何改變骨重塑的分子機轉？',
+                opts: [
+                    '持續下調 OPG/RANKL 系統，減少骨吸收',
+                    '刺激 osteocyte 分泌 sclerostin 與 DKK-1，抑制 β-catenin 訊號',
+                    '經由 PTH 抑制 sclerostin 與 DKK-1，活化 β-catenin 訊號，增加 RANKL 誘導的骨吸收',
+                    '完全依賴 Wnt-dependent pathway，繞過非 Wnt 訊號'
+                ],
+                ans: 2,
+                exp: 'PTH 抑制 osteocyte 分泌 sclerostin 與 DKK-1 → β-catenin 活化 → RANKL↑ → 骨吸收。間歇性 PTH 促進骨生成；持續性 PTH 造成骨吸收。口訣：PTH 間歇造骨、持續蝕骨。',
+                src: 'BR Ch53'
+            },
+            {
+                ch: '第4章 鈣磷鎂代謝與 CKD-MBD',
+                q: '關於 Ferric carboxymaltose 造成低血磷的機轉，下列何者正確？',
+                opts: [
+                    '直接抑制腎小管 NaPi 運輸',
+                    '造成 FGF23 累積，進而抑制腎小管磷再吸收',
+                    '增加 PTH 分泌',
+                    '造成維生素 D 缺乏'
+                ],
+                ans: 1,
+                exp: 'Ferric carboxymaltose 導致 FGF23 累積，FGF23 抑制 NaPi-2a，造成腎性磷流失。',
+                src: 'BR Ch55；HD Ch37'
+            },
+            {
+                ch: '第4章 鈣磷鎂代謝與 CKD-MBD',
+                q: '一位 calciphylaxis 患者，已停 warfarin，Ca/P/PTH 尚可。最適當治療為何？',
+                opts: [
+                    'Parathyroidectomy',
+                    'Sodium thiosulfate',
+                    'Oral cinacalcet',
+                    '繼續 warfarin'
+                ],
+                ans: 1,
+                exp: '已停 warfarin，Ca/P/PTH 控制尚可，首選 IV sodium thiosulfate。Cinacalcet 用於高 PTH；warfarin 會惡化 calciphylaxis。口訣：停 W、給 STS。',
+                src: 'BR Ch58；HD Ch39'
+            },
+            {
+                ch: '第4章 鈣磷鎂代謝與 CKD-MBD',
+                q: '一位 TIO 患者，骨痛、近端肌無力、低磷血症。最適當治療為何？',
+                opts: [
+                    '補磷與 active vitamin D',
+                    '切除腫瘤',
+                    '洗腎',
+                    '血漿置換'
+                ],
+                ans: 1,
+                exp: 'TIO 為腫瘤分泌 FGF23 導致低磷，根本治療為切除腫瘤。補磷與 vitD 為症狀治療。',
+                src: 'BR Ch53；PED Ch40'
+            },
+            {
+                ch: '第4章 鈣磷鎂代謝與 CKD-MBD',
+                q: '高血鈣，給 25vitD、1,25vitD 數值，1,24,25vitD 很低，問如何治療高血鈣？',
+                opts: [
+                    'Ketoconazole',
+                    '補磷',
+                    '洗腎',
+                    '切除副甲狀腺'
+                ],
+                ans: 0,
+                exp: 'CYP24A1 deficiency 導致 1,24,25vitD 很低，治療用 ketoconazole 抑制 1α-hydroxylase。',
+                src: 'BR Ch18'
+            },
+            {
+                ch: '第4章 鈣磷鎂代謝與 CKD-MBD',
+                q: '關於 CKD-MBD 實驗室變化的時序，下列何者最早出現？',
+                opts: [
+                    'FGF23 上升',
+                    'PTH 上升',
+                    '血磷上升',
+                    '血鈣下降'
+                ],
+                ans: 0,
+                exp: '時序：FGF23（stage 1–2）→ PTH（stage 2–3）→ 血磷（stage 3b–4）→ 血鈣下降。口訣：FGF23 最早升。',
+                src: 'BR Ch53、Ch59；HD Ch39'
+            },
+
+            // ---------- 第5章 腎絲球疾病與蛋白尿 ----------
+            {
+                ch: '第5章 腎絲球疾病與蛋白尿',
+                q: '一位 PLA2R 抗體陽性的膜性腎病患者，接受 rituximab 治療後追蹤，發現 PLA2R 抗體不降反升。最適當處置為何？',
+                opts: [
+                    '繼續觀察，無需調整',
+                    '代表免疫學復發，需考慮增強或更換免疫抑制治療',
+                    '立即停止所有免疫抑制治療',
+                    '改為支持性治療即可'
+                ],
+                ans: 1,
+                exp: 'PLA2R 抗體為疾病活動性生物標記，不降反升代表免疫學應答不足或再激活，需增強或更換治療。口訣：升就加藥。',
+                src: 'BR Ch31'
+            },
+            {
+                ch: '第5章 腎絲球疾病與蛋白尿',
+                q: '一位 61 歲男性，有 B 型肝炎帶原，腎切片診斷為膜性腎病，PLA2R 染色陽性。下列敘述何者正確？',
+                opts: [
+                    'PLA2R 陽性可完全排除惡性腫瘤相關之膜性腎病',
+                    'PLA2R 陽性仍不能完全排除惡性腫瘤，需依年齡與風險進行篩檢',
+                    'B 型肝炎與膜性腎病無關',
+                    '此患者不需要接受任何免疫抑制治療'
+                ],
+                ans: 1,
+                exp: 'PLA2R 陽性仍不能完全排除惡性腫瘤，需依年齡與風險進行惡性腫瘤篩檢。B 型肝炎與膜性腎病有關。',
+                src: 'BR Ch31'
+            },
+            {
+                ch: '第5章 腎絲球疾病與蛋白尿',
+                q: '關於 Nephrotic syndrome 的血漿蛋白變化，下列何者錯誤？',
+                opts: [
+                    'IgG 下降',
+                    'Transferrin 下降',
+                    'C3 下降',
+                    'C4bp 下降'
+                ],
+                ans: 3,
+                exp: 'Nephrotic syndrome：IgG 下降、transferrin 下降、C3 下降，但 C4bp 是增加的（非下降）。',
+                src: 'BR Ch31 Box 31.2'
+            },
+            {
+                ch: '第5章 腎絲球疾病與蛋白尿',
+                q: '關於 IgA 腎病的血壓控制目標與治療，下列何者正確？',
+                opts: [
+                    '血壓目標 < 140/90 mmHg',
+                    '蛋白尿 > 0.5 g/day 時，SBP 目標 < 120 mmHg',
+                    '首選治療為 cyclophosphamide',
+                    'Budesonide 無治療角色'
+                ],
+                ans: 1,
+                exp: 'IgA 腎病蛋白尿 > 0.5 g/day 時 SBP 目標 < 120 mmHg，首選 RAS blockade；budesonide 可降低蛋白尿。',
+                src: 'BR Ch31'
+            },
+            {
+                ch: '第5章 腎絲球疾病與蛋白尿',
+                q: '關於 Pneumococcus-associated HUS，下列何者正確？',
+                opts: [
+                    '好發於老年人',
+                    'Coombs test positive',
+                    'Plasma exchange 可用 FFP',
+                    '與 neuraminidase 無關'
+                ],
+                ans: 1,
+                exp: 'Pneumococcus HUS 好發 < 2 歲，Coombs test positive（neuraminidase 暴露 T antigen）。不可用 FFP，因血漿中含 T-antibody 會加重溶血，需用 washed blood products 或 albumin 作為置換液。口訣：Coombs 陽、FFP 不行。',
+                src: 'BR Ch34；PED Ch24'
+            },
+            {
+                ch: '第5章 腎絲球疾病與蛋白尿',
+                q: '關於 HIV associated GN，下列何者正確？',
+                opts: [
+                    'HIV collapse FSGS，cell swelling 較多，hyalinosis 較少',
+                    'TERT 增加 Wnt 通路上調會加劇惡化',
+                    'HIV immune complex 最常見不是 MPGN，是 IgA mesangial proliferation',
+                    '以上皆是'
+                ],
+                ans: 3,
+                exp: '三項敘述皆正確：HIV collapse FSGS 表現 cell swelling 多、hyalinosis 少；TERT 增加 Wnt 通路上調加劇惡化；HIV immune complex 最常見為 IgA mesangial proliferation。',
+                src: 'BR Ch32、Ch35'
+            },
+            {
+                ch: '第5章 腎絲球疾病與蛋白尿',
+                q: '關於 aHUS，下列何者正確？（註：本題原為多選，此處以最典型選項作答）',
+                opts: [
+                    'MCP46 為 membrane protein',
+                    'PE 有效',
+                    '補體正常即可排除',
+                    'MCP46 為 soluble protein'
+                ],
+                ans: 0,
+                exp: 'MCP46 為 membrane protein；PE 對 aHUS 無效，可考慮 eculizumab；補體正常不能排除 aHUS。',
+                src: 'BR Ch34；PED Ch23'
+            },
+            {
+                ch: '第5章 腎絲球疾病與蛋白尿',
+                q: '關於 CAR-T CD19 治療 SLE 的機轉，下列何者正確？',
+                opts: [
+                    'CD19 僅表現在 B 細胞，與 plasma cell 無關',
+                    '有些 plasmablast 與 early plasma cell 為 CD19(+)CD20(−)，可被 CAR-T CD19 清除',
+                    'Anti-CD20 可清除所有 plasma cell',
+                    'CD19 與 CD20 表現完全相同'
+                ],
+                ans: 1,
+                exp: '有些 plasmablast/early plasma cell 為 CD19(+)CD20(−)，可被 CAR-T CD19 清除；anti-CD20 無法清除 CD20 陰性 plasma cell。',
+                src: 'BR Ch33；期刊'
+            },
+
+            // ---------- 第6章 腎小管間質疾病與遺傳性腎小管病 ----------
+            {
+                ch: '第6章 腎小管間質疾病與遺傳性腎小管病',
+                q: '關於 Atheroembolic renal disease 的病理特徵，下列何者正確？',
+                opts: [
+                    '腎絲球內可見 fibrin thrombus',
+                    '中小型動脈內可見 cholesterol clefts',
+                    '腎小管內可見 red blood cell casts',
+                    '間質大量 eosinophil 浸潤'
+                ],
+                ans: 1,
+                exp: 'Atheroembolic renal disease 的典型病理特徵為中小型動脈內可見針狀 cholesterol clefts。',
+                src: 'BR Ch34'
+            },
+            {
+                ch: '第6章 腎小管間質疾病與遺傳性腎小管病',
+                q: '一位 11 歲男童，右側 pyeography 呈現鳥嘴狀（fish-hook sign）、J-shaped ureter。最可能的診斷為何？',
+                opts: [
+                    '輸尿管結石',
+                    'Retrocaval ureter',
+                    'UPJO',
+                    'VUR'
+                ],
+                ans: 1,
+                exp: 'Retrocaval ureter 影像特徵為 fish-hook 或 J-shaped ureter。口訣：魚鉤 J 形。',
+                src: 'PED Ch57；BR Ch37'
+            },
+            {
+                ch: '第6章 腎小管間質疾病與遺傳性腎小管病',
+                q: '關於 HFRS，下列何者正確？',
+                opts: [
+                    'Hantaan virus 與 Dobrava virus 較嚴重',
+                    '伴隨間質發炎、水腫、出血',
+                    '常伴有肉眼或顯微血尿',
+                    '以上皆是'
+                ],
+                ans: 3,
+                exp: 'HFRS 由 Hantaan、Dobrava 病毒引起較嚴重（死亡率 5–15%），伴隨間質發炎、水腫、出血，常伴有血尿。',
+                src: 'BR Ch35'
+            },
+            {
+                ch: '第6章 腎小管間質疾病與遺傳性腎小管病',
+                q: '一位慢性 B 型肝炎患者，長期服用 adefovir dipivoxil 後出現 Fanconi syndrome。最可能機轉為何？',
+                opts: [
+                    '藥物直接造成腎絲球損傷',
+                    'Nucleoside analog 造成近曲小管粒線體毒性，導致廣泛性近曲小管功能障礙',
+                    '藥物造成間質性腎炎',
+                    '藥物造成腎血管收縮'
+                ],
+                ans: 1,
+                exp: 'Adefovir 與 tenofovir 等 nucleoside analogs 造成近曲小管粒線體毒性，導致 Fanconi syndrome。',
+                src: 'BR Ch36；PED Ch36'
+            },
+            {
+                ch: '第6章 腎小管間質疾病與遺傳性腎小管病',
+                q: '關於 Hypokalemic nephropathy，下列何者正確？',
+                opts: [
+                    'Proximal vacuolization',
+                    'Interstitial nephritis',
+                    'Cyst',
+                    '以上皆是'
+                ],
+                ans: 3,
+                exp: 'Hypokalemic nephropathy 的三大病理特徵：proximal vacuolization、interstitial nephritis、cyst。',
+                src: 'BR Ch17、Ch35'
+            },
+            {
+                ch: '第6章 腎小管間質疾病與遺傳性腎小管病',
+                q: '嬰兒切過腸子，HAGMA，lactate 高一點點，NH3 高。最可能診斷為何？',
+                opts: [
+                    'D lactate acidosis',
+                    'L lactate acidosis',
+                    'Methylmalonic acid',
+                    '以上皆非'
+                ],
+                ans: 2,
+                exp: '有機酸血症（如 methylmalonic acid）會使 NH3 上升；單純 D/L lactate acidosis 通常 NH3 不會上升。',
+                src: 'PED Ch31-33'
+            },
+            {
+                ch: '第6章 腎小管間質疾病與遺傳性腎小管病',
+                q: '關於 SLC4A1(AE1) 與 CAII deficiency，下列何者正確？',
+                opts: [
+                    'SLC4A1 有 AD/AR 兩型',
+                    'CAII deficiency related osteopetrosis',
+                    '兩者均造成 distal RTA',
+                    '以上皆是'
+                ],
+                ans: 3,
+                exp: 'SLC4A1 有 AD/AR 兩型，編碼 basolateral anion exchanger AE1，是 AD-dRTA 唯一已知遺傳原因；CAII deficiency 造成 mixed RTA 合併 osteopetrosis；兩者均與 distal RTA 相關。',
+                src: 'BR Ch44；PED Ch38'
+            },
+
+            // ---------- 第7章 AKI與重症腎臟 ----------
+            {
+                ch: '第7章 AKI 與重症腎臟',
+                q: '關於 ELAIN 與 AKIKI 兩項大型隨機試驗的結果，下列何者正確？',
+                opts: [
+                    'ELAIN 顯示早期透析可顯著降低死亡率',
+                    'AKIKI 顯示早期透析可顯著改善腎功能恢復',
+                    '兩項試驗均顯示，無緊急適應症時早期透析並無明確益處',
+                    'AKIKI 顯示晚期透析增加死亡率'
+                ],
+                ans: 2,
+                exp: 'AKIKI 顯示早期 vs 晚期透析死亡率無顯著差異；整體證據支持無緊急適應症時不一定要早期透析。',
+                src: 'BR Ch29、Ch65；HD Ch67'
+            },
+            {
+                ch: '第7章 AKI 與重症腎臟',
+                q: '關於 CVVH with RCA，下列敘述何者正確？',
+                opts: [
+                    '檸檬酸經由肝臟代謝為碳酸氫鈉，不需監測離子鈣',
+                    '目標 effluent dose 為 20–25 mL/kg/h',
+                    'RCA 首選於肝功能衰竭患者',
+                    '檸檬酸抗凝禁用於出血風險患者'
+                ],
+                ans: 1,
+                exp: 'CVVH with RCA 目標 effluent dose 為 20–25 mL/kg/h；需監測離子鈣；肝功能衰竭需謹慎使用；RCA 適用於高出血風險患者。口訣：CVVH RCA 優先。',
+                src: 'BR Ch65；HD Ch67-68'
+            },
+            {
+                ch: '第7章 AKI 與重症腎臟',
+                q: '關於 AKI 與 CKD progression marker，下列何者正確？',
+                opts: [
+                    'Urine NGAL 為 proximal tubule injury marker',
+                    'Urine IL-18 為 proximal tubule injury marker',
+                    'Urine KIM-1 為 proximal tubule injury marker',
+                    '以上皆是'
+                ],
+                ans: 3,
+                exp: 'Urine NGAL、IL-18、KIM-1、L-FABP 皆為 proximal tubule injury marker。',
+                src: 'BR Ch27'
+            },
+            {
+                ch: '第7章 AKI 與重症腎臟',
+                q: '一位 ATN 病理圖＋tubule 中大量 neutrophil，最可能診斷為何？',
+                opts: [
+                    'ATN',
+                    'APN',
+                    'AIN',
+                    '腎絲球腎炎'
+                ],
+                ans: 1,
+                exp: 'APN（acute pyelonephritis）表現為 tubule 內大量 neutrophil 浸潤；ATN 以 tubular epithelial cell 扁平、cast 為主；AIN 以 eosinophil 浸潤為主。',
+                src: 'BR Ch35'
+            },
+
+            // ---------- 第8章 CKD進展與併發症 ----------
+            {
+                ch: '第8章 CKD 進展與併發症',
+                q: '關於 CKD 患者內分泌異常，下列何者錯誤？',
+                opts: [
+                    'Prolactin 上升',
+                    'Testosterone 下降',
+                    'GH/IGF-1 整體上升',
+                    'Adiponectin 下降'
+                ],
+                ans: 3,
+                exp: 'CKD 患者 prolactin 上升、testosterone 下降、GH 上升但 IGF-1 下降（GH resistance），adiponectin 是增加的。',
+                src: 'BR Ch56'
+            },
+            {
+                ch: '第8章 CKD 進展與併發症',
+                q: '關於糖尿病腎病變的切片適應症（Box 39.1），下列何者除外？',
+                opts: [
+                    '無糖尿病視網膜病變但出現腎病症候群範圍蛋白尿',
+                    '糖尿病病程 < 5 年但出現腎病症候群範圍蛋白尿或腎衰竭',
+                    '腎病症候群範圍蛋白尿且腎功能正常',
+                    '微量白蛋白尿且糖尿病病程 > 10 年'
+                ],
+                ans: 3,
+                exp: '微量白蛋白尿且病程 > 10 年為典型 DKD 表現，不需切片。無視網膜病變、病程 < 5 年、腎病症候群蛋白尿但腎功能正常、不明血尿/AKI、快速惡化皆為切片適應症。',
+                src: 'BR Ch39'
+            },
+            {
+                ch: '第8章 CKD 進展與併發症',
+                q: '關於 2026 KDIGO 貧血指引，下列何者正確？',
+                opts: [
+                    'HIF-PHI 為第一線治療',
+                    'ESAs 仍為第一線治療',
+                    '輸血不會影響未來移植排斥風險',
+                    'HIF-PHI 僅限透析患者使用'
+                ],
+                ans: 1,
+                exp: '2026 KDIGO 貧血指引：ESAs 仍為第一線，HIF-PHI 非第一線；輸血會增加移植排斥風險；HIF-PHI 不限透析患者。',
+                src: 'BR Ch55；HD Ch37；期刊'
+            },
+            {
+                ch: '第8章 CKD 進展與併發症',
+                q: '一位第 2 型糖尿病患者，CKD G3bA3，已接受 RAS blockade 與 SGLT2i 治療，K⁺ 4.9 mEq/L，UACR 仍持續偏高。最適當的下一步為何？',
+                opts: [
+                    '立即安排腎切片',
+                    '加入 finerenone（非類固醇 MRA）',
+                    '加入 cyclophosphamide',
+                    '停止 SGLT2i'
+                ],
+                ans: 1,
+                exp: 'FIDELIO-DKD 與 FIGARO-DKD 證實 finerenone 可降低腎臟進展與心血管事件。K⁺ 4.9 仍在可接受範圍（finerenone 禁用於 K⁺ > 5.0 mEq/L）。',
+                src: 'BR Ch39；期刊'
+            },
+            {
+                ch: '第8章 CKD 進展與併發症',
+                q: '何者不是 CKD marker？',
+                opts: [
+                    'suPAR',
+                    'Serum cystatin C',
+                    'Urine KIM-1',
+                    'Serum creatinine'
+                ],
+                ans: 0,
+                exp: 'suPAR 為 circulating signaling protein，可作為 CKD biomarker，但屬「非傳統 CKD marker」。cystatin C、KIM-1、creatinine 皆為傳統 CKD marker。',
+                src: 'BR Ch27'
+            },
+
+            // ---------- 第9章 腎臟影像與囊腫/腫瘤 ----------
+            {
+                ch: '第9章 腎臟影像與囊腫/腫瘤',
+                q: '關於 Bosniak classification，一位患者腎囊腫有 enhancement 但無 enhancing soft tissue component。最可能的分類為何？',
+                opts: [
+                    'Class I',
+                    'Class II',
+                    'Class III',
+                    'Class IV'
+                ],
+                ans: 2,
+                exp: 'Class III：有可測量 contrast enhancement，但無 enhancing soft tissue，惡性率約 33%。Class IV：有 enhancing soft tissue，惡性率約 92.5%。口訣：Bosniak III 開刀考慮，IV 直接開。',
+                src: 'BR Ch41 Table 41.2'
+            },
+            {
+                ch: '第9章 腎臟影像與囊腫/腫瘤',
+                q: '關於不同腎細胞癌（RCC）亞型的比較，下列何者正確？',
+                opts: [
+                    'Chromophobe RCC 起源於 collecting duct',
+                    'Clear cell RCC 佔 RCC 的 70–88%',
+                    'Papillary RCC 與 ADPKD 無關',
+                    'Chromophobe RCC 預後最差'
+                ],
+                ans: 1,
+                exp: 'Clear cell RCC 佔 70–88%；chromophobe RCC 起源 proximal tubule、預後較好；papillary RCC 與 ACKD 相關。',
+                src: 'BR Ch41'
+            },
+            {
+                ch: '第9章 腎臟影像與囊腫/腫瘤',
+                q: '關於 GBCA 與 Nephrogenic Systemic Fibrosis（NSF）的關聯，下列何者正確？',
+                opts: [
+                    'eGFR > 30 mL/min/1.73m² 患者禁用 GBCA',
+                    'eGFR ≤ 30 mL/min/1.73m² 患者如必須使用 GBCA，建議選用 Group II agents',
+                    'Group I GBCA 可用於透析患者',
+                    'AKI 患者可使用 Group I GBCA'
+                ],
+                ans: 1,
+                exp: 'eGFR ≤ 30 及 HD 患者如必須使用 GBCA，建議 Group II，Group I 禁用。AKI 患者應避免所有對比劑。',
+                src: 'BR Ch25'
+            },
+            {
+                ch: '第9章 腎臟影像與囊腫/腫瘤',
+                q: '關於 ADPKD 危險評估與治療，下列何者正確？',
+                opts: [
+                    '50 歲以下 BP 目標 110/75 mmHg，首選 RASi，SBP < 120 mmHg',
+                    '1C–1E 且 eGFR > 25 可用 tolvaptan',
+                    'Mayo clinic、PROPKD 為危險評估工具',
+                    '以上皆是'
+                ],
+                ans: 3,
+                exp: '三項敘述皆正確：50 歲以下 BP 目標 110/75 mmHg、首選 RASi、SBP < 120 mmHg；1C–1E 且 eGFR > 25 可用 tolvaptan；Mayo clinic 與 PROPKD 為危險評估工具。',
+                src: 'BR Ch45'
+            },
+            {
+                ch: '第9章 腎臟影像與囊腫/腫瘤',
+                q: '關於 T1 MRI 腎臟訊號，下列何者正確？',
+                opts: [
+                    'Cortex brighter than medulla',
+                    'Medulla brighter than cortex',
+                    '兩者相同',
+                    '無法分辨'
+                ],
+                ans: 0,
+                exp: '正常 T1 MRI 腎臟皮質訊號高於髓質，形成皮質髓質分化（cortex brighter than medulla）。',
+                src: 'BR Ch25'
+            },
+            {
+                ch: '第9章 腎臟影像與囊腫/腫瘤',
+                q: '關於 Split renal GFR 工具，下列何者正確？',
+                opts: [
+                    'Tc-99m DTPA',
+                    'DMSA 看 scarring',
+                    'MAG 看 tubule secretion',
+                    '以上皆是'
+                ],
+                ans: 3,
+                exp: 'Tc-99m DTPA 為 split renal GFR 工具；DMSA 看 scarring；MAG 看 tubule secretion。',
+                src: 'BR Ch25'
+            },
+
+            // ---------- 第10章 血液透析與血管通路 ----------
+            {
+                ch: '第10章 血液透析與血管通路',
+                q: '關於 AVF maturation 的機轉，下列何者促進 AVF 成熟？',
+                opts: [
+                    'Inward remodeling',
+                    'HO-1、NO、MMP-2/9、expansive wall remodeling',
+                    'MCP-1、peroxynitrite',
+                    'Neointimal hyperplasia'
+                ],
+                ans: 1,
+                exp: 'HO-1、NO、MMP-2/9、expansive wall remodeling 促進 AVF 成熟；inward remodeling、MCP-1、peroxynitrite、neointimal hyperplasia 導致 maturation failure。',
+                src: 'BR Ch68；HD Ch15'
+            },
+            {
+                ch: '第10章 血液透析與血管通路',
+                q: '關於 AVF 的 side-by-side 與 end-to-side 吻合方式，下列何者正確？',
+                opts: [
+                    'Side-by-side failure 機率明顯高於 end-to-side',
+                    'Side-to-side 較容易發生 arterial steal phenomenon',
+                    'End-to-side 較容易發生 arterial steal phenomenon',
+                    '兩者 failure 機率與 steal 機率均無差異'
+                ],
+                ans: 1,
+                exp: '兩者 failure 機率差不多，但 side-to-side 因血流動力學特性，較容易發生 arterial steal phenomenon。',
+                src: 'BR Ch68；HD Ch15'
+            },
+            {
+                ch: '第10章 血液透析與血管通路',
+                q: '關於大分子物質在血液透析中的清除率，下列何者影響最小？',
+                opts: [
+                    '血液流量',
+                    '透析液流量',
+                    '膜表面積',
+                    '治療時間'
+                ],
+                ans: 0,
+                exp: '大分子清除主要受限於膜通透性，血液流量影響最小；透析液流量對小分子影響較大。',
+                src: 'BR Ch63；HD Ch4-6'
+            },
+            {
+                ch: '第10章 血液透析與血管通路',
+                q: 'HD 無法改善 cognitive function，對嗎？',
+                opts: [
+                    '對',
+                    '錯',
+                    '不確定',
+                    '僅限透析患者'
+                ],
+                ans: 0,
+                exp: '血液透析無法改善 cognitive function，為已知事實。',
+                src: 'BR Ch57；HD Ch50'
+            },
+
+            // ---------- 第11章 腹膜透析 ----------
+            {
+                ch: '第11章 腹膜透析',
+                q: '關於 Icodextrin 造成的 acute generalized exanthematous pustulosis（AGEP），下列何者正確？',
+                opts: [
+                    '是一種常見的 PD 併發症',
+                    '表現為全身性膿皰疹，與 icodextrin 使用相關',
+                    '停用 icodextrin 後不會改善',
+                    '與傳統 glucose-based 透析液無差異'
+                ],
+                ans: 1,
+                exp: 'Icodextrin 是 PD 滲透劑，可造成 AGEP，表現全身性膿皰疹，停用後通常可改善。',
+                src: 'BR Ch64；HD Ch22'
+            },
+            {
+                ch: '第11章 腹膜透析',
+                q: '一位 PD 患者，PET 顯示 high transporter，60 分鐘 Na dip 僅 2 mEq/L。最可能的診斷為何？',
+                opts: [
+                    'Peritonitis',
+                    'AQP1 deficiency',
+                    'EPS',
+                    'Normal PET'
+                ],
+                ans: 1,
+                exp: 'High D/P、low D/D0、Na dip < 5 需鑑別 high transporter 與 AQP1 功能不足。AQP1 負責 sodium sieving，功能不足時 Na dip 會顯著減小。口訣：AQP1 壞、篩鈉少。',
+                src: 'BR Ch64；HD Ch24'
+            },
+            {
+                ch: '第11章 腹膜透析',
+                q: '關於 Encapsulating Peritoneal Sclerosis（EPS），下列何者錯誤？',
+                opts: [
+                    '與 PD 時間長短相關',
+                    'EPS 可以預防',
+                    '治療選項包括 mildoxifen',
+                    '需考慮轉換為血液透析'
+                ],
+                ans: 1,
+                exp: 'EPS 預防目前尚不可行，因致病機轉未完全明瞭。治療選項包括 mildoxifen、TPN，需考慮轉 HD。',
+                src: 'BR Ch64；HD Ch31'
+            },
+
+            // ---------- 第12章 毒物清除與血漿置換 ----------
+            {
+                ch: '第12章 毒物清除與血漿置換',
+                q: '關於 Salicylate 中毒的治療，下列何者正確？',
+                opts: [
+                    'Forced diuresis 為首選治療',
+                    'Urinary alkalinization 可增加 salicylate 排除，機轉為 ion trapping',
+                    '血液透析無治療角色',
+                    '酸化尿液可增加排除'
+                ],
+                ans: 1,
+                exp: '鹼化尿液將 salicylate 解離為離子形式，減少再吸收，機轉為 ion trapping。嚴重時需 HD；酸化尿液會增加再吸收。口訣：Salicylate 鹼化尿液。',
+                src: 'BR Ch67；HD Ch69'
+            },
+            {
+                ch: '第12章 毒物清除與血漿置換',
+                q: '關於血漿置換（plasmapheresis）的 category I 適應症，下列何者錯誤？',
+                opts: [
+                    'Anti-GBM disease without dialysis',
+                    'Thrombotic thrombocytopenic purpura（TTP）',
+                    'Severe lupus nephritis',
+                    'Hyperviscosity in monoclonal gammopathy'
+                ],
+                ans: 2,
+                exp: 'Anti-GBM without dialysis、TTP、hyperviscosity in monoclonal gammopathy 皆為 category I；severe lupus nephritis 為 category II。',
+                src: 'BR Ch66 Table 66.1'
+            },
+            {
+                ch: '第12章 毒物清除與血漿置換',
+                q: '關於 ANCA，下列何者正確？',
+                opts: [
+                    'PEXIVAS 顯示 PE 不改善預後但仍可考慮',
+                    'PE 為第一線治療',
+                    'ANCA requiring dialysis 為 category I',
+                    '以上皆是'
+                ],
+                ans: 0,
+                exp: 'PEXIVAS 顯示 PE 不改善預後但仍可考慮；PE 非第一線；ANCA requiring dialysis 為 category III。',
+                src: 'BR Ch31；期刊'
+            },
+            {
+                ch: '第12章 毒物清除與血漿置換',
+                q: '關於 ECTR（extracorporeal treatment）流程圖，下列何者正確？',
+                opts: [
+                    '依分子量、蛋白結合率、分布體積決定',
+                    '分子量 < 15,000 Da 用 high-flux hemodialysis',
+                    '蛋白結合率 > 95% 用 therapeutic plasma exchange',
+                    '以上皆是'
+                ],
+                ans: 3,
+                exp: 'ECTR 依分子量、蛋白結合率、分布體積決定：分子量 < 15,000 Da 用 high-flux HD；蛋白結合率 > 95% 用 TPE。',
+                src: 'BR Ch67；HD Ch69'
+            },
+
+            // ---------- 第13章 移植免疫與排斥診斷 ----------
+            {
+                ch: '第13章 移植免疫與排斥診斷',
+                q: '一位腎移植患者發生 weak acid-fast positive、beaded、branching filament 的肺部感染。最可能的診斷與治療為何？',
+                opts: [
+                    'Mycobacterium tuberculosis；RIPE',
+                    'Nocardia；TMP-SMX 合併 carbapenem，必要時手術引流',
+                    'Aspergillus；voriconazole',
+                    'Cryptococcus；fluconazole'
+                ],
+                ans: 1,
+                exp: 'Nocardia 為 weak acid-fast positive、beaded、branching filament。治療以 TMP-SMX 為基石，可合併 carbapenem 或 linezolid。口訣：分支弱酸快。',
+                src: 'BR Ch36、Ch42'
+            },
+            {
+                ch: '第13章 移植免疫與排斥診斷',
+                q: '關於腎移植排斥反應的類型與時間，下列配對何者正確？',
+                opts: [
+                    'Hyperacute rejection：months-years，preformed anti-donor antibodies',
+                    'Accelerated rejection：days，reactivation of sensitized T cells',
+                    'Acute rejection：minutes-hours，primary activation of T cells',
+                    'Chronic rejection：days-weeks，causes are unclear'
+                ],
+                ans: 1,
+                exp: 'Hyperacute：minutes-hours；Accelerated：days，reactivation of sensitized T cells；Acute：days-weeks，primary activation of T cells；Chronic：months-years，機轉不明。',
+                src: 'BR Ch69'
+            },
+            {
+                ch: '第13章 移植免疫與排斥診斷',
+                q: '關於 TCMR 與 ABMR 的病理特徵，下列何者正確？',
+                opts: [
+                    'TCMR 的特徵為 C4d 沉積與 peritubular capillaries',
+                    'ABMR 的特徵為 tubulitis',
+                    'TCMR 的特徵為 tubulitis；ABMR 的特徵為 C4d、glomerulitis、peritubular capillaries',
+                    '兩者病理特徵完全相同'
+                ],
+                ans: 2,
+                exp: 'TCMR 為 tubulitis（腎小管炎）；ABMR 為 C4d 沉積、glomerulitis、peritubular capillaries 發炎。口訣：T 看管、A 看 C4d。',
+                src: 'BR Ch70'
+            },
+            {
+                ch: '第13章 移植免疫與排斥診斷',
+                q: '關於 HLA class I，下列何者正確？',
+                opts: [
+                    'HLA-D 為 class I',
+                    'MICA 為 HLA class I-like',
+                    'HLA-D 為 class II',
+                    'B 和 C 均正確'
+                ],
+                ans: 3,
+                exp: 'MICA 為 HLA class I-like；HLA-D 為 class II。',
+                src: 'BR Ch69'
+            },
+
+            // ---------- 第14章 移植後併發症與藥物 ----------
+            {
+                ch: '第14章 移植後併發症與藥物',
+                q: '關於 Post-transplant diabetes mellitus（PTDM）診斷，下列何者為 gold standard？',
+                opts: [
+                    'Fasting plasma glucose ≥ 126 mg/dL',
+                    'OGTT 2-hour plasma glucose ≥ 200 mg/dL',
+                    'HbA1c ≥ 6.5%',
+                    'Random plasma glucose ≥ 200 mg/dL'
+                ],
+                ans: 1,
+                exp: 'OGTT 為 PTDM 診斷的 gold standard。HbA1c 在移植後早期因貧血或紅血球壽命改變而不準確；FPG ≥ 126 需 more than one occasion。',
+                src: 'BR Ch70；HD Ch49'
+            },
+            {
+                ch: '第14章 移植後併發症與藥物',
+                q: '一位腎移植患者發生 PTDM，目前使用 tacrolimus 為基礎的免疫抑制。下列何者為合理的處置？',
+                opts: [
+                    '將 tacrolimus 換成 cyclosporine',
+                    '將 tacrolimus 減量並加入 sirolimus',
+                    '立即停用所有免疫抑制劑',
+                    '不做任何調整'
+                ],
+                ans: 0,
+                exp: 'Tacrolimus 的 PTDM 發生率較 cyclosporine 高，轉換可改善葡萄糖代謝，部分患者甚至可逆轉 PTDM。',
+                src: 'BR Ch70'
+            },
+            {
+                ch: '第14章 移植後併發症與藥物',
+                q: '關於 BK 病毒腎病變（BKVN）的治療，下列何者為首要策略？',
+                opts: [
+                    '立即使用 cidofovir',
+                    '降低免疫抑制劑劑量',
+                    '使用 leflunomide',
+                    '使用 IVIG'
+                ],
+                ans: 1,
+                exp: 'BKVN 治療首選為降低免疫抑制劑劑量；目前無證實有效抗病毒藥物，cidofovir、leflunomide、IVIG 皆為輔助性。口訣：BKV 看降 MMF。',
+                src: 'BR Ch70'
+            },
+            {
+                ch: '第14章 移植後併發症與藥物',
+                q: '一位腎移植患者移植後 5 年發生惡性腫瘤。下列何種腫瘤在移植後有高 SIR（>5）？',
+                opts: [
+                    'Prostate cancer',
+                    'Ovarian cancer',
+                    'Lip cancer',
+                    'Breast cancer'
+                ],
+                ans: 2,
+                exp: '移植後高 SIR（>5）腫瘤：Lip、thyroid、penis、small intestine。',
+                src: 'BR Ch70'
+            },
+            {
+                ch: '第14章 移植後併發症與藥物',
+                q: '關於 Fabry 移植後預後，下列何者正確？',
+                opts: [
+                    '100% recurrence',
+                    '預後良好',
+                    '不會復發',
+                    '僅輕微影響'
+                ],
+                ans: 0,
+                exp: 'Fabry 移植後預後差，100% recurrence。',
+                src: 'BR Ch43；PED Ch34'
+            },
+
+            // ---------- 第15章 腎血管性高血壓與利尿劑 ----------
+            {
+                ch: '第15章 腎血管性高血壓與利尿劑',
+                q: '關於 Renal artery stenosis 的治療，下列敘述何者正確？',
+                opts: [
+                    'Stent revascularization 明顯優於 RAAS blockade',
+                    'Stent revascularization 與 RAAS blockade 效果差不多',
+                    'RAAS blockade 禁用於所有 renovascular HTN 患者',
+                    '所有患者均應立即接受血管介入'
+                ],
+                ans: 1,
+                exp: 'ASTRAL 與 CORAL 等大型 RCT 顯示，stent revascularization 與 RAAS blockade 效果差不多。',
+                src: 'BR Ch47'
+            },
+            {
+                ch: '第15章 腎血管性高血壓與利尿劑',
+                q: '關於 ARR（aldosterone/renin ratio）的判讀，下列何者會造成 falsely high？',
+                opts: [
+                    'Beta blocker',
+                    'Diuretics',
+                    'ACE inhibitors',
+                    'Hypokalemia'
+                ],
+                ans: 0,
+                exp: 'Beta blocker 抑制 renin 分泌，使 renin 偏低，導致 ARR falsely high。Diuretics、ACE inhibitors、hypokalemia 造成 falsely low。',
+                src: 'BR Ch46 Table 46.7'
+            },
+            {
+                ch: '第15章 腎血管性高血壓與利尿劑',
+                q: '關於 Renovascular HTN 與 Essential HTN 的臨床特徵，下列何者不傾向 Renovascular HTN？',
+                opts: [
+                    '年齡 30–50 歲',
+                    '家族史',
+                    '腹部 bruit',
+                    '血鉀 < 3.4 mEq/L'
+                ],
+                ans: 0,
+                exp: '年齡 30–50 歲傾向 Essential HTN（renovascular HTN 較常見於 < 30 或 > 50 歲）；腹部 bruit、血鉀 < 3.4、家族史缺乏皆傾向 renovascular HTN。',
+                src: 'BR Ch47 Table 47.2'
+            },
+            {
+                ch: '第15章 腎血管性高血壓與利尿劑',
+                q: '關於 Furosemide 的藥物動力學，下列何者正確？',
+                opts: [
+                    '經由 basolateral membrane OCT 轉運',
+                    'Albumin 促進其在 S2 段的攝取，但抑制在 S1 段的代謝/攝取',
+                    'NSAIDs 增加其 tubular responsiveness',
+                    'Torsemide 在 HF 患者因 bioavailability 較差，不建議使用'
+                ],
+                ans: 1,
+                exp: 'Furosemide 經由 OAT 轉運（非 OCT）；albumin 促進 S2 段攝取、抑制 S1 段代謝；NSAIDs 減少 tubular responsiveness；torsemide 在 HF 因 bioavailability 較佳、outcomes 較優，為首選。',
+                src: 'BR Ch50；HD Ch58'
+            },
+            {
+                ch: '第15章 腎血管性高血壓與利尿劑',
+                q: '關於 Thiazide-induced hyponatremia（TIH），下列敘述何者錯誤？',
+                opts: [
+                    '多數 TIH 患者在低血鈉出現時體重增加',
+                    'TIH 通常在 thiazide 開始後 2 週內發生，有 TIH 病史一般視為繼續使用該藥的禁忌',
+                    '在 SLCO2A1 loss-of-function 變異患者中，thiazide 會增加 AVP 濃度',
+                    '在 SLCO2A1 loss-of-function 變異患者中，thiazide 會增加尿中 PGE2 濃度'
+                ],
+                ans: 2,
+                exp: 'SLCO2A1 loss-of-function → 尿 PGE2 增加，但 TIH 患者 AVP 偏低，為 AVP-independent，thiazide 不會增加 AVP 濃度。口訣：PGE2 多、AVP 不多。',
+                src: 'BR Ch50；Ch15'
+            },
+
+            // ---------- 第16章 懷孕與腎臟疾病 ----------
+            {
+                ch: '第16章 懷孕與腎臟疾病',
+                q: '關於懷孕期間的腎臟生理變化，下列何者錯誤？',
+                opts: [
+                    'GFR 增加 40–50%',
+                    'Filtration fraction 增加約 25%',
+                    '血壓下降約 10 mmHg',
+                    '血鈉下降 4–5 mEq/L'
+                ],
+                ans: 1,
+                exp: '懷孕：GFR↑40–50%、plasma volume↑30–50%、BP↓約 10 mmHg、血鈉↓4–5 mEq/L，但 filtration fraction 變化小（並非增加 25%）。口訣：GFR 升、FF 不升。',
+                src: 'BR Ch48 Table 48.1'
+            },
+            {
+                ch: '第16章 懷孕與腎臟疾病',
+                q: '關於懷孕期間免疫抑制劑的使用，下列何者為 teratogenic 且嚴格禁用？',
+                opts: [
+                    'Tacrolimus',
+                    'Azathioprine',
+                    'Prednisone',
+                    'Mycophenolate'
+                ],
+                ans: 3,
+                exp: 'Mycophenolate（MMF）為 teratogenic，懷孕期間嚴格禁用。Tacrolimus、azathioprine（< 2 mg/kg/day）、prednisone 相對安全。',
+                src: 'BR Ch48；PED Ch81'
+            },
+            {
+                ch: '第16章 懷孕與腎臟疾病',
+                q: '關於 Preeclampsia 的生物標記，下列何者不是風險增加的標記？',
+                opts: [
+                    'sFlt-1 上升',
+                    'sEng 上升',
+                    'PIGF 上升',
+                    'PP-13 下降'
+                ],
+                ans: 2,
+                exp: 'sFlt-1↑、sEng↑、PP-13↓ 皆為風險標記；PIGF 上升不是風險標記，反而是 sFlt-1/PIGF 比值上升才代表風險增加。',
+                src: 'BR Ch48；期刊'
+            },
+            {
+                ch: '第16章 懷孕與腎臟疾病',
+                q: '關於 Preeclampsia 診斷，下列何者正確？',
+                opts: [
+                    '需要 proteinuria',
+                    '不需要 proteinuria',
+                    '需要高血壓＋proteinuria',
+                    '需要腎切片'
+                ],
+                ans: 1,
+                exp: 'Preeclampsia 診斷不需要 proteinuria，高血壓＋器官功能障礙即可診斷。',
+                src: 'BR Ch48'
+            },
+            {
+                ch: '第16章 懷孕與腎臟疾病',
+                q: '關於 HELLP 與 aHUS，下列何者正確？',
+                opts: [
+                    'HELLP 與 pregnancy-associated TMA 可重疊',
+                    '產後持續溶血、血小板低、腎衰竭 → 考慮 complement-mediated aHUS',
+                    'aHUS 可考慮 eculizumab',
+                    '以上皆是'
+                ],
+                ans: 3,
+                exp: '三項敘述皆正確：HELLP 與 pregnancy-associated TMA 可重疊；產後持續溶血、血小板低、腎衰竭要考慮 complement-mediated aHUS，可考慮 eculizumab。',
+                src: 'BR Ch48；PED Ch23'
+            },
+            {
+                ch: '第16章 懷孕與腎臟疾病',
+                q: '關於懷孕 reflux nephropathy、腎功能惡化，下列處置何者正確？',
+                opts: [
+                    'High intensity > 36 hr/week HD',
+                    '減少透析劑量',
+                    '停止透析',
+                    '僅限水'
+                ],
+                ans: 0,
+                exp: '懷孕 reflux nephropathy、腎功能惡化，需 high intensity > 36 hr/week HD。',
+                src: 'BR Ch48；HD Ch57'
+            },
+
+            // ---------- 第17章 營養與結石 ----------
+            {
+                ch: '第17章 營養與結石',
+                q: '為什麼動物性蛋白質比植物性蛋白質更容易造成腎結石？',
+                opts: [
+                    '動物性蛋白含較多草酸',
+                    '動物性蛋白含較多硫胺基酸，增加 fixed acid 生成，導致尿鈣↑、尿酸↑、檸檬酸↓',
+                    '植物性蛋白含較多鈣',
+                    '動物性蛋白含較多鉀'
+                ],
+                ans: 1,
+                exp: '動物性蛋白含較多含硫胺基酸，代謝後產生 fixed acid，導致尿鈣增加、尿酸增加、檸檬酸減少，三者均增加結石風險。植物性蛋白含較多鉀、鎂、檸檬酸，具保護作用。口訣：動物酸、植物鹼。',
+                src: 'BR Ch38、Ch60'
+            },
+            {
+                ch: '第17章 營養與結石',
+                q: '關於尿液顏色 Table 23.4，下列何者正確？',
+                opts: [
+                    'Beetroot：綠色',
+                    'Propofol：白色',
+                    'Massive uric acid：粉色',
+                    'Rifampin：藍色'
+                ],
+                ans: 1,
+                exp: 'Beetroot 紅色、Propofol 白色、Massive uric acid 粉色、Rifampin 橘紅、Triamterene 綠色。',
+                src: 'BR Ch23 Table 23.4'
+            },
+            {
+                ch: '第17章 營養與結石',
+                q: '關於小兒 inherited stone disease，下列何者正確？',
+                opts: [
+                    '常見於兒童',
+                    '與遺傳有關',
+                    'Retrocaval ureter 為其中一種',
+                    '以上皆是'
+                ],
+                ans: 1,
+                exp: '小兒 inherited stone disease 與遺傳有關；Retrocaval ureter 為先天性異常，非結石疾病。',
+                src: 'PED Ch54'
+            }
+        ];
+
+        // ============================================================
+        // 10. 音效（Web Audio API 即時合成，不需外部檔案）
+        // ============================================================
+        let sfxCtx = null;
+        function getSfxCtx() {
+            if (!sfxCtx) {
+                const AC = window.AudioContext || window.webkitAudioContext;
+                if (!AC) return null;
+                sfxCtx = new AC();
+            }
+            if (sfxCtx.state === 'suspended') { sfxCtx.resume(); }
+            return sfxCtx;
+        }
+
+        function playCorrectSound() {
+            const ac = getSfxCtx();
+            if (!ac) return;
+            const now = ac.currentTime;
+            // 上行四音（C5-E5-G5-C6），像過關的獎勵音
+            const notes = [523.25, 659.25, 783.99, 1046.50];
+            notes.forEach((freq, i) => {
+                const t = now + i * 0.075;
+                const osc = ac.createOscillator();
+                const gain = ac.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, t);
+                gain.gain.setValueAtTime(0, t);
+                gain.gain.linearRampToValueAtTime(0.16, t + 0.012);
+                gain.gain.exponentialRampToValueAtTime(0.0008, t + 0.30);
+                osc.connect(gain);
+                gain.connect(ac.destination);
+                osc.start(t);
+                osc.stop(t + 0.32);
+            });
+        }
+
+        function playWrongSound() {
+            const ac = getSfxCtx();
+            if (!ac) return;
+            const now = ac.currentTime;
+            // 下行二音，溫和的「叮咚」失敗音
+            [311.13, 233.08].forEach((freq, i) => {
+                const t = now + i * 0.16;
+                const osc = ac.createOscillator();
+                const gain = ac.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(freq, t);
+                osc.frequency.exponentialRampToValueAtTime(freq * 0.92, t + 0.22);
+                gain.gain.setValueAtTime(0, t);
+                gain.gain.linearRampToValueAtTime(0.14, t + 0.014);
+                gain.gain.exponentialRampToValueAtTime(0.0008, t + 0.26);
+                osc.connect(gain);
+                gain.connect(ac.destination);
+                osc.start(t);
+                osc.stop(t + 0.28);
+            });
+        }
+
+        function playFinishSound() {
+            const ac = getSfxCtx();
+            if (!ac) return;
+            const now = ac.currentTime;
+            const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+            notes.forEach((freq, i) => {
+                const t = now + i * 0.09;
+                const osc = ac.createOscillator();
+                const gain = ac.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, t);
+                gain.gain.setValueAtTime(0, t);
+                gain.gain.linearRampToValueAtTime(0.15, t + 0.014);
+                gain.gain.exponentialRampToValueAtTime(0.0008, t + 0.5);
+                osc.connect(gain);
+                gain.connect(ac.destination);
+                osc.start(t);
+                osc.stop(t + 0.52);
+            });
+        }
+
+        // ============================================================
+        // 11. 測驗系統
+        // ============================================================
+        const quizOverlay = document.getElementById('quizOverlay');
+        const quizContent = document.getElementById('quizContent');
+        const quizStartBtn = document.getElementById('quizStartBtn');
+        const quizCountBadge = document.getElementById('quizCountBadge');
+
+        const LETTERS = ['A', 'B', 'C', 'D', 'E'];
+
+        let quizState = {
+            list: [],
+            index: 0,
+            score: 0,
+            answered: false,
+            wrongList: [],
+            finished: false
+        };
+
+        // 打散陣列（Fisher–Yates）
+        function shuffleArray(arr) {
+            const a = arr.slice();
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        function startQuiz() {
+            // 打散題目順序，但保持選項原順序（避免混淆英文專有名詞）
+            quizState = {
+                list: shuffleArray(QUIZ_DATA),
+                index: 0,
+                score: 0,
+                answered: false,
+                wrongList: [],
+                finished: false
+            };
+            quizOverlay.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            renderQuestion();
+        }
+
+        function closeQuiz() {
+            quizOverlay.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        function renderQuestion() {
+            const s = quizState;
+            const item = s.list[s.index];
+            if (!item) { renderResult(); return; }
+
+            const total = s.list.length;
+            const progressPct = Math.round((s.index / total) * 100);
+
+            quizContent.innerHTML = `
+                <div class="quiz-topbar">
+                    <div>
+                        <div class="quiz-progress-text">第 ${s.index + 1} / ${total} 題</div>
+                        <div class="quiz-score-text">✅ 答對 ${s.score} 題</div>
+                    </div>
+                    <button class="quiz-close" id="quizCloseBtn" aria-label="關閉">✕</button>
+                </div>
+                <div class="quiz-progressbar">
+                    <div class="quiz-progressbar-fill" style="width:${progressPct}%"></div>
+                </div>
+                <div class="quiz-chapter">${item.ch}</div>
+                <div class="quiz-question">${item.q}</div>
+                <div class="quiz-options" id="quizOptions">
+                    ${item.opts.map((opt, i) => `
+                        <button class="quiz-option" data-idx="${i}">
+                            <span class="opt-letter">${LETTERS[i]}</span>
+                            <span class="opt-text">${opt}</span>
+                        </button>
+                    `).join('')}
+                </div>
+                <div class="quiz-feedback" id="quizFeedback"></div>
+                <button class="quiz-next-btn" id="quizNextBtn">下一題 →</button>
+            `;
+
+            s.answered = false;
+
+            document.getElementById('quizCloseBtn').addEventListener('click', closeQuiz);
+
+            const optionEls = quizContent.querySelectorAll('.quiz-option');
+            optionEls.forEach(el => {
+                el.addEventListener('click', () => handleAnswer(parseInt(el.dataset.idx, 10)));
+            });
+
+            const nextBtn = document.getElementById('quizNextBtn');
+            nextBtn.addEventListener('click', () => {
+                if (!s.answered) return;
+                s.index++;
+                if (s.index >= s.list.length) {
+                    renderResult();
+                } else {
+                    renderQuestion();
+                }
+            });
+
+            // 捲到頂端
+            quizOverlay.scrollTop = 0;
+        }
+
+        function handleAnswer(choice) {
+            const s = quizState;
+            if (s.answered) return;
+            s.answered = true;
+
+            const item = s.list[s.index];
+            const optionEls = quizContent.querySelectorAll('.quiz-option');
+            const correct = choice === item.ans;
+
+            optionEls.forEach((el, i) => {
+                el.classList.add('locked');
+                if (i === item.ans) {
+                    el.classList.add('correct');
+                } else if (i === choice) {
+                    el.classList.add('wrong');
+                } else {
+                    el.classList.add('dim');
+                }
+            });
+
+            const fb = document.getElementById('quizFeedback');
+            if (correct) {
+                s.score++;
+                playCorrectSound();
+                fb.className = 'quiz-feedback ok show';
+                fb.innerHTML = `
+                    <span class="fb-title">✅ 答對了！太厲害了 Winny！</span>
+                    <span class="fb-body">${item.exp}</span>
+                    <span class="fb-src">📖 出處：${item.src}</span>
+                `;
+            } else {
+                playWrongSound();
+                s.wrongList.push(item);
+                fb.className = 'quiz-feedback no show';
+                fb.innerHTML = `
+                    <span class="fb-title">❌ 答錯了，正確答案是 ${LETTERS[item.ans]}。再複習一下～</span>
+                    <span class="fb-body">${item.exp}</span>
+                    <span class="fb-src">📖 出處：${item.src}</span>
+                `;
+            }
+
+            const nextBtn = document.getElementById('quizNextBtn');
+            nextBtn.classList.add('show');
+            nextBtn.textContent = (s.index + 1 >= s.list.length) ? '🏁 看總成績' : '下一題 →';
+
+            // 更新進度條與分數
+            const fill = quizContent.querySelector('.quiz-progressbar-fill');
+            if (fill) {
+                const total = s.list.length;
+                fill.style.width = Math.round(((s.index + 1) / total) * 100) + '%';
+            }
+            const scoreEl = quizContent.querySelector('.quiz-score-text');
+            if (scoreEl) { scoreEl.textContent = `✅ 答對 ${s.score} 題`; }
+        }
+
+        function renderResult() {
+            const s = quizState;
+            s.finished = true;
+            const total = s.list.length;
+            const rate = total > 0 ? Math.round((s.score / total) * 100) : 0;
+
+            let emoji, title, note;
+            if (rate >= 90) {
+                emoji = '🏆';
+                title = '神乎其技！';
+                note = 'Winny 你根本就是腎臟科未來的明日之星！這種實力直接上考場都沒問題 💪';
+            } else if (rate >= 75) {
+                emoji = '🌟';
+                title = '超級優秀！';
+                note = '大部分觀念都很扎實了，把錯的幾題再複習一次，考場上穩穩拿下！';
+            } else if (rate >= 60) {
+                emoji = '💪';
+                title = '很不錯喔！';
+                note = '基礎已經打好了，把錯的題目當成重點筆記，多看幾遍就會記得！';
+            } else if (rate >= 40) {
+                emoji = '📖';
+                title = '持續進步中！';
+                note = '別緊張，這些都是經典考點。把錯題的出處章節翻一遍，會進步很快的！';
+            } else {
+                emoji = '🌸';
+                title = '萬事起頭難，加油！';
+                note = '每一題的解析都是精華，慢慢讀、慢慢吸收，我陪你一起把它們全部搞懂 ❤️';
+            }
+
+            let wrongHtml = '';
+            if (s.wrongList.length > 0) {
+                wrongHtml = `
+                    <div style="text-align:left;margin-bottom:12px;">
+                        <div style="font-size:0.78rem;font-weight:900;color:#ad1457;margin-bottom:6px;">
+                            📝 需要複習的題目（${s.wrongList.length} 題）
+                        </div>
+                        <div style="font-size:0.68rem;color:#6a1b9a;line-height:1.6;max-height:170px;overflow-y:auto;background:#fdf7fb;border-radius:12px;padding:10px 12px;">
+                            ${s.wrongList.map((w, i) => `
+                                <div style="margin-bottom:7px;padding-bottom:7px;border-bottom:1px dashed rgba(233,30,99,0.12);">
+                                    <div style="font-weight:700;color:#c2185b;">${i + 1}. ${w.q}</div>
+                                    <div style="margin-top:3px;color:#2e7d32;font-weight:700;">✔ 正解：${LETTERS[w.ans]}. ${w.opts[w.ans]}</div>
+                                    <div style="margin-top:2px;color:#7b4b8a;">📖 ${w.src}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            quizContent.innerHTML = `
+                <div class="quiz-topbar">
+                    <div class="quiz-progress-text">挑戰完成</div>
+                    <button class="quiz-close" id="quizCloseBtn" aria-label="關閉">✕</button>
+                </div>
+                <div class="quiz-result">
+                    <span class="res-emoji">${emoji}</span>
+                    <div class="res-title">${title}</div>
+                    <div class="res-score">${s.score} / ${total}</div>
+                    <div class="res-sub">正確率 ${rate}%</div>
+                    <div class="res-note">${note}</div>
+                    ${wrongHtml}
+                    <button class="quiz-again-btn" id="quizAgainBtn">🔄 再挑戰一次</button>
+                </div>
+            `;
+
+            playFinishSound();
+
+            document.getElementById('quizCloseBtn').addEventListener('click', closeQuiz);
+            document.getElementById('quizAgainBtn').addEventListener('click', startQuiz);
+            quizOverlay.scrollTop = 0;
+        }
+
+        // ============================================================
+        // 12. 考前速記表
+        // ============================================================
+        const CHEATSHEET_ROWS = [
+            ['腎臟血流', '5/6Nx → 入球擴張、出球收縮', '入擴出縮 SNGFR 升'],
+            ['SGLT2 vs SGLT1', 'SGLT2：S1–S2、90–97%、1:1', 'SGLT2 拉大隊'],
+            ['DCT 鈣運輸', 'TRPV5 → calbindin → NCX1/PMCA1b', 'TRPV5 進、NCX1 出'],
+            ['CKD-MBD 時序', 'FGF23 → PTH → 血磷 → 血鈣下降', 'FGF23 最早升'],
+            ['PTH 與骨', '持續 PTH 抑制 sclerostin/DKK-1 → Wnt↑ → RANKL↑', '間歇造骨、持續蝕骨'],
+            ['Thiazide 低鈉', 'SLCO2A1 → PGE2↑ → AVP-independent', 'PGE2 多、AVP 不多'],
+            ['RTA 遺傳', 'Distal 最常見；ATP6V1B1 → 耳聾；CAII → osteopetrosis', 'Distal 最常見'],
+            ['Liddle vs GRA', 'Liddle：低 renin+低 aldo；GRA：低 renin+高 aldo', 'Liddle 兩個低'],
+            ['Calciphylaxis', '停 warfarin、sodium thiosulfate', '停 W、給 STS'],
+            ['PLA2R+ MN', '抗體上升 → 風險↑ → 增強治療', '升就加藥'],
+            ['Pneumococcus HUS', 'Coombs+、neuraminidase、不可用 FFP', 'Coombs 陽、FFP 不行'],
+            ['aHUS', 'MCP46 膜蛋白、PE 無效、eculizumab', '看補體、用 eculizumab'],
+            ['PTDM', 'OGTT 為 gold standard；Tac→CsA 可逆轉', 'OGTT 金標準'],
+            ['BKVN', '降免疫抑制劑劑量為首選', '降 MMF'],
+            ['排斥時間', 'Hyperacute：min-hr；Acute：days-wk；Chronic：mo-yr', '看時間'],
+            ['TCMR vs ABMR', 'TCMR → tubulitis；ABMR → C4d+glomerulitis', 'T 看管、A 看 C4d'],
+            ['懷孕生理', 'GFR↑40–50%、FF 變化小、Na↓4–5', 'GFR 升、FF 不升'],
+            ['動物 vs 植物蛋白', '動物 → 硫胺基酸 → 尿鈣↑、尿酸↑、檸檬酸↓', '動物酸、植物鹼'],
+            ['Retrocaval ureter', 'Fish-hook sign、J-shaped ureter', '魚鉤 J 形'],
+            ['HHRH', 'SLC34A3 突變 → 磷流失 → CYP27B1↑ → 1,25D↑ → 高尿鈣', '磷漏 D 升鈣高'],
+            ['Gitelman', 'NCTC 突變 → 低尿鈣、低血鎂', 'NCC 壞、鈣鎂低'],
+            ['Nocardia', 'weak acid-fast、beaded、branching', '分支弱酸快'],
+            ['Hypermagnesemia', 'Mg > 12 → HD + 補 Ca', '鎂高洗鈣'],
+            ['AQP1 deficiency', 'Na dip < 5、sodium sieving 減少', 'AQP1 壞、篩鈉少'],
+            ['Salicylate 中毒', '鹼化尿液、ion trapping；嚴重需 HD', '鹼化尿液'],
+            ['PE category I', 'Anti-GBM（無透析）、TTP、hyperviscosity', '看 anti-GBM、TTP'],
+            ['Furosemide', 'OAT 轉運；albumin 促 S2 抑制 S1；NSAIDs 減反應', 'Torsemide HF 首選'],
+            ['Bosniak', 'III：有 enhancement 無 soft tissue；IV：有 soft tissue', 'III 考慮開、IV 直接開'],
+            ['GBCA/NSF', 'eGFR ≤ 30 或 HD 需用時選 Group II，Group I 禁用', 'Group I 禁']
+        ];
+
+        function renderCheatsheet() {
+            const body = document.getElementById('cheatsheetBody');
+            if (!body) return;
+            body.innerHTML = CHEATSHEET_ROWS.map(([k, v, mn]) => `
+                <div class="cheat-row">
+                    <div class="cheat-key">${k}</div>
+                    <div class="cheat-val">${v}<span class="mn">${mn}</span></div>
+                </div>
+            `).join('');
+        }
+
+        // ============================================================
+        // 13. 綁定事件 & 啟動
+        // ============================================================
+        function bindQuizEvents() {
+            if (quizStartBtn) {
+                quizStartBtn.addEventListener('click', () => {
+                    // 順便解鎖 Web Audio（iOS 需要使用者手勢）
+                    getSfxCtx();
+                    startQuiz();
+                });
+            }
+
+            // 點擊背景關閉
+            quizOverlay.addEventListener('click', (e) => {
+                if (e.target === quizOverlay) closeQuiz();
+            });
+
+            // Esc 關閉
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && quizOverlay.classList.contains('show')) {
+                    closeQuiz();
+                }
+            });
+
+            const csToggle = document.getElementById('cheatsheetToggle');
+            const csBody = document.getElementById('cheatsheetBody');
+            if (csToggle && csBody) {
+                csToggle.addEventListener('click', () => {
+                    const open = csBody.classList.toggle('show');
+                    csToggle.textContent = open ? '📖 考前速記口訣 ▴' : '📖 考前速記口訣 ▾';
+                });
+            }
+        }
+
+        function boot() {
+            renderCheatsheet();
+            if (quizCountBadge) quizCountBadge.textContent = QUIZ_DATA.length + ' 題';
+            bindQuizEvents();
             init();
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', boot);
+        } else {
+            boot();
         }
     </script>
 </body>
