@@ -919,7 +919,7 @@
             .valentine-banner, .card.valentine { animation-duration: 15s !important; }
         }
     
-/* ============ PATCHED: FESTIVAL_CHEER_SURPRISE_V6 ============ */
+/* ============ PATCHED: FESTIVAL_CHEER_SURPRISE_V7 ============ */
 
 /* ---------- 1. 節日橫幅（極致緊湊） ---------- */
 .festival-banner {
@@ -1022,7 +1022,7 @@
     .pooh-container img { max-width: 130px !important; height: auto !important; margin: 0 !important; }
     .pooh-text { font-size: 1.05rem !important; text-align: left !important; }
 }
-/* ============ /PATCHED: FESTIVAL_CHEER_SURPRISE_V6 ============ */
+/* ============ /PATCHED: FESTIVAL_CHEER_SURPRISE_V7 ============ */
 </style>
 </head>
 <body>
@@ -1222,56 +1222,56 @@
 //   [322] 2027/08/23  [330] 2027/08/31 考後
 // ============================================================
 
-        /* ============ PATCHED: FESTIVAL_CHEER_SURPRISE_V6 ============ */
+        /* ============ PATCHED: FESTIVAL_CHEER_SURPRISE_V7 ============ */
         const FESTIVALS = [
             // ---- 2026 ----
             { date: '2026-12-25', name: '行憲紀念日／聖誕節', emoji: '🎄', type: 'holiday',
-              cheer: '🎄 聖誕節快樂！偷偷準備了禮物給你，快點來找我領取 🎁✨' },
+              cheer: '🎄 聖誕節快樂！偷偷準備了禮物給寶貝，快點來找我領取 🎁✨' },
             { date: '2026-12-31', name: '跨年夜', emoji: '🎆', type: 'folk',
               cheer: '🎆 今年也辛苦囉！明年跨年我們也要一起牽手看煙火 🥂💕' },
             // ---- 2027 ----
             { date: '2027-01-01', name: '開國紀念日（元旦）', emoji: '🎉', type: 'holiday',
-              cheer: '🎉 2027 新年快樂！新的一年我也會一直陪著你、為你加油！' },
+              cheer: '🎉 2027 新年快樂！新的一年我也會一直陪著寶貝、為你加油！' },
             { date: '2027-02-04', name: '小年夜', emoji: '🧧', type: 'holiday',
               cheer: '🧧 小年夜快樂！過年吃飽飽，但別忘了偶爾翻一下書喔 😆' },
             { date: '2027-02-05', name: '農曆除夕', emoji: '🧨', type: 'holiday',
               cheer: '🧨 除夕夜快樂！吃年夜飯囉～新的一年我們也要一起平安順心！' },
-            { date: '2027-02-06', name: '春節初一／你的生日', emoji: '🎂', type: 'birthday',
-              cheer: '🎂 生日快樂我的寶貝！大年初一的壽星最幸運！我會永遠愛你 💖' },
+            { date: '2027-02-06', name: '春節初一／男友生日', emoji: '🎂', type: 'birthday',
+              cheer: '🎂 今天是大年初一也是我的生日！謝謝寶貝一直以來的陪伴，有你真好 💖' },
             { date: '2027-02-07', name: '春節初二', emoji: '🏮', type: 'holiday',
-              cheer: '🏮 初二回娘家～新年快樂！祝你新的一年天天開心！' },
+              cheer: '🏮 初二回娘家～新年快樂！祝寶貝新的一年天天開心！' },
             { date: '2027-02-08', name: '春節初三', emoji: '🧧', type: 'holiday',
               cheer: '🧧 初三睡到飽！補充滿滿的元氣再出發！' },
             { date: '2027-02-14', name: '西洋情人節', emoji: '💝', type: 'valentine',
-              cheer: '💝 情人節快樂！這輩子能遇見你，是我最幸運的事，愛你喔！' },
+              cheer: '💝 寶貝情人節快樂！這輩子能遇見你，是我最幸運的事，愛你喔！' },
             { date: '2027-02-20', name: '元宵節', emoji: '🏮', type: 'traditional',
               cheer: '🏮 元宵節快樂！月圓人團圓，希望我們能一直圓圓滿滿～' },
             { date: '2027-02-28', name: '和平紀念日', emoji: '🕊️', type: 'holiday',
               cheer: '🕊️ 和平紀念日連假愉快！好好放鬆，辛苦囉！' },
             { date: '2027-03-08', name: '國際婦女節', emoji: '🌷', type: 'commemorative',
-              cheer: '🌷 婦女節快樂！你是最棒、最美麗、最閃耀的女生！' },
+              cheer: '🌷 婦女節快樂！寶貝是全世界最棒、最美麗、最閃耀的女生！' },
             { date: '2027-03-14', name: '白色情人節', emoji: '🤍', type: 'valentine',
               cheer: '🤍 白色情人節快樂！回禮是我的整顆心，請 Winny 好好收下！' },
             { date: '2027-03-29', name: '青年節', emoji: '🌱', type: 'commemorative',
               cheer: '🌱 青年節快樂！保持年輕的心，繼續勇敢追夢！' },
             { date: '2027-04-01', name: '愚人節', emoji: '🤡', type: 'folk',
-              cheer: '🤡 愚人節快樂！今天不准騙我喔！但我愛你絕對不是騙人的～' },
+              cheer: '🤡 愚人節快樂！今天不准騙我喔！但我愛寶貝絕對不是騙人的～' },
             { date: '2027-04-04', name: '兒童節', emoji: '🎈', type: 'holiday',
-              cheer: '🎈 兒童節快樂！在我心裡你永遠是個需要被寵愛的小朋友～' },
+              cheer: '🎈 兒童節快樂！在男友心裡，寶貝永遠是個需要被寵愛的小朋友～' },
             { date: '2027-04-05', name: '清明節', emoji: '🌿', type: 'holiday',
               cheer: '🌿 清明節平安！連假好好休息，我們都要健康快樂！' },
             { date: '2027-05-01', name: '勞動節', emoji: '🛠️', type: 'holiday',
               cheer: '🛠️ 勞動節快樂！平常讀書辛苦了，今天好好當個廢人充電吧！' },
             { date: '2027-05-09', name: '母親節', emoji: '💐', type: 'commemorative',
-              cheer: '💐 母親節快樂！也祝你未來（或現在）是個漂亮媽咪～' },
+              cheer: '💐 母親節快樂！也祝寶貝未來是個漂亮媽咪～' },
             { date: '2027-06-09', name: '端午節', emoji: '🥟', type: 'holiday',
               cheer: '🥟 端午節快樂！記得吃顆粽子，考試「包中」！' },
-            { date: '2027-06-26', name: '女友生日', emoji: '🎂', type: 'birthday',
-              cheer: '🎂 親愛的 Winny 生日快樂！無論未來如何，我都會一直陪著你 💕' },
+            { date: '2027-06-26', name: '寶貝 Winny 生日', emoji: '🎂', type: 'birthday',
+              cheer: '🎂 親愛的寶貝 Winny 生日快樂！無論未來如何，我都會一直陪著你 💕' },
             { date: '2027-08-08', name: '父親節／七夕情人節', emoji: '💕', type: 'valentine',
               cheer: '💕 七夕情人節快樂！也祝爸爸父親節快樂！我們要一直甜蜜下去喔！' },
             { date: '2027-09-14', name: '音樂&相片情人節', emoji: '🎶', type: 'valentine',
-              cheer: '🎶 音樂&相片情人節快樂！這首鋼琴曲，是我想你的聲音 💖' },
+              cheer: '🎶 音樂&相片情人節快樂！這首鋼琴曲，是我對寶貝想你的聲音 💖' },
             { date: '2027-12-25', name: '聖誕節', emoji: '🎄', type: 'holiday',
               cheer: '🎄 聖誕節快樂！冷冷的冬天，有我的擁抱最溫暖！' }
         ];
@@ -1323,7 +1323,7 @@
 
         if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initFestivalBanner);
         else initFestivalBanner();
-        /* ============ /PATCHED: FESTIVAL_CHEER_SURPRISE_V6 ============ */
+        /* ============ /PATCHED: FESTIVAL_CHEER_SURPRISE_V7 ============ */
 const DAILY_MESSAGES = [
     // ---------- 2026/10/05 ~ 2026/10/31（索引 0–26）：基礎打底 ----------
     /* 10/05 */ "第0天：從今天起，每天讀一點 Brenner 11版，基礎功是最強的武器。（BR Ch 1–85 全書導引）",
